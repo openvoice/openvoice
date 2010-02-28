@@ -1,0 +1,15 @@
+development:
+  tunnel:
+    public_host_username: tunnlr1228
+    public_host: ssh1.tunnlr.com
+    public_port: 10790
+    local_port: 3000 #or whatever port your rails server is running locally
+    server_alive_interval: 0
+
+test:
+  tunnel:
+    public_host_username:
+    public_host:
+    public_port: 4007
+    local_port: 3000
+    server_alive_interval: 0

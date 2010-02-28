@@ -1,0 +1,12 @@
+<p>
+  <b>Number:</b>
+  <%=h @phone_number.number %>
+  <br />
+  <b>User:</b>
+  <%=h @phone_number.user.login %>
+
+</p>
+
+
+<%= link_to 'Edit', edit_phone_number_path(@phone_number) %> |
+<%= link_to 'Back', phone_numbers_path %>

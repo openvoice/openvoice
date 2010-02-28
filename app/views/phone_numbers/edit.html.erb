@@ -1,0 +1,16 @@
+<h1>Editing phone_number</h1>
+
+<% form_for(@phone_number) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @phone_number %> |
+<%= link_to 'Back', phone_numbers_path %>
