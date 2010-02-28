@@ -1,0 +1,2 @@
+module VoicemailsHelper
+end

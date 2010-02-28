@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100228081624) do
+ActiveRecord::Schema.define(:version => 20100228185810) do
 
   create_table "phone_numbers", :force => true do |t|
     t.integer  "user_id"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(:version => 20100228081624) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+  end
+
+  create_table "voicemails", :force => true do |t|
+    t.string   "from"
+    t.string   "to"
+    t.string   "text"
+    t.string   "uri"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

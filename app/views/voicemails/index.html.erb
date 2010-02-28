@@ -1,0 +1,26 @@
+<h1>Listing voicemails</h1>
+
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+    <th>Text</th>
+    <th>Uri</th>
+  </tr>
+
+<% @voicemails.each do |voicemail| %>
+  <tr>
+    <td><%=h voicemail.from %></td>
+    <td><%=h voicemail.to %></td>
+    <td><%=h voicemail.text %></td>
+    <td><%=h voicemail.uri %></td>
+    <td><%= link_to 'Show', voicemail %></td>
+    <td><%= link_to 'Edit', edit_voicemail_path(voicemail) %></td>
+    <td><%= link_to 'Destroy', voicemail, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New voicemail', new_voicemail_path %>

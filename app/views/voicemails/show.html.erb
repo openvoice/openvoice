@@ -1,0 +1,23 @@
+<p>
+  <b>From:</b>
+  <%=h @voicemail.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%=h @voicemail.to %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%=h @voicemail.text %>
+</p>
+
+<p>
+  <b>Uri:</b>
+  <%=h @voicemail.uri %>
+</p>
+
+
+<%= link_to 'Edit', edit_voicemail_path(@voicemail) %> |
+<%= link_to 'Back', voicemails_path %>

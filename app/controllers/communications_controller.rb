@@ -8,8 +8,18 @@ class CommunicationsController < ApplicationController
       say "hello, hello, hello, welcome to zhao's communication center, please wait while your call is transferred"
 #      say :value => 'Bienvenido a centro de comunicaci—n de Zhao', :voice => 'carman'
       transfer({ :to => 'tel:' + User.find(1).phone_numbers.first.number,
+                 :ringRepeat => 2,
+                 :timeout => 5,
+                 :answerOnMedia => true,
+                 :on => [
+                         { :event => "continue", :next => '/voicemails/index?format=json' },
+                         { :event => "incomplete", :next => '/voicemails/index?format=json' },
+                         { :event => "error", :next => '/voicemails/index?format=json' },
+                         { :event => "hangup", :next => '/voicemails/index?format=json' },
+
+                 ],
                  :from => { :id => from + "@" + sip_client,
-                            :nme => from,
+                            :name => from,
                             :channel => "VOICE",
                             :network => "PSTN" } })
     end
@@ -20,9 +30,6 @@ class CommunicationsController < ApplicationController
   private
 
   def get_sip_client_from_header(header)
-    p '+++++++++++++++++++'
-    p header
-    p '+++++++++++++++++++'
     if header =~ /^<sip:990.*$/                   # SKYPE
       "SKYPE"
     elsif header =~ /^.*<sip:1999.*$/             # SIP
