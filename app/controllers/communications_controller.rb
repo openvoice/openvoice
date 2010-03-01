@@ -6,7 +6,7 @@ class CommunicationsController < ApplicationController
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
       say "hello, hello, hello, welcome to zhao's communication center, please wait while your call is transferred"
-#      say :value => 'Bienvenido a centro de comunicaci—n de Zhao', :voice => 'carman'
+      say :value => 'Bienvenido a centro de comunicaci—n de Zhao', :voice => 'carmen'
       transfer({ :to => 'tel:' + User.find(1).phone_numbers.first.number,
                  :ringRepeat => 2,
                  :timeout => 5,
