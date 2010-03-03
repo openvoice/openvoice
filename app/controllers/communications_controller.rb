@@ -6,9 +6,9 @@ class CommunicationsController < ApplicationController
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
 
-#      say "hello, hello, welcome to zhao's communication center"
-#      say :value => 'Bienvenido Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
-#      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
+      say "hello, hello, welcome to zhao's communication center"
+      say :value => 'Bienvenido Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
+      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
 
       on(:event => 'continue', :next => 'answer')
 
@@ -50,8 +50,7 @@ class CommunicationsController < ApplicationController
 
       when 'voicemail'
         tropo = Tropo::Generator.new do
-#          say :value => 'welcome to zhao\'s voicemail system'
-          record( :say => [:value => 'please speak after the beep'],
+          record( :say => [:value => 'welcome to zhao\'s voicemail system, please speak after the beep'],
                   :beep => true,
           :maxTime => 30,
           :format => "audio/mp3",
