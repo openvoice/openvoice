@@ -28,3 +28,5 @@ config.action_view.cache_template_loading            = true
 # config.threadsafe!
 
 SERVER_URL = "http://tropovoice.heroku.com"
+OUTBOUND_TOKEN_VOICE = "ac3c8899cac98a49a8af38bac8dcffeb071ea78b27670989282ab28755da9413ecd5b3af59008c8c4c2e99f3"
+OUTBOUND_TOKEN_MESSAGING = "6241628991dffb46b219c44e574f01644af865374a1d7c555180232753cc625eb164fa7122da411ed33ac8a2"

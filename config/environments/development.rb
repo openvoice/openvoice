@@ -17,3 +17,5 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 SERVER_URL = "http://web1.tunnlr.com:10790"
+OUTBOUND_TOKEN_VOICE = "ac3c8899cac98a49a8af38bac8dcffeb071ea78b27670989282ab28755da9413ecd5b3af59008c8c4c2e99f3"
+OUTBOUND_TOEKN_MESSAGING = "6241628991dffb46b219c44e574f01644af865374a1d7c555180232753cc625eb164fa7122da411ed33ac8a2"
