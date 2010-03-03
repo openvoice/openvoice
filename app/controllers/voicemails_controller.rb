@@ -1,4 +1,6 @@
 class VoicemailsController < ApplicationController
+  before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
+  
   # GET /voicemails
   # GET /voicemails.xml
   def index
@@ -40,18 +42,33 @@ class VoicemailsController < ApplicationController
   # POST /voicemails
   # POST /voicemails.xml
   def create
-    @voicemail = Voicemail.new(params[:voicemail])
+    path = '/vol/voicemails/'
+    original_filename = params[:filename].original_filename
+    full_filename = path + original_filename
+    p "++++++++++++++++full_filename" + full_filename
 
-    respond_to do |format|
+    @voicemail = Voicemail.new(:filename => full_filename, :user_id => User.find(1))
+#    respond_to do |format|
       if @voicemail.save
         flash[:notice] = 'Voicemail was successfully created.'
-        format.html { redirect_to(@voicemail) }
-        format.xml  { render :xml => @voicemail, :status => :created, :location => @voicemail }
+        File.open(full_filename, "wb") { |f| f.write(params[:filename].read) }
+        AWS::S3::S3Object.store(original_filename,
+                                open(full_filename),
+                                'voicemails-dev.tropovoice.com',
+                                :access => :public_read)
+
+#        send_file full_filename, :type => 'audio/mp3', :disposition => 'inline'
+
+#        format.html { redirect_to(@voicemail) }
+#        format.xml  { render :xml => @voicemail, :status => :created, :location => @voicemail }
       else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @voicemail.errors, :status => :unprocessable_entity }
+        puts "+++++++++++++++++++++++++++++couldnt save+++++++++++++++++++"
+#        format.html { render :action => "new" }
+#        format.xml  { render :xml => @voicemail.errors, :status => :unprocessable_entity }
       end
-    end
+
+#      head 200
+#    end
   end
 
   # PUT /voicemails/1

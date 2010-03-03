@@ -43,6 +43,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :account, :controller => "users"
   map.resources :users do |user|
     user.resources :phone_numbers
+    user.resources :voicemails
   end
 
   # Install the default routes as the lowest priority.

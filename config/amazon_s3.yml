@@ -1,0 +1,14 @@
+development:
+  bucket_name: voicemails-dev.tropovoice.com
+  access_key_id: AKIAJL7N4ODM3NMNTFCA
+  secret_access_key: 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
+
+test:
+  bucket_name: voicemails-test.tropovoice.com
+  access_key_id: AKIAJL7N4ODM3NMNTFCA
+  secret_access_key: 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
+
+production:
+  bucket_name: voicemails.tropovoice.com
+  access_key_id: AKIAJL7N4ODM3NMNTFCA
+  secret_access_key: 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
