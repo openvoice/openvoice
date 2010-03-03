@@ -6,9 +6,9 @@ class CommunicationsController < ApplicationController
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
 
-#      say "hello, hello, welcome to zhao's communication center"
-#      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
-#      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
+      say "hello, hello, welcome to zhao's communication center"
+      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
+      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
 
       on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
 
