@@ -1,6 +1,6 @@
 class VoicemailsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
-  
+
   # GET /voicemails
   # GET /voicemails.xml
   def index
@@ -42,32 +42,34 @@ class VoicemailsController < ApplicationController
   # POST /voicemails
   # POST /voicemails.xml
   def create
-    path = '/vol/voicemails/'
+    AWS::S3::Base.establish_connection!(
+            :access_key_id     => 'AKIAJL7N4ODM3NMNTFCA',
+            :secret_access_key => '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'
+    )
+
     original_filename = params[:filename].original_filename
-    full_filename = path + original_filename
-    p "++++++++++++++++full_filename" + full_filename
 
-    @voicemail = Voicemail.new(:filename => full_filename, :user_id => User.find(1))
+    AWS::S3::S3Object.store(original_filename,
+                            params[:filename],
+                            'voicemails-dev.tropovoice.com',
+                            :access => :public_read)
+
+    path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
+
+    p "++++++++++++++++full_filename" + path
+
+    @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1))
 #    respond_to do |format|
-      if @voicemail.save
-        flash[:notice] = 'Voicemail was successfully created.'
-        File.open(full_filename, "wb") { |f| f.write(params[:filename].read) }
-        AWS::S3::S3Object.store(original_filename,
-                                open(full_filename),
-                                'voicemails-dev.tropovoice.com',
-                                :access => :public_read)
-
-#        send_file full_filename, :type => 'audio/mp3', :disposition => 'inline'
-
+    if @voicemail.save
+      flash[:notice] = 'Voicemail was successfully created.'
 #        format.html { redirect_to(@voicemail) }
 #        format.xml  { render :xml => @voicemail, :status => :created, :location => @voicemail }
-      else
-        puts "+++++++++++++++++++++++++++++couldnt save+++++++++++++++++++"
+    else
 #        format.html { render :action => "new" }
 #        format.xml  { render :xml => @voicemail.errors, :status => :unprocessable_entity }
-      end
+    end
 
-#      head 200
+    head 200
 #    end
   end
 

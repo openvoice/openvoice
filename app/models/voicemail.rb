@@ -3,5 +3,5 @@ class Voicemail < ActiveRecord::Base
 
   validates_presence_of :user
 
-  has_attachment :storage => :s3
+#  has_attachment :storage => :s3
 end
