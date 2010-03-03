@@ -15,9 +15,9 @@
 
 <p>
   <b>Uri:</b>
-  <%=h @voicemail.uri %>
+  <%=h @voicemail.filename %>
 </p>
 
 
-<%= link_to 'Edit', edit_voicemail_path(@voicemail) %> |
-<%= link_to 'Back', voicemails_path %>
+<%= link_to 'Edit', edit_user_voicemail_path(current_user, @voicemail) %> |
+<%= link_to 'Back', user_voicemails_path(current_user) %>

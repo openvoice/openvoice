@@ -3,24 +3,20 @@
 <table>
   <tr>
     <th>From</th>
-    <th>To</th>
     <th>Text</th>
-    <th>Uri</th>
+    <th>Play</th>
+    <th>Time</th>
   </tr>
 
 <% @voicemails.each do |voicemail| %>
   <tr>
     <td><%=h voicemail.from %></td>
-    <td><%=h voicemail.to %></td>
     <td><%=h voicemail.text %></td>
-    <td><%=h voicemail.uri %></td>
-    <td><%= link_to 'Show', voicemail %></td>
-    <td><%= link_to 'Edit', edit_voicemail_path(voicemail) %></td>
-    <td><%= link_to 'Destroy', voicemail, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><embed src=<%= voicemail.filename%> height="50" width="144" volume="50" autostart=false></td>
+    <td><%=h voicemail.created_at %></td>
+    <td><%= link_to 'Show', user_voicemail_path(current_user, voicemail) %></td>
+    <td><%= link_to 'Edit', edit_user_voicemail_path(current_user, voicemail) %></td>
+    <td><%= link_to 'Destroy', user_voicemail_path(current_user, voicemail), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New voicemail', new_voicemail_path %>

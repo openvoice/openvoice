@@ -1,6 +1,6 @@
 class VoicemailsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
-
+  
   # GET /voicemails
   # GET /voicemails.xml
   def index
@@ -58,7 +58,7 @@ class VoicemailsController < ApplicationController
 
     p "++++++++++++++++full_filename" + path
 
-    @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1))
+    @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1), :from => params[:caller_id])
 #    respond_to do |format|
     if @voicemail.save
       flash[:notice] = 'Voicemail was successfully created.'
@@ -101,4 +101,5 @@ class VoicemailsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
 end

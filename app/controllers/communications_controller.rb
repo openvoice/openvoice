@@ -10,7 +10,7 @@ class CommunicationsController < ApplicationController
       say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
       say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
 
-      on(:event => 'continue', :next => 'answer')
+      on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
 
       ask( :attempts => 2,
            :bargein => true,
@@ -25,6 +25,7 @@ class CommunicationsController < ApplicationController
 
   def answer
     value = params[:result][:actions][:value]
+    caller_id = params[:caller_id]
     case value
       when 'connect'
         tropo = Tropo::Generator.new do
@@ -55,7 +56,7 @@ class CommunicationsController < ApplicationController
           :maxTime => 30,
           :format => "audio/mp3",
           :name => "voicemail",
-          :url => SERVER_URL + "/voicemails")
+          :url => SERVER_URL + "/voicemails?caller_id=#{caller_id}")
         end
 
         render :json => tropo.response
