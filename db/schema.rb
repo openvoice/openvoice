@@ -9,7 +9,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100302084416) do
+ActiveRecord::Schema.define(:version => 20100303063257) do
+
+  create_table "messagings", :force => true do |t|
+    t.string   "from"
+    t.string   "text"
+    t.string   "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "phone_numbers", :force => true do |t|
     t.integer  "user_id"
