@@ -14,7 +14,7 @@ class CommunicationsController < ApplicationController
 
       ask( :attempts => 2,
            :bargein => true,
-           :choices => { :value => "connect(1), voicemail(2)" },
+           :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
            :name => 'main-menu',
            :say => { :value => 'To speak to Zhao, say connect or press 1. To leave a voicemail, say voicemail or press 2.' })
 
