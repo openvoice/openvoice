@@ -7,7 +7,7 @@ class CommunicationsController < ApplicationController
     tropo = Tropo::Generator.new do
 
       say "hello, hello, welcome to zhao's communication center"
-      say :value => 'Bienvenido Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
+      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
       say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
 
       on(:event => 'continue', :next => 'answer')
@@ -55,7 +55,7 @@ class CommunicationsController < ApplicationController
           :maxTime => 30,
           :format => "audio/mp3",
           :name => "voicemail",
-          :url => "http://web1.tunnlr.com:10790/voicemails")
+          :url => SERVER_URL + "/voicemails")
         end
 
         render :json => tropo.response
