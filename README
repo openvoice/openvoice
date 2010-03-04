@@ -3,3 +3,17 @@ It uses Voxeo's Tropo platform to build a communication platform for consumer as
 It intends to support voice, SMS, IM, skype, SIP, and iNum.
 I will add implemented features as the code grows.
 
+To test the live applicatoin
+Phone Numbers:
+Voice & Messaging: (408) 940-
+Skype Voice: +99000936 9991429707
+SIP Voice: sip:9991429707@sip.tropo.com
+INum Voice: +883510001805435
+
+IM:
+openvoice@bot.im
+goopenvoice@gmail.com
+goopenvoice@twitter
+
+===== Setup ======
+
