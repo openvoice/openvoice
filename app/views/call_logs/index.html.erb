@@ -1,0 +1,21 @@
+<h1>Listing call_logs</h1>
+
+<table>
+  <tr>
+    <th>From</th>
+    <th>To</th>
+    <th>Nature</th>
+    <th>User</th>
+  </tr>
+
+<% @call_logs.each do |call_log| %>
+  <tr>
+    <td><%=h call_log.from %></td>
+    <td><%=h call_log.to %></td>
+    <td><%=h call_log.nature %></td>
+    <td><%=h call_log.user_id %></td>
+    <td><%= link_to 'Show', user_call_log_path(current_user, call_log) %></td>
+    <td><%= link_to 'Destroy', user_call_log_path(current_user, call_log), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>

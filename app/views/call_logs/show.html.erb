@@ -1,0 +1,23 @@
+<p>
+  <b>From:</b>
+  <%=h @call_log.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%=h @call_log.to %>
+</p>
+
+<p>
+  <b>Nature:</b>
+  <%=h @call_log.nature %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @call_log.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_call_log_path(@call_log) %> |
+<%= link_to 'Back', call_logs_path %>

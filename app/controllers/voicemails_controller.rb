@@ -56,8 +56,6 @@ class VoicemailsController < ApplicationController
 
     path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
 
-    p "++++++++++++++++full_filename" + path
-
     @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1), :from => params[:caller_id])
 #    respond_to do |format|
     if @voicemail.save

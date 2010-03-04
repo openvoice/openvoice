@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :call_logs
+
   map.resources :messagings
 
   map.resources :voicemails
@@ -47,6 +49,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :phone_numbers
     user.resources :voicemails
     user.resources :messagings
+    user.resources :call_logs
   end
 
   # Install the default routes as the lowest priority.
