@@ -15,5 +15,8 @@ openvoice@bot.im
 goopenvoice@gmail.com
 goopenvoice@twitter
 
-===== Setup ======
+Setup your development environment
+Create a tropo app first and get your own phone numbers and IMs
+Clone this project and start the rails server on your local machine
+Highly recommend use rake tunnel:tunnel:start to reverse tunnel to your local machine for faster development.  Please don't use my tunnlr credential.
 
