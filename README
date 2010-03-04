@@ -20,3 +20,13 @@ Create a tropo app first and get your own phone numbers and IMs
 Clone this project and start the rails server on your local machine
 Highly recommend use rake tunnel:tunnel:start to reverse tunnel to your local machine for faster development.  Please don't use my tunnlr credential.
 
+Deployment
+
+Currently it is deployed on heroku.
+The following routes are working:
+
+http://tropovoice.heroku.com/user_sessions/new (input zlu/flute for credential)
+http://tropovoice.heroku.com/users/1/voicemails
+http://tropovoice.heroku.com/users/1/messagings
+http://tropovoice.heroku.com/users/1/call_logs
+http://tropovoice.heroku.com/users/1/phone_numbers
