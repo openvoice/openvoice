@@ -5,10 +5,11 @@ class MessagingsController < ApplicationController
   # GET /messagings
   # GET /messagings.xml
   def index
-    @messagings = Messaging.all
+    @messagings = current_user.messagings
 
     respond_to do |format|
       format.html # index.html.erb
+      format.json { render :json => @messagings }
       format.xml  { render :xml => @messagings }
     end
   end
