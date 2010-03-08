@@ -1,6 +1,6 @@
 class AddUserIdToVoicemail < ActiveRecord::Migration
   def self.up
-    add_column :voicemails, :user_id, :string
+    add_column :voicemails, :user_id, :integer
     add_column :voicemails, :filename, :string
     remove_column :voicemails, :uri
   end
