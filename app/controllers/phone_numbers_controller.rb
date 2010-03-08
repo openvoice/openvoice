@@ -1,11 +1,11 @@
 class PhoneNumbersController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
-  before_filter :load_user
   
   # GET /phone_numbers
   # GET /phone_numbers.xml
   def index
+    @user = User.find(params[:user_id])
     @phone_numbers = @user.phone_numbers
 
     respond_to do |format|
@@ -49,7 +49,7 @@ class PhoneNumbersController < ApplicationController
     respond_to do |format|
       if @phone_number.save
         flash[:notice] = 'PhoneNumber was successfully created.'
-        format.html { redirect_to(user_phone_numbers_path(@user)) }
+        format.html { redirect_to(user_phone_numbers_path(current_user)) }
         format.xml  { render :xml => @phone_number, :status => :created, :location => @phone_number }
       else
         format.html { render :action => "new" }
@@ -82,15 +82,19 @@ class PhoneNumbersController < ApplicationController
     @phone_number.destroy
 
     respond_to do |format|
-      format.html { redirect_to(user_phone_numbers_path(@user)) }
+      format.html { redirect_to(user_phone_numbers_path(current_user)) }
       format.xml  { head :ok }
     end
   end
 
-  private
-
-  def load_user
-    @user = User.find(params[:user_id])
+  def locate_user
+    phone_number = PhoneNumber.find_by_number(params[:phone_number])
+    if phone_number
+      user = phone_number.user
+      if user
+        render :json => user
+      end
+    end
   end
 
 end

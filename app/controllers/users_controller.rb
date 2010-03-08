@@ -2,17 +2,27 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
 
+
   def new
     @user = User.new
   end
 
   def create
     @user = User.new(params[:user])
-    if @user.save
-      flash[:notice] = "Account registered!"
-      redirect_back_or_default account_url
-    else
-      render :action => :new
+    respond_to do |format|
+      if @user.save
+        format.html do
+          flash[:notice] = "Account registered!"
+          redirect_back_or_default account_url
+        end
+
+        format.json do
+          render :json => @user
+        end
+      else
+        format.html{ render :action => :new }
+        format.json{ render head => 404 }
+      end
     end
   end
 
