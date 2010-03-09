@@ -3,6 +3,7 @@
 <table>
   <tr>
     <th>From</th>
+    <th>To</th>
     <th>Text</th>
     <th>User</th>
   </tr>
@@ -10,8 +11,10 @@
 <% @messagings.each do |messaging| %>
   <tr>
     <td><%=h messaging.from %></td>
+    <td><%=h messaging.to %></td>
     <td><%=h messaging.text %></td>
     <td><%=h messaging.user_id %></td>
+    <td><%= link_to 'Reply', new_user_messaging_path(current_user) %></td>
     <td><%= link_to 'Show', user_messaging_path(current_user, messaging) %></td>
     <td><%= link_to 'Edit', edit_user_messaging_path(current_user, messaging) %></td>
     <td><%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %></td>

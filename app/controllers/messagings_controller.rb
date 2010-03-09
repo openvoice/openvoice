@@ -44,16 +44,22 @@ class MessagingsController < ApplicationController
   # POST /messagings
   # POST /messagings.xml
   def create
-    session = params[:session]
-    from = session[:from][:id]
-    text = session[:initialText]
-    user_id = User.find(1)
-    @messaging = Messaging.new(:from => from, :text => text, :user_id => user_id)
+    from = to = ""
+    if session = params[:session]
+      # then this is a request from tropo, create an incoming message
+      from = session[:from][:id]
+      text = session[:initialText]
+      to = current_user.login
+      @messaging = Messaging.new(:from => from, :text => text, :to => to, :user_id => current_user.id)
+    else
+      # then this is a request to tropo, create an outgoing message
+      @messaging = Messaging.new(params[:messaging].merge({:from => current_user.login, :user_id => current_user.id}))
+    end
 
     respond_to do |format|
       if @messaging.save
         flash[:notice] = 'Messaging was successfully created.'
-        format.html { redirect_to(@messaging) }
+        format.html { redirect_to(user_messagings_path) }
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
       else
         format.html { render :action => "new" }
