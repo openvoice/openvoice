@@ -25,12 +25,13 @@ class CommunicationsController < ApplicationController
     value = params[:result][:actions][:value]
     caller_id = params[:caller_id]
     CallLog.create(:from => caller_id, :to => "you", :nature => "incoming")
-    case value
+
+      case value
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to zhao'
           transfer({ :to => 'tel:+1' + User.find(1).phone_numbers.first.number,
-                     :ringRepeat => 2,
+                     :ringRepeat => 3,
                      :timeout => 5,
                      :answerOnMedia => true,
                      #                     :on => [
@@ -59,11 +60,14 @@ class CommunicationsController < ApplicationController
 #          :transcriptionOutURI => SERVER_URL + "/voicemails/set_transcription&voicemail_id=1",
 #          :transcriptionID => '1234' )
         end
-
         render :json => tropo.response
 
-    end
-
+      else
+        tropo = Tropo::Generator.new do
+          say "Please try again with keypad"
+        end
+        render :json => tropo.response
+      end
   end
 
   private
