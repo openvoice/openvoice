@@ -53,11 +53,11 @@ class CommunicationsController < ApplicationController
       when 'voicemail'
         tropo = Tropo::Generator.new do
           record( :say => [:value => 'welcome to zhao\'s voicemail system, please speak after the beep'],
-                  :beep => true,
+                  :beep => true,      
           :maxTime => 30,
           :format => "audio/mp3",
           :name => "voicemail",
-          :url => SERVER_URL + "/voicemails?caller_id=#{caller_id}")#,
+          :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}")#,
 #          :transcriptionOutURI => SERVER_URL + "/voicemails/set_transcription&voicemail_id=1",
 #          :transcriptionID => '1234' )
         end
