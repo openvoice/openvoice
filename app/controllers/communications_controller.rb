@@ -31,7 +31,7 @@ class CommunicationsController < ApplicationController
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to zhao'
-          transfer({ :to => 'tel:' + User.find(1).phone_numbers.first.number,
+          transfer({ :to => 'tel:+1' + User.find(1).phone_numbers.first.number,
                      :ringRepeat => 2,
                      :timeout => 5,
                      :answerOnMedia => true,
