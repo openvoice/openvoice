@@ -51,11 +51,13 @@ class MessagingsController < ApplicationController
       text = session[:initialText]
       @user = User.find(1)
       to = @user.login
-      @messaging = Messaging.new(:from => from, :text => text, :to => to, :user_id => @user.id)
+      @messaging = Messaging.new(:from => from, :text => text, :to => to, :user_id => @user.id, :outgoing => true)
     else
       # then this is a request to tropo, create an outgoing message
       @user = current_user
-      @messaging = Messaging.new(params[:messaging].merge({:from => current_user.login, :user_id => current_user.id}))
+      @messaging = Messaging.new(params[:messaging].merge({:from => current_user.login,
+                                                           :user_id => current_user.id,
+                                                           :outgoing => false}))
     end
 
     respond_to do |format|
