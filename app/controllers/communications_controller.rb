@@ -5,11 +5,9 @@ class CommunicationsController < ApplicationController
     sip_client = get_sip_client_from_header(x_voxeo_to)
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
-
-#      say "hello, hello, welcome to zhao's communication center"
+      say "hello, hello, welcome to zhao's communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
-                                  
       on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
 
       ask( :attempts => 2,
@@ -53,11 +51,11 @@ class CommunicationsController < ApplicationController
       when 'voicemail'
         tropo = Tropo::Generator.new do
           record( :say => [:value => 'welcome to zhao\'s voicemail system, please speak after the beep'],
-                  :beep => true,      
-          :maxTime => 30,
-          :format => "audio/mp3",
-          :name => "voicemail",
-          :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}")#,
+                  :beep => true,
+                  :maxTime => 30,
+                  :format => "audio/mp3",
+                  :name => "voicemail",
+                  :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}")#,
 #          :transcriptionOutURI => SERVER_URL + "/voicemails/set_transcription&voicemail_id=1",
 #          :transcriptionID => '1234' )
         end
