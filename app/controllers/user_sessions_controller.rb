@@ -12,8 +12,8 @@ class UserSessionsController < ApplicationController
     respond_to do |format|
       if @user_session.save
         format.html do
-        flash[:notice] = "Login successful!"
-        redirect_back_or_default account_url
+          flash[:notice] = "Login successful!"
+          redirect_back_or_default account_url
         end
 
         format.json{ render :json => @user_session }

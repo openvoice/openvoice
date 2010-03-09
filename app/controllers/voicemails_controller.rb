@@ -4,11 +4,12 @@ class VoicemailsController < ApplicationController
   # GET /voicemails
   # GET /voicemails.xml
   def index
-    @voicemails = Voicemail.all
+    @voicemails = current_user.voicemails
 
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @voicemails }
+      format.json  { render :json => @voicemails }
     end
   end
 
