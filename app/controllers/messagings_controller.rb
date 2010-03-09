@@ -49,7 +49,7 @@ class MessagingsController < ApplicationController
       # then this is a request from tropo, create an incoming message
       from = session[:from][:id]
       text = session[:initialText]
-      to = current_user.login
+      to = User.find(1).login
       @messaging = Messaging.new(:from => from, :text => text, :to => to, :user_id => current_user.id)
     else
       # then this is a request to tropo, create an outgoing message
