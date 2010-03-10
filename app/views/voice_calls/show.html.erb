@@ -1,0 +1,8 @@
+<p>
+  <b>To:</b>
+  <%=h @voice_call.to %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_voice_call_path(current_user, @voice_call) %> |
+<%= link_to 'Back', user_voice_calls_path(current_user) %>

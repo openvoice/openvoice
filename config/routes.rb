@@ -1,4 +1,5 @@
-ActionController::Routing::Routes.draw do |map|  # The priority is based upon order of creation: first created -> highest priority.
+ActionController::Routing::Routes.draw do |map|
+  # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
@@ -42,6 +43,7 @@ ActionController::Routing::Routes.draw do |map|  # The priority is based upon or
     user.resources :voicemails
     user.resources :messagings
     user.resources :call_logs
+    user.resources :voice_calls
   end
 
 

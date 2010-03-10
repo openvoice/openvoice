@@ -1,0 +1,16 @@
+<h1>Editing voice_call</h1>
+
+<% form_for([:user, @voice_call]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :to %><br />
+    <%= f.text_field :to %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', user_voice_call_path(current_user, @voice_call) %> |
+<%= link_to 'Back', user_voice_calls_path(current_user) %>
