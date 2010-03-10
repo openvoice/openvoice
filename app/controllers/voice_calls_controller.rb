@@ -40,13 +40,14 @@ class VoiceCallsController < ApplicationController
   # POST /voice_calls
   # POST /voice_calls.xml
   def create
-    @voice_call = VoiceCall.new(params[:voice_call])
+    @voice_call = VoiceCall.new(params[:voice_call].merge(:user_id => params[:user_id]))
 
     respond_to do |format|
       if @voice_call.save
         flash[:notice] = 'VoiceCall was successfully created.'
         format.html { redirect_to(user_voice_calls_path(current_user)) }
         format.xml  { render :xml => @voice_call, :status => :created, :location => @voice_call }
+        format.json { render :json => @voice_call }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @voice_call.errors, :status => :unprocessable_entity }

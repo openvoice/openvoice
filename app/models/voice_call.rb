@@ -1,5 +1,7 @@
 class VoiceCall < ActiveRecord::Base
 
+  belongs_to :user
+
   after_create :dial
 
   def dial
