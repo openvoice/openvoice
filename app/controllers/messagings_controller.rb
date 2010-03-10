@@ -98,7 +98,7 @@ class MessagingsController < ApplicationController
     @messaging.destroy
 
     respond_to do |format|
-      format.html { redirect_to(messagings_url) }
+      format.html { redirect_to(user_messagings_url(current_user)) }
       format.xml  { head :ok }
     end
   end
