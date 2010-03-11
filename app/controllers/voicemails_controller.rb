@@ -1,8 +1,6 @@
 class VoicemailsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
   
-  # GET /voicemails
-  # GET /voicemails.xml
   def index
     @voicemails = current_user.voicemails
 
@@ -13,8 +11,6 @@ class VoicemailsController < ApplicationController
     end
   end
 
-  # GET /voicemails/1
-  # GET /voicemails/1.xml
   def show
     @voicemail = Voicemail.find(params[:id])
 
@@ -24,8 +20,6 @@ class VoicemailsController < ApplicationController
     end
   end
 
-  # GET /voicemails/new
-  # GET /voicemails/new.xml
   def new
     @voicemail = Voicemail.new
 
@@ -35,13 +29,10 @@ class VoicemailsController < ApplicationController
     end
   end
 
-  # GET /voicemails/1/edit
   def edit
     @voicemail = Voicemail.find(params[:id])
   end
 
-  # POST /voicemails
-  # POST /voicemails.xml
   def create
     AWS::S3::Base.establish_connection!(
             :access_key_id     => 'AKIAJL7N4ODM3NMNTFCA',
@@ -72,8 +63,6 @@ class VoicemailsController < ApplicationController
 #    end
   end
 
-  # PUT /voicemails/1
-  # PUT /voicemails/1.xml
   def update
     @voicemail = Voicemail.find(params[:id])
 
@@ -89,8 +78,6 @@ class VoicemailsController < ApplicationController
     end
   end
 
-  # DELETE /voicemails/1
-  # DELETE /voicemails/1.xml
   def destroy
     @voicemail = Voicemail.find(params[:id])
     @voicemail.destroy
