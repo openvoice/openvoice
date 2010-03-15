@@ -1,7 +1,8 @@
 class CommunicationsController < ApplicationController
   def index
     headers = params["session"]["headers"]
-    x_voxeo_to = headers.select{ |v| v["key"] == 'x-voxeo-to' }.first["value"]
+    x_voxeo_to = headers["x-voxeo-to"]
+#    x_voxeo_to = headers.select{ |v| v["key"] == 'x-voxeo-to' }.first["value"]
     sip_client = get_sip_client_from_header(x_voxeo_to)
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
