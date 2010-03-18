@@ -33,7 +33,7 @@ class CommunicationsController < ApplicationController
           say :value => 'connecting to zhao'
           transfer({ :to => 'tel:+' + User.find(1).phone_numbers.first.number,
                      :ringRepeat => 3,
-                     :timeout => 5,
+                     :timeout => 30,
                      :answerOnMedia => true,
                      #                     :on => [
                      #                             { :event => "continue", :next => '/voicemails/index?format=json' },
