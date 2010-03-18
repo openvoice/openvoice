@@ -4,5 +4,14 @@
 </head>
 
 <body>
-  <%= yield %>
+  <div>
+    <div>
+      <%= link_to "messages", user_messagings_path(current_user, @messagings) %> |
+      <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails) %> | 
+      <%= link_to "call logs", user_call_logs_url(current_user, @call_logs) %> 
+    </div>
+    <div>
+      <%= yield %>
+    </div>
+  </div>
 </body>

@@ -5,7 +5,7 @@ class VoicemailsController < ApplicationController
     @voicemails = current_user.voicemails
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @voicemails }
       format.json  { render :json => @voicemails }
     end

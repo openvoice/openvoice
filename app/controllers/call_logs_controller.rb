@@ -2,19 +2,15 @@ class CallLogsController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
   
-  # GET /call_logs
-  # GET /call_logs.xml
   def index
     @call_logs = CallLog.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @call_logs }
     end
   end
 
-  # GET /call_logs/1
-  # GET /call_logs/1.xml
   def show
     @call_log = CallLog.find(params[:id])
 
@@ -24,8 +20,6 @@ class CallLogsController < ApplicationController
     end
   end
 
-  # GET /call_logs/new
-  # GET /call_logs/new.xml
   def new
     @call_log = CallLog.new
 
@@ -35,13 +29,10 @@ class CallLogsController < ApplicationController
     end
   end
 
-  # GET /call_logs/1/edit
   def edit
     @call_log = CallLog.find(params[:id])
   end
 
-  # POST /call_logs
-  # POST /call_logs.xml
   def create
     @call_log = CallLog.new(params[:call_log])
 
@@ -57,8 +48,6 @@ class CallLogsController < ApplicationController
     end
   end
 
-  # PUT /call_logs/1
-  # PUT /call_logs/1.xml
   def update
     @call_log = CallLog.find(params[:id])
 
@@ -74,8 +63,6 @@ class CallLogsController < ApplicationController
     end
   end
 
-  # DELETE /call_logs/1
-  # DELETE /call_logs/1.xml
   def destroy
     @call_log = CallLog.find(params[:id])
     @call_log.destroy
