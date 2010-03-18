@@ -1,15 +1,16 @@
-<h1>Listing voice_calls</h1>
+<h1>your voice calls</h1>
 
 <table>
   <tr>
     <th>To</th>
+    <th>Time</th>
   </tr>
 
 <% @voice_calls.each do |voice_call| %>
   <tr>
     <td><%=h voice_call.to %></td>
+    <td><%=h voice_call.created_at %></td>
     <td><%= link_to 'Show', user_voice_call_path(current_user, voice_call) %></td>
-    <td><%= link_to 'Edit', edit_user_voice_call_path(current_user, voice_call) %></td>
     <td><%= link_to 'Destroy', user_voice_call_path(current_user, voice_call), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
@@ -17,4 +18,4 @@
 
 <br />
 
-<%= link_to 'New voice_call', new_user_voice_call_path(current_user) %>
+<%= link_to 'new voice call', new_user_voice_call_path(current_user) %>

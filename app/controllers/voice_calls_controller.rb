@@ -1,6 +1,4 @@
 class VoiceCallsController < ApplicationController
-  # GET /voice_calls
-  # GET /voice_calls.xml
   def index
     @voice_calls = VoiceCall.all
 
@@ -10,8 +8,6 @@ class VoiceCallsController < ApplicationController
     end
   end
 
-  # GET /voice_calls/1
-  # GET /voice_calls/1.xml
   def show
     @voice_call = VoiceCall.find(params[:id])
 
@@ -21,8 +17,6 @@ class VoiceCallsController < ApplicationController
     end
   end
 
-  # GET /voice_calls/new
-  # GET /voice_calls/new.xml
   def new
     @voice_call = VoiceCall.new
 
@@ -32,13 +26,10 @@ class VoiceCallsController < ApplicationController
     end
   end
 
-  # GET /voice_calls/1/edit
   def edit
     @voice_call = VoiceCall.find(params[:id])
   end
 
-  # POST /voice_calls
-  # POST /voice_calls.xml
   def create
     @voice_call = VoiceCall.new(params[:voice_call].merge(:user_id => params[:user_id]))
 
@@ -55,8 +46,6 @@ class VoiceCallsController < ApplicationController
     end
   end
 
-  # PUT /voice_calls/1
-  # PUT /voice_calls/1.xml
   def update
     @voice_call = VoiceCall.find(params[:id])
 
@@ -72,8 +61,6 @@ class VoiceCallsController < ApplicationController
     end
   end
 
-  # DELETE /voice_calls/1
-  # DELETE /voice_calls/1.xml
   def destroy
     @voice_call = VoiceCall.find(params[:id])
     @voice_call.destroy
