@@ -1,0 +1,31 @@
+body
+{
+    background-color:#000000;
+    color: #33ff00;
+    font-size: 14px;
+    font-family: "Times New Roman";
+}
+
+h1
+{
+    color: #33ff00; font-size:14px;
+}
+
+a:link, a:visited
+{
+    color: #33ff00;
+    font-size: 13px;                 
+    font-family: "Times New Roman";
+}
+
+table
+{
+    border-collapse: collapse;
+}
+
+table, tr, th, td
+{
+    font-size: 13px;
+    font-family: "Times New Roman";
+    border: 1px solid green;
+}

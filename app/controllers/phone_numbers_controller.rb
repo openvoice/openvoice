@@ -38,6 +38,7 @@ class PhoneNumbersController < ApplicationController
 
   # GET /phone_numbers/1/edit
   def edit
+    @user = current_user
     @phone_number = PhoneNumber.find(params[:id])
   end
 
