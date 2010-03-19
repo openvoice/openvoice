@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100319212133) do
+ActiveRecord::Schema.define(:version => 20100319230821) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(:version => 20100319212133) do
     t.string   "to"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_id"
+    t.integer  "user_id",    :limit => 255
   end
 
   create_table "voicemails", :force => true do |t|
