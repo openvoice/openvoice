@@ -28,4 +28,6 @@ table, tr, th, td
     font-size: 13px;
     font-family: "Times New Roman";
     border: 1px solid green;
+    padding: 4px;
+    
 }
