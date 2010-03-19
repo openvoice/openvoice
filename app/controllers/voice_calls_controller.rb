@@ -22,7 +22,8 @@ class VoiceCallsController < ApplicationController
 
   def new
     @voice_call = VoiceCall.new
-
+    @voice_call.to = params[:to] unless params[:to].nil?
+    
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @voice_call }

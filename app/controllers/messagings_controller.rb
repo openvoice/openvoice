@@ -2,47 +2,39 @@ class MessagingsController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
 
-  # GET /messagings
-  # GET /messagings.xml
   def index
     @messagings = current_user.messagings
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render :json => @messagings }
       format.xml  { render :xml => @messagings }
     end
   end
 
-  # GET /messagings/1
-  # GET /messagings/1.xml
   def show
     @messaging = Messaging.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @messaging }
     end
   end
 
-  # GET /messagings/new
-  # GET /messagings/new.xml
   def new
     @messaging = Messaging.new
-
+    @messaging.to = params[:to] unless params[:to].nil?
+    
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @messaging }
     end
   end
 
-  # GET /messagings/1/edit
   def edit
     @messaging = Messaging.find(params[:id])
   end
 
-  # POST /messagings
-  # POST /messagings.xml
   def create
     from = to = ""
     if session = params[:session]
@@ -74,8 +66,6 @@ class MessagingsController < ApplicationController
     end
   end
 
-  # PUT /messagings/1
-  # PUT /messagings/1.xml
   def update
     @messaging = Messaging.find(params[:id])
 
@@ -91,8 +81,6 @@ class MessagingsController < ApplicationController
     end
   end
 
-  # DELETE /messagings/1
-  # DELETE /messagings/1.xml
   def destroy
     @messaging = Messaging.find(params[:id])
     @messaging.destroy

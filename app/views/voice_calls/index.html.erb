@@ -10,6 +10,7 @@
   <tr>
     <td><%=h voice_call.to %></td>
     <td><%=h voice_call.created_at %></td>
+    <td><%= link_to 'Call', new_user_voice_call_path(current_user, { :to => voice_call.to }) %></td>
     <td><%= link_to 'Show', user_voice_call_path(current_user, voice_call) %></td>
     <td><%= link_to 'Destroy', user_voice_call_path(current_user, voice_call), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>

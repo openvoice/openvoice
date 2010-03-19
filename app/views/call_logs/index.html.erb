@@ -14,6 +14,7 @@
     <td><%=h call_log.to %></td>
     <td><%=h call_log.nature %></td>
     <td><%=h call_log.user_id %></td>
+    <td><%= link_to 'Call', new_user_voice_call_path(current_user, { :to => call_log.from }) %></td>
     <td><%= link_to 'Show', user_call_log_path(current_user, call_log) %></td>
     <td><%= link_to 'Destroy', user_call_log_path(current_user, call_log), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
