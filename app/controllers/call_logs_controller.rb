@@ -29,10 +29,6 @@ class CallLogsController < ApplicationController
     end
   end
 
-  def edit
-    @call_log = CallLog.find(params[:id])
-  end
-
   def create
     @call_log = CallLog.new(params[:call_log])
 

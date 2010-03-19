@@ -3,7 +3,7 @@ class MessagingsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
 
   def index
-    @messagings = current_user.messagings
+    @messagings = current_user.messagings.reverse
 
     respond_to do |format|
       format.html
@@ -29,10 +29,6 @@ class MessagingsController < ApplicationController
       format.html
       format.xml  { render :xml => @messaging }
     end
-  end
-
-  def edit
-    @messaging = Messaging.find(params[:id])
   end
 
   def create

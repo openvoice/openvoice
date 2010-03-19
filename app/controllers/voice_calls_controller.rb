@@ -3,10 +3,10 @@ class VoiceCallsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
   
   def index
-    @voice_calls = VoiceCall.all
+    @voice_calls = current_user.voice_calls.reverse
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @voice_calls }
     end
   end
@@ -28,10 +28,6 @@ class VoiceCallsController < ApplicationController
       format.html # new.html.erb
       format.xml  { render :xml => @voice_call }
     end
-  end
-
-  def edit
-    @voice_call = VoiceCall.find(params[:id])
   end
 
   def create

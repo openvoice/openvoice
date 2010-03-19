@@ -2,7 +2,7 @@ class VoicemailsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
   
   def index
-    @voicemails = current_user.voicemails
+    @voicemails = current_user.voicemails.reverse
 
     respond_to do |format|
       format.html
@@ -27,10 +27,6 @@ class VoicemailsController < ApplicationController
       format.html # new.html.erb
       format.xml  { render :xml => @voicemail }
     end
-  end
-
-  def edit
-    @voicemail = Voicemail.find(params[:id])
   end
 
   def create
