@@ -1,4 +1,7 @@
 class VoiceCallsController < ApplicationController
+
+  before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
+  
   def index
     @voice_calls = VoiceCall.all
 

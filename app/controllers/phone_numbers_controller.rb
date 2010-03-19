@@ -2,8 +2,6 @@ class PhoneNumbersController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
   
-  # GET /phone_numbers
-  # GET /phone_numbers.xml
   def index
     @user = User.find(params[:user_id])
     @phone_numbers = @user.phone_numbers
@@ -14,8 +12,6 @@ class PhoneNumbersController < ApplicationController
     end
   end
 
-  # GET /phone_numbers/1
-  # GET /phone_numbers/1.xml
   def show
     @phone_number = PhoneNumber.find(params[:id])
 
@@ -25,8 +21,6 @@ class PhoneNumbersController < ApplicationController
     end
   end
 
-  # GET /phone_numbers/new
-  # GET /phone_numbers/new.xml
   def new
     @phone_number = PhoneNumber.new
     
@@ -36,14 +30,11 @@ class PhoneNumbersController < ApplicationController
     end
   end
 
-  # GET /phone_numbers/1/edit
   def edit
     @user = current_user
     @phone_number = PhoneNumber.find(params[:id])
   end
 
-  # POST /phone_numbers
-  # POST /phone_numbers.xml
   def create
     @phone_number = PhoneNumber.new(:number => params[:phone_number][:number], :user_id => params[:user_id])
 
@@ -59,8 +50,6 @@ class PhoneNumbersController < ApplicationController
     end
   end
 
-  # PUT /phone_numbers/1
-  # PUT /phone_numbers/1.xml
   def update
     @phone_number = PhoneNumber.find(params[:id])
 
@@ -76,8 +65,6 @@ class PhoneNumbersController < ApplicationController
     end
   end
 
-  # DELETE /phone_numbers/1
-  # DELETE /phone_numbers/1.xml
   def destroy
     @phone_number = PhoneNumber.find(params[:id])
     @phone_number.destroy
