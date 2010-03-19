@@ -10,6 +10,7 @@
       <%= link_to "voice calls", user_voice_calls_path(current_user, @voice_calls) %> |
       <%= link_to "messages", user_messagings_path(current_user, @messagings) %> |
       <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails) %> |
+      <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |
       <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers) %> |
       <%= link_to "call logs", user_call_logs_path(current_user, @call_logs) %> |
       <a href="/logout">logout</a>
