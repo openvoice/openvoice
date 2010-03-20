@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100320003133) do
+ActiveRecord::Schema.define(:version => 20100319211812) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(:version => 20100320003133) do
     t.string   "name"
     t.string   "number"
     t.string   "im"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_id"
   end
 
   create_table "messagings", :force => true do |t|
@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(:version => 20100320003133) do
 
   create_table "voice_calls", :force => true do |t|
     t.string   "to"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id",    :limit => 255
   end
 
   create_table "voicemails", :force => true do |t|
