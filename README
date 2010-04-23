@@ -3,6 +3,54 @@ It uses Voxeo's Tropo platform to build a communication platform for consumer as
 It intends to support voice, SMS, IM, skype, SIP, and iNum.
 I will add implemented features as the code grows.
 
+Features:
+h1. MyOpenVoice Features Notes
+
+p. signup
+
+p. provision a number by area code
+
+p. setup forwarding numbers
+* pstn
+* sip
+* browser (flash gordon)
+* gtalk (audio) ??
+
+p. someone calls you
+* ring all numbers
+* leave voicemail
+* voice gets transcribes and stored
+* review voicemail
+* call person back
+
+p. someone send you an sms
+* sms is logged and stored
+* you can reply to sms or call them back
+
+p. someone send you an im
+* im is forwarded to you
+* how to coordinate multiple sessions
+
+p. address book for convenient calling
+* screen calls or direct
+* block
+
+p. if screen
+* caller is asked to state their name
+* your phone rings
+* openvoice announces the caller's name and number
+* options are
+** answer
+** send to voicemail
+*** option to screen the voicemail
+*** option to answer whie screening
+*** transfer to preconfigured number
+
+p. in call
+* start recording
+* transfer
+
+
 To test the live applicatoin
 Phone Numbers:
 Voice & Messaging: (408) 940-
