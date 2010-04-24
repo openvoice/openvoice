@@ -12,6 +12,8 @@
     <td><%=h contact.name %></td>
     <td><%=h contact.number %></td>
     <td><%=h contact.im %></td>
+    <td><%= link_to 'Call', new_user_voice_call_path(current_user, { :to => contact.number }) %></td>
+    <td><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
     <td><%= link_to 'Show', user_contact_path(current_user, contact) %></td>
     <td><%= link_to 'Edit', edit_user_contact_path(current_user, contact) %></td>
     <td><%= link_to 'Destroy', user_contact_path(current_user, contact), :confirm => 'Are you sure?', :method => :delete %></td>
