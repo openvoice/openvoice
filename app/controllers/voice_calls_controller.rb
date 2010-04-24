@@ -4,7 +4,9 @@ class VoiceCallsController < ApplicationController
   
   def index
     @voice_calls = current_user.voice_calls.reverse
-
+p current_user
+p @voice_calls
+    
     respond_to do |format|
       format.html
       format.xml  { render :xml => @voice_calls }
