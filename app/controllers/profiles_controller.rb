@@ -68,7 +68,7 @@ class ProfilesController < ApplicationController
     @profile.destroy
 
     respond_to do |format|
-      format.html { redirect_to(profiles_url) }
+      format.html { redirect_to(user_profiles_url(current_user)) }
       format.xml  { head :ok }
     end
   end
