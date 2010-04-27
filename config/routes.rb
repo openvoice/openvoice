@@ -47,6 +47,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :call_logs
     user.resources :voice_calls
     user.resources :contacts
+    user.resources :profiles
   end
 
 

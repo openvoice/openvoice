@@ -1,0 +1,32 @@
+<h1>Listing profiles</h1>
+
+<table>
+  <tr>
+    <th>Voice</th>
+    <th>Skype</th>
+    <th>Sip</th>
+    <th>Inum</th>
+    <th>Tropo</th>
+    <th>Twitter</th>
+    <th>Gtalk</th>
+  </tr>
+
+<% @profiles.each do |profile| %>
+  <tr>
+    <td><%=h profile.voice %></td>
+    <td><%=h profile.skype %></td>
+    <td><%=h profile.sip %></td>
+    <td><%=h profile.inum %></td>
+    <td><%=h profile.tropo %></td>
+    <td><%=h profile.twitter %></td>
+    <td><%=h profile.gtalk %></td>
+    <td><%= link_to 'Show', profile %></td>
+    <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
+    <td><%= link_to 'Destroy', profile, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New profile', new_profile_path %>

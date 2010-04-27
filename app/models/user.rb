@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
   has_many :messagings
   has_many :voice_calls
   has_many :contacts
-  
+  has_many :profiles
 end
