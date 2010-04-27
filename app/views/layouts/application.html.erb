@@ -13,6 +13,7 @@
       <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |
       <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers) %> |
       <%= link_to "call logs", user_call_logs_path(current_user, @call_logs) %> |
+      <%= link_to "profile", user_profiles_path(current_user, @profiles) %> |
       <a href="/logout">logout</a>
       <% end %>
     </div>

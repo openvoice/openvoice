@@ -1,6 +1,6 @@
 <h1>Editing profile</h1>
 
-<% form_for(@profile) do |f| %>
+<% form_for([:user, @profile]) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -36,5 +36,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @profile %> |
-<%= link_to 'Back', profiles_path %>
+<%= link_to 'Show', user_profile_path(current_user, @profile) %> |
+<%= link_to 'Back', user_profiles_path(current_user) %>
