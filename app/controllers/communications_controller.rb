@@ -2,11 +2,10 @@ class CommunicationsController < ApplicationController
   def index
     headers = params["session"]["headers"]
     x_voxeo_to = headers["x-voxeo-to"]
-#    x_voxeo_to = headers.select{ |v| v["key"] == 'x-voxeo-to' }.first["value"]
     sip_client = get_sip_client_from_header(x_voxeo_to)
     from = params["session"]["from"]["id"]
     tropo = Tropo::Generator.new do
-      say "hello, hello, welcome to zhao's open voice communication center"
+      say "hello, welcome to zhao's open voice communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
       on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
@@ -31,21 +30,13 @@ class CommunicationsController < ApplicationController
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to zhao'
-          transfer({ :to => 'tel:+' + User.find(1).phone_numbers.first.number,
+          transfer({ # TODO where to send the incoming calls?  ring all phones?
+                     :to => 'zlu-100@pbxes.org',
                      :ringRepeat => 3,
                      :timeout => 30,
                      :answerOnMedia => true,
-                     #                     :on => [
-                     #                             { :event => "continue", :next => '/voicemails/index?format=json' },
-                     #                             { :event => "incomplete", :next => '/voicemails/index?format=json' },
-                     #                             { :event => "error", :next => '/voicemails/index?format=json' },
-                     #                             { :event => "hangup", :next => '/voicemails/index?format=json' },
-                     #
-                     #                     ],
-                     #                     :from => { :id => from + "@" + sip_client,
-                     #                                :name => from,
-                     #                                :channel => "VOICE",
-                     #                                :network => "PSTN" }
+                     # TODO figure out the correct caller_id when not pstn
+                     :from => "14085059096"
           })
         end
         render :json => tropo.response
@@ -74,13 +65,13 @@ class CommunicationsController < ApplicationController
   private
 
   def get_sip_client_from_header(header)
-    if header =~ /^<sip:990.*$/                   # SKYPE
+    if header =~ /^<sip:990.*$/
       "SKYPE"
-    elsif header =~ /^.*<sip:1999.*$/             # SIP
+    elsif header =~ /^.*<sip:1999.*$/
       "SIP"
-    elsif header =~ /^<sip:883.*$/                # iNUM
+    elsif header =~ /^<sip:883.*$/
       "INUM"
-    elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/ # PSTN
+    elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
       "PSTN"
     else
       "OTHER"
