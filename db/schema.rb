@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20100427034358) do
     t.datetime "last_login_at"
     t.string   "current_login_ip"
     t.string   "last_login_ip"
+    t.string   "name"
   end
 
   create_table "voice_calls", :force => true do |t|
