@@ -56,7 +56,7 @@ class PhoneNumbersController < ApplicationController
     respond_to do |format|
       if @phone_number.update_attributes(params[:phone_number])
         flash[:notice] = 'PhoneNumber was successfully updated.'
-        format.html { redirect_to(@phone_number) }
+        format.html { redirect_to(user_phone_numbers_path(current_user)) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
