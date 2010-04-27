@@ -20,13 +20,13 @@
     <td><%=h profile.tropo %></td>
     <td><%=h profile.twitter %></td>
     <td><%=h profile.gtalk %></td>
-    <td><%= link_to 'Show', profile %></td>
-    <td><%= link_to 'Edit', edit_profile_path(profile) %></td>
-    <td><%= link_to 'Destroy', profile, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Show', user_profile_path(current_user, profile) %></td>
+    <td><%= link_to 'Edit', edit_user_profile_path(current_user, profile) %></td>
+    <td><%= link_to 'Destroy', user_profile_path(current_user, profile), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New profile', new_profile_path %>
+<%= link_to 'New profile', new_user_profile_path(current_user)%>

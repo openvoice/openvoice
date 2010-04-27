@@ -34,12 +34,12 @@ class ProfilesController < ApplicationController
   end
 
   def create
-    @profile = Profile.new(:number => params[:profile], :user_id => params[:user_id])
+    @profile = Profile.new(params[:profile].merge(:user_id => params[:user_id]))
 
     respond_to do |format|
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
-        format.html { redirect_to(@profile) }
+        format.html { redirect_to(user_profiles_path(current_user)) }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
         format.html { render :action => "new" }
