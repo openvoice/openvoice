@@ -4,8 +4,10 @@ class CommunicationsController < ApplicationController
     x_voxeo_to = headers["x-voxeo-to"]
     sip_client = get_sip_client_from_header(x_voxeo_to)
     from = params["session"]["from"]["id"]
+    user = locate_user(sip_client, x_voxeo_to)
+    user_name = user.name
     tropo = Tropo::Generator.new do
-      say "hello, welcome to zhao's open voice communication center"
+      say "hello, welcome to #{user_name}'s open voice communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
       on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
@@ -76,6 +78,20 @@ class CommunicationsController < ApplicationController
     else
       "OTHER"
     end
+  end
+
+  def locate_user(client, callee)
+    p client
+    p callee
+    number_to_search = ""
+    user = User.new
+    if client == "SKYPE"
+      number_to_search = "+" + %r{(^<sip:)(990.*)(@.*)}.match(callee)[2]
+      user = Profile.find_by_skype(number_to_search).user
+    end
+    p user
+
+    user
   end
 
 end
