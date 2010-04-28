@@ -81,6 +81,7 @@ class CommunicationsController < ApplicationController
     end
   end
 
+  # TODO i'm not too happy with the implementation of this method, will revisit to refactor
   def locate_user(client, callee)
     number_to_search = ""
     user = User.new
