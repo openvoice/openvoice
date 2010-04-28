@@ -16,7 +16,7 @@ class CommunicationsController < ApplicationController
            :bargein => true,
            :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
            :name => 'main-menu',
-           :say => { :value => 'To speak to Zhao, say connect or press 1. To leave a voicemail, say voicemail or press 2.' })
+           :say => { :value => "To speak to #{user_name}, say connect or press 1. To leave a voicemail, say voicemail or press 2." })
 
     end
 
@@ -45,7 +45,7 @@ class CommunicationsController < ApplicationController
 
       when 'voicemail'
         tropo = Tropo::Generator.new do
-          record( :say => [:value => 'welcome to zhao\'s voicemail system, please speak after the beep'],
+          record( :say => [:value => 'please speak after the beep to leave a voicemail'],
                   :beep => true,
                   :maxTime => 30,
                   :format => "audio/mp3",
@@ -81,15 +81,20 @@ class CommunicationsController < ApplicationController
   end
 
   def locate_user(client, callee)
-    p client
-    p callee
     number_to_search = ""
     user = User.new
     if client == "SKYPE"
       number_to_search = "+" + %r{(^<sip:)(990.*)(@.*)}.match(callee)[2]
       user = Profile.find_by_skype(number_to_search).user
+    elsif client == "SIP"
+      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
+      profiles = Profile.all.select{ |profile| profile.sip.index(number_to_search) > 0}
+      user = !profiles.empty? && profiles.first.user
+    elsif client == "PSTN"
+      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
+      profiles = Profile.all.select{ |profile| profile.voice == number_to_search }
+      user = !profiles.empty? && profiles.first.user
     end
-    p user
 
     user
   end
