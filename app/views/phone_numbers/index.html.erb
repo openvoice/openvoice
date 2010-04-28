@@ -3,11 +3,13 @@
 <table>
   <tr>
     <th>Number</th>
+    <th>Forward</th>
   </tr>
 
 <% @phone_numbers.each do |phone_number| %>
   <tr>
     <td><%=h phone_number.number %></td>
+    <td><%=h phone_number.forward %></td>
     <td><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
     <td><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
     <td><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number), :confirm => 'Are you sure?', :method => :delete %></td>

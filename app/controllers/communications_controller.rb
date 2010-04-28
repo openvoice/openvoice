@@ -10,7 +10,7 @@ class CommunicationsController < ApplicationController
       say "hello, welcome to #{user_name}'s open voice communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
-      on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}")
+      on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}&user_id=#{user.id}")
 
       ask( :attempts => 2,
            :bargein => true,
@@ -27,13 +27,14 @@ class CommunicationsController < ApplicationController
     value = params[:result][:actions][:value]
     caller_id = params[:caller_id]
     CallLog.create(:from => caller_id, :to => "you", :nature => "incoming")
-
+    forward = User.find(params[:user_id]).phone_numbers.select{ |pn| pn.forward == true }.first
+    forward_number = forward && forward.number
       case value
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to zhao'
           transfer({ # TODO where to send the incoming calls?  ring all phones?
-                     :to => 'zlu-100@pbxes.org',
+                     :to => forward_number,
                      :ringRepeat => 3,
                      :timeout => 30,
                      :answerOnMedia => true,

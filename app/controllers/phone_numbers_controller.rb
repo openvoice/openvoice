@@ -7,7 +7,7 @@ class PhoneNumbersController < ApplicationController
     @phone_numbers = @user.phone_numbers
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.xml  { render :xml => @phone_numbers }
     end
   end
@@ -16,7 +16,7 @@ class PhoneNumbersController < ApplicationController
     @phone_number = PhoneNumber.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @phone_number }
     end
   end
@@ -25,7 +25,7 @@ class PhoneNumbersController < ApplicationController
     @phone_number = PhoneNumber.new
     
     respond_to do |format|
-      format.html # new.html.erb
+      format.html 
       format.xml  { render :xml => @phone_number }
     end
   end
@@ -36,7 +36,9 @@ class PhoneNumbersController < ApplicationController
   end
 
   def create
-    @phone_number = PhoneNumber.new(:number => params[:phone_number][:number], :user_id => params[:user_id])
+    @phone_number = PhoneNumber.new(:number => params[:phone_number][:number],
+                                    :forward => params[:phone_number][:forward], 
+                                    :user_id => params[:user_id])
 
     respond_to do |format|
       if @phone_number.save

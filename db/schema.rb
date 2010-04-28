@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100427045947) do
+ActiveRecord::Schema.define(:version => 20100428051621) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20100427045947) do
     t.string   "number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "forward"
   end
 
   create_table "profiles", :force => true do |t|

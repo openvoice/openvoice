@@ -1,19 +1,19 @@
 body
 {
     background-color:#000000;
-    color: #33ff00;
+    color: #528F6C;
     font-size: 14px;
     font-family: "Times New Roman";
 }
 
 h1
 {
-    color: #33ff00; font-size:14px;
+    color: #528F6C; font-size:14px;
 }
 
 a:link, a:visited
 {
-    color: #33ff00;
+    color: #528F6C;
     font-size: 13px;                 
     font-family: "Times New Roman";
 }
