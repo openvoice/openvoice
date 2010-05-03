@@ -30,6 +30,7 @@ class ProfilesController < ApplicationController
   end
 
   def edit
+    @user = current_user
     @profile = Profile.find(params[:id])
   end
 

@@ -4,9 +4,7 @@ class VoiceCallsController < ApplicationController
   
   def index
     @voice_calls = current_user.voice_calls.reverse
-p current_user
-p @voice_calls
-    
+
     respond_to do |format|
       format.html
       format.xml  { render :xml => @voice_calls }
@@ -17,7 +15,7 @@ p @voice_calls
     @voice_call = VoiceCall.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.xml  { render :xml => @voice_call }
     end
   end
@@ -27,7 +25,7 @@ p @voice_calls
     @voice_call.to = params[:to] unless params[:to].nil?
     
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.xml  { render :xml => @voice_call }
     end
   end

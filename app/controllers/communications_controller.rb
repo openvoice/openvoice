@@ -1,26 +1,33 @@
 class CommunicationsController < ApplicationController
   def index
-    headers = params["session"]["headers"]
-    x_voxeo_to = headers["x-voxeo-to"]
-    sip_client = get_sip_client_from_header(x_voxeo_to)
-    from = params["session"]["from"]["id"]
-    user = locate_user(sip_client, x_voxeo_to)
-    user_name = user.name
-    tropo = Tropo::Generator.new do
-      say "hello, welcome to #{user_name}'s open voice communication center"
+    if params[:session][:parameters] && params[:session][:parameters][:ov_action]
+      ov_action = params[:session][:parameters][:ov_action]
+      if ov_action == "call"
+        render :json => init_voice_call.response
+      end
+    else
+      headers = params["session"]["headers"]
+      x_voxeo_to = headers["x-voxeo-to"]
+      sip_client = get_sip_client_from_header(x_voxeo_to)
+      from = params["session"]["from"]["id"]
+      user = locate_user(sip_client, x_voxeo_to)
+      user_name = user.name
+      tropo = Tropo::Generator.new do
+        say "hello, welcome to #{user_name}'s open voice communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
-      on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}&user_id=#{user.id}")
+        on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}&user_id=#{user.id}")
 
-      ask( :attempts => 2,
-           :bargein => true,
-           :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
-           :name => 'main-menu',
-           :say => { :value => "To speak to #{user_name}, say connect or press 1. To leave a voicemail, say voicemail or press 2." })
+        ask( :attempts => 2,
+             :bargein => true,
+             :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
+             :name => 'main-menu',
+             :say => { :value => "To speak to #{user_name}, say connect or press 1. To leave a voicemail, say voicemail or press 2." })
 
+      end
+
+      render :json => tropo.response
     end
-
-    render :json => tropo.response
   end
 
   def answer
@@ -63,6 +70,24 @@ class CommunicationsController < ApplicationController
         end
         render :json => tropo.response
       end
+  end
+
+  def init_voice_call
+    # call OV user first, once user answers, transfers the call to the destination number
+    user_id = params[:session][:parameters][:user_id]
+    ov_voice = User.find(user_id).profiles.first.voice
+    from = params[:session][:parameters][:from]
+    to = params[:session][:parameters][:to]
+    tropo = Tropo::Generator.new do
+      call({ :from => ov_voice,
+      :to => from,
+      :network => 'PSTN',
+      :channel => 'VOICE' })
+      say 'connecting you to destination'
+      transfer({ :to => to })
+    end
+
+    tropo    
   end
 
   private
