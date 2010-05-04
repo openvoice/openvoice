@@ -1,6 +1,6 @@
 class MessagingsController < ApplicationController
 
-  before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
+  before_filter :require_user, :only => [:index, :show, :new, :destroy]
 
   def index
     @messagings = current_user.messagings.reverse
@@ -58,21 +58,6 @@ class MessagingsController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }
         format.json { render head => 404 }
-      end
-    end
-  end
-
-  def update
-    @messaging = Messaging.find(params[:id])
-
-    respond_to do |format|
-      if @messaging.update_attributes(params[:messaging])
-        flash[:notice] = 'Messaging was successfully updated.'
-        format.html { redirect_to(@messaging) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }
       end
     end
   end
