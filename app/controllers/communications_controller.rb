@@ -111,7 +111,8 @@ class CommunicationsController < ApplicationController
     number_to_search = ""
     user = User.new
     if client == "SKYPE"
-      number_to_search = "+" + %r{(^<sip:)(990.*)(@.*)}.match(callee)[2]
+      # the reason for the last delete is because if tropo skype number contains whitespace
+      number_to_search = "+" + %r{(^<sip:)(990.*)(@.*)}.match(callee)[2].delete(" ")
       user = Profile.find_by_skype(number_to_search).user
     elsif client == "SIP"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
