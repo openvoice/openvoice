@@ -44,19 +44,13 @@ class VoicemailsController < ApplicationController
 
     path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
 
+    # TODO locate user via caller_id
     @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1), :from => params[:caller_id])
-#    respond_to do |format|
     if @voicemail.save
       flash[:notice] = 'Voicemail was successfully created.'
-#        format.html { redirect_to(@voicemail) }
-#        format.xml  { render :xml => @voicemail, :status => :created, :location => @voicemail }
-    else
-#        format.html { render :action => "new" }
-#        format.xml  { render :xml => @voicemail.errors, :status => :unprocessable_entity }
     end
-
+                                                    
     head 200
-#    end
   end
 
   def update
@@ -84,4 +78,9 @@ class VoicemailsController < ApplicationController
     end
   end
 
+  def set_transcription
+    voicemail = Voicemail.find_by_transcription_id(params[:transcription_id])
+    voicemail.update_attribute("text", params[:transcription])
+    head 200
+  end
 end

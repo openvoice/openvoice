@@ -52,15 +52,18 @@ class CommunicationsController < ApplicationController
         render :json => tropo.response
 
       when 'voicemail'
+        transcription_id = params[:user_id] + "_" + Time.now.to_i.to_s
         tropo = Tropo::Generator.new do
           record( :say => [:value => 'please speak after the beep to leave a voicemail'],
                   :beep => true,
                   :maxTime => 30,
                   :format => "audio/mp3",
                   :name => "voicemail",
-                  :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}")#,
-#          :transcriptionOutURI => SERVER_URL + "/voicemails/set_transcription&voicemail_id=1",
-#          :transcriptionID => '1234' )
+                  :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}&transcription_id=" + transcription_id,
+                  :transcription => {
+                    :id => transcription_id,
+                    :url => SERVER_URL + "/voicemails/set_transcription"
+                  })
         end
         render :json => tropo.response
 
