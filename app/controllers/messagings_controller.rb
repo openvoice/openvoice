@@ -75,12 +75,17 @@ class MessagingsController < ApplicationController
         flash[:notice] = 'Messaging was successfully created.'
         format.html { redirect_to(user_messagings_path(@user)) }
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
-        format.json { head 200 }
+        format.json do
+          tropo = Tropo::Generator.new do
+            hangup
+          end
+          render :json => tropo.response
+        end
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }
         format.json { render head => 404 }
-      end
+      end                              
     end
   end
 

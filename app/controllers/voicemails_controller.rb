@@ -45,7 +45,10 @@ class VoicemailsController < ApplicationController
     path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
 
     # TODO locate user via caller_id
-    @voicemail = Voicemail.new(:filename => path, :user_id => User.find(1), :from => params[:caller_id])
+    @voicemail = Voicemail.new(:filename => path,
+                               :user_id => User.find(params[:user_id]),
+                               :from => params[:caller_id],
+                               :transcription_id => params[:transcription_id])
     if @voicemail.save
       flash[:notice] = 'Voicemail was successfully created.'
     end
@@ -79,8 +82,12 @@ class VoicemailsController < ApplicationController
   end
 
   def set_transcription
-    voicemail = Voicemail.find_by_transcription_id(params[:transcription_id])
-    voicemail.update_attribute("text", params[:transcription])
+    # let the ugliness begin until tropo changes the mal-formed return of transcription results
+    result_to_parse = params["<?xml version"]
+    transcription_id = %r{(.*<identifier>)(.*)(</identifier>.*)}.match(result_to_parse)[2]
+    transcription = %r{(.*<transcription>)(.*)(</transcription>.*)}.match(result_to_parse)[2]
+    voicemail = Voicemail.find_by_transcription_id(transcription_id)
+    voicemail.update_attribute("text", transcription)
     head 200
   end
 end
