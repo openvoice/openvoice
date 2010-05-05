@@ -24,7 +24,7 @@ class MessagingsController < ApplicationController
   def new
     @messaging = Messaging.new
     @messaging.to = params[:to] unless params[:to].nil?
-    
+
     respond_to do |format|
       format.html
       format.xml  { render :xml => @messaging }
@@ -33,19 +33,41 @@ class MessagingsController < ApplicationController
 
   def create
     from = to = ""
-    if session = params[:session]
+    session = params[:session]
+    if session && session[:parameters].nil? && !session[:initialText].nil?
       # then this is a request from tropo, create an incoming message
+      p "++++++++++++++++++incoming sms from tropo"
       from = session[:from][:id]
       text = session[:initialText]
-      @user = User.find(1)
-      to = @user.login
-      @messaging = Messaging.new(:from => from, :text => text, :to => to, :user_id => @user.id, :outgoing => false)
+      to = session[:to][:id]
+      @user = Profile.find_by_voice(to).user
+      forward_to = @user.phone_numbers.first.number
+      @messaging = Messaging.new(:from => from, :text => text, :to => forward_to, :user_id => @user.id, :outgoing => true)
     else
-      # then this is a request to tropo, create an outgoing message
-      @user = current_user
-      @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.login,
-                                                            :user_id => current_user.id,
-                                                            :outgoing => true }))
+      if session.nil?
+        # then this is a request to tropo, create an outgoing message
+        @user = current_user
+        @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
+                                                              :user_id => current_user.id,
+                                                              :outgoing => true }))
+      else
+        # incoming request, build request to tropo for outbound sms
+        p "+++++++++++++++sending TropoML payload for outbound SMS"
+        session_params = session[:parameters]
+        from = session_params[:from]
+        to = "14157444943"#session_params[:to]
+        msg = session_params[:text]
+        tropo = Tropo::Generator.new do
+          call({ :from => from,
+                 :to => to,
+                 :network => 'SMS',
+                 :channel => 'TEXT' })
+          say msg
+        end
+
+        render :json => tropo.response
+        return
+      end
     end
 
     respond_to do |format|
@@ -53,7 +75,7 @@ class MessagingsController < ApplicationController
         flash[:notice] = 'Messaging was successfully created.'
         format.html { redirect_to(user_messagings_path(@user)) }
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
-        format.json { render :json => @messaging }
+        format.json { head 200 }
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }

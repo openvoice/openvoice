@@ -36,7 +36,7 @@ class CommunicationsController < ApplicationController
     CallLog.create(:from => caller_id, :to => "you", :nature => "incoming")
     forward = User.find(params[:user_id]).phone_numbers.select{ |pn| pn.forward == true }.first
     forward_number = forward && forward.number
-      case value
+    case value
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to zhao'
@@ -61,8 +61,8 @@ class CommunicationsController < ApplicationController
                   :name => "voicemail",
                   :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}&transcription_id=" + transcription_id,
                   :transcription => {
-                    :id => transcription_id,
-                    :url => SERVER_URL + "/voicemails/set_transcription"
+                          :id => transcription_id,
+                          :url => SERVER_URL + "/voicemails/set_transcription"
                   })
         end
         render :json => tropo.response
@@ -72,7 +72,7 @@ class CommunicationsController < ApplicationController
           say "Please try again with keypad"
         end
         render :json => tropo.response
-      end
+    end
   end
 
   def init_voice_call
@@ -83,14 +83,14 @@ class CommunicationsController < ApplicationController
     to = params[:session][:parameters][:to]
     tropo = Tropo::Generator.new do
       call({ :from => ov_voice,
-      :to => from,
-      :network => 'PSTN',
-      :channel => 'VOICE' })
+             :to => from,
+             :network => 'PSTN',
+             :channel => 'VOICE' })
       say 'connecting you to destination'
       transfer({ :to => to })
     end
 
-    tropo    
+    tropo
   end
 
   private
