@@ -42,7 +42,7 @@ class MessagingsController < ApplicationController
       to = session[:to][:id]
       @user = Profile.find_by_voice(to).user
       forward_to = @user.phone_numbers.first.number
-      @messaging = Messaging.new(:from => from, :text => text, :to => forward_to, :user_id => @user.id, :outgoing => true)
+      @messaging = Messaging.new(:from => from, :text => text, :to => forward_to, :user_id => @user.id, :outgoing => false)
     else
       if session.nil?
         # then this is a request to tropo, create an outgoing message
@@ -77,7 +77,10 @@ class MessagingsController < ApplicationController
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
         format.json do
           tropo = Tropo::Generator.new do
-            hangup
+            message({ :network => 'SMS',
+                      :to => "14157444943",
+                      :say => { :value => "hello" }
+                    })
           end
           render :json => tropo.response
         end
