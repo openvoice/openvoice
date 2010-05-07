@@ -55,7 +55,7 @@ class MessagingsController < ApplicationController
         p "+++++++++++++++sending TropoML payload for outbound SMS"
         session_params = session[:parameters]
         from = session_params[:from]
-        to = "14157444943"#session_params[:to]
+        to = session_params[:to]
         msg = session_params[:text]
         tropo = Tropo::Generator.new do
           call({ :from => from,
@@ -73,13 +73,15 @@ class MessagingsController < ApplicationController
     respond_to do |format|
       if @messaging.save
         flash[:notice] = 'Messaging was successfully created.'
+        to = @messaging.to
+        text = @messaging.text
         format.html { redirect_to(user_messagings_path(@user)) }
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
         format.json do
           tropo = Tropo::Generator.new do
             message({ :network => 'SMS',
-                      :to => "14157444943",
-                      :say => { :value => "hello" }
+                      :to => to,
+                      :say => { :value => text }
                     })
           end
           render :json => tropo.response
