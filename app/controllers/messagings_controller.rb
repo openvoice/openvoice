@@ -71,8 +71,10 @@ class MessagingsController < ApplicationController
     respond_to do |format|
       if @messaging.save
         flash[:notice] = 'Messaging was successfully created.'
+        from = @messaging.from
         to = @messaging.to
-        text = @messaging.text
+        # suffix from or caller_id into text as a temp hack as we cannot set from to the original sender yet
+        text = from + ": " + @messaging.text
         format.html { redirect_to(user_messagings_path(@user)) }
         format.xml  { render :xml => @messaging, :status => :created, :location => @messaging }
         format.json do
