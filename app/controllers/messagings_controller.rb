@@ -58,10 +58,8 @@ class MessagingsController < ApplicationController
         to = session_params[:to]
         msg = session_params[:text]
         tropo = Tropo::Generator.new do
-          call({ :from => from,
-                 :to => to,
-                 :network => 'SMS',
-                 :channel => 'TEXT' })
+          call({ :to => to,
+                 :network => 'SMS' })
           say msg
         end
 
