@@ -9,6 +9,9 @@
     <th>Tropo</th>
     <th>Twitter</th>
     <th>Gtalk</th>
+    <th>Call URL</th>
+    <th>Voice Token</th>
+    <th>Messaging Token</th>
   </tr>
 
 <% @profiles.each do |profile| %>
@@ -20,6 +23,9 @@
     <td><%=h profile.tropo %></td>
     <td><%=h profile.twitter %></td>
     <td><%=h profile.gtalk %></td>
+    <td><%=h profile.call_url %></td>
+    <td><%=h profile.voice_token %></td>
+    <td><%=h profile.messaging_token %></td>
     <td><%= link_to 'Show', user_profile_path(current_user, profile) %></td>
     <td><%= link_to 'Edit', edit_user_profile_path(current_user, profile) %></td>
     <td><%= link_to 'Destroy', user_profile_path(current_user, profile), :confirm => 'Are you sure?', :method => :delete %></td>

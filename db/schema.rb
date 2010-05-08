@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100504223656) do
+ActiveRecord::Schema.define(:version => 20100508000547) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(:version => 20100504223656) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "call_url"
+    t.string   "voice_token"
+    t.string   "messaging_token"
   end
 
   create_table "users", :force => true do |t|
