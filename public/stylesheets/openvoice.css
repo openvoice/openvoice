@@ -3,7 +3,7 @@ body
     background-color:#000000;
     color: #528F6C;
     font-size: 14px;
-    font-family: "Times New Roman";
+    font-family: "Arial";
 }
 
 h1
@@ -15,7 +15,7 @@ a:link, a:visited
 {
     color: #528F6C;
     font-size: 13px;                 
-    font-family: "Times New Roman";
+    font-family: "Arial";
 }
 
 table
@@ -26,7 +26,7 @@ table
 table, tr, th, td
 {
     font-size: 13px;
-    font-family: "Times New Roman";
+    font-family: "Arial";
     border: 1px solid green;
     padding: 4px;
     
