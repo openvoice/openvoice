@@ -1,5 +1,4 @@
 <h1>Editing profile</h1>
-<!-- % form_for(:user, @profile, :url => user_profile_path(@user, @profile), :html => { :method => :put }) do |f| % -->
 <% form_for([@user, @profile]) do |f| %>
   <%= f.error_messages %>
 

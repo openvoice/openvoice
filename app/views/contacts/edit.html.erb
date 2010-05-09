@@ -1,6 +1,6 @@
 <h1>Editing contact</h1>
 
-<% form_for([:user, @contact]) do |f| %>
+<% form_for([@user, @contact]) do |f| %>
   <%= f.error_messages %>
 
   <p>
