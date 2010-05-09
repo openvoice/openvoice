@@ -48,6 +48,7 @@ class VoicemailsController < ApplicationController
     @voicemail = Voicemail.new(:filename => path,
                                :user_id => User.find(params[:user_id]),
                                :from => params[:caller_id],
+                               :text => "",
                                :transcription_id => params[:transcription_id])
     if @voicemail.save
       flash[:notice] = 'Voicemail was successfully created.'
