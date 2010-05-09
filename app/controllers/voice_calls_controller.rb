@@ -7,7 +7,8 @@ class VoiceCallsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @voice_calls }
+      format.xml { render :xml => @voice_calls }
+      format.json { render :json => @voice_calls }
     end
   end
 
