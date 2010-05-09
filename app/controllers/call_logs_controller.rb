@@ -1,13 +1,15 @@
-class CallLogsController < ApplicationController
+class CallLogsController < ApplicationController      
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :update, :destroy]
   
   def index
-    @call_logs = CallLog.all
+    @user = current_user
+    @call_logs = @user.call_logs
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @call_logs }
+      format.xml { render :xml => @call_logs }
+      format.json { render :json => @call_logs }
     end
   end
 
@@ -15,8 +17,8 @@ class CallLogsController < ApplicationController
     @call_log = CallLog.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @call_log }
+      format.html
+      format.xml { render :xml => @call_log }
     end
   end
 
@@ -24,8 +26,8 @@ class CallLogsController < ApplicationController
     @call_log = CallLog.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @call_log }
+      format.html
+      format.xml { render :xml => @call_log }
     end
   end
 

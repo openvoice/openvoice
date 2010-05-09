@@ -33,8 +33,9 @@ class CommunicationsController < ApplicationController
   def answer
     value = params[:result][:actions][:value]
     caller_id = params[:caller_id]
-    CallLog.create(:from => caller_id, :to => "you", :nature => "incoming")
-    forward = User.find(params[:user_id]).phone_numbers.select{ |pn| pn.forward == true }.first
+    @user = User.find(params[:user_id])
+    CallLog.create(:from => caller_id, :to => "you", :user_id => params[:user_id], :nature => "incoming")
+    forward = @user.phone_numbers.select{ |pn| pn.forward == true }.first
     forward_number = forward && forward.number
     case value
       when 'connect'

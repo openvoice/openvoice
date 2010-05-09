@@ -3,7 +3,8 @@ class VoiceCallsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
   
   def index
-    @voice_calls = current_user.voice_calls.reverse
+    @user = current_user
+    @voice_calls = @user.voice_calls.reverse
 
     respond_to do |format|
       format.html
