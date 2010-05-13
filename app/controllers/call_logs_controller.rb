@@ -4,7 +4,7 @@ class CallLogsController < ApplicationController
   
   def index
     @user = current_user
-    @call_logs = @user.call_logs
+    @call_logs = @user.call_logs.reverse
 
     respond_to do |format|
       format.html

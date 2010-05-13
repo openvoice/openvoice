@@ -3,7 +3,8 @@ class MessagingsController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :destroy]
 
   def index
-    @messagings = current_user.messagings.reverse
+    @user = current_user
+    @messagings = @user.messagings.reverse
 
     respond_to do |format|
       format.html
@@ -54,7 +55,7 @@ class MessagingsController < ApplicationController
         # incoming request, build request to tropo for outbound sms
         p "+++++++++++++++sending TropoML payload for outbound SMS"
         session_params = session[:parameters]
-        from = session_params[:from]
+        from = session_params[:from]                                                
         to = session_params[:to]
         msg = session_params[:text]
         tropo = Tropo::Generator.new do

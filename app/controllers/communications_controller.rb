@@ -8,15 +8,16 @@ class CommunicationsController < ApplicationController
     else
       headers = params["session"]["headers"]
       x_voxeo_to = headers["x-voxeo-to"]
+      caller_id = get_caller_id(x_voxeo_to, headers["x-sbc-from"], params[:session][:from][:id])
       sip_client = get_sip_client_from_header(x_voxeo_to)
-      from = params["session"]["from"]["id"]
+      #from = params["session"]["from"]["id"]
       user = locate_user(sip_client, x_voxeo_to)
       user_name = user.name
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
 #      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
 #      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
-        on(:event => 'continue', :next => "answer?caller_id=#{from}@#{sip_client}&user_id=#{user.id}")
+        on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
 
         ask( :attempts => 2,
              :bargein => true,
@@ -96,6 +97,22 @@ class CommunicationsController < ApplicationController
   end
 
   private
+
+  def get_caller_id(header, x_sbc_from, from_id)
+    if header =~ /^<sip:990.*$/
+      "SKYPE"
+    elsif header =~ /^.*<sip:1999.*$/
+      %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
+    elsif header =~ /^<sip:883.*$/
+      "INUM"
+    elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
+      p "+++++++++++++in get_caller_id from pstn"
+      p from_id
+      from_id
+    else
+      "OTHER"
+    end
+  end
 
   def get_sip_client_from_header(header)
     if header =~ /^<sip:990.*$/
