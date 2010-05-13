@@ -14,6 +14,7 @@
         <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |
         <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers) %> |
         <%= link_to "profile", user_profiles_path(current_user, @profiles) %> |
+        <%= link_to "account", account_path %> |
         <a href="/logout">logout</a>
     <% end %>
   </div>
