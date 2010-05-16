@@ -106,8 +106,6 @@ class CommunicationsController < ApplicationController
     elsif header =~ /^<sip:883.*$/
       "INUM"
     elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
-      p "+++++++++++++in get_caller_id from pstn"
-      p from_id
       from_id
     else
       "OTHER"

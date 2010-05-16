@@ -15,4 +15,10 @@ class Messaging < ActiveRecord::Base
     end
   end
 
+  def created_at
+    unless self.read_attribute(:created_at).nil?
+      self.read_attribute(:created_at).strftime("%a, %b %d")
+    end
+  end
+
 end
