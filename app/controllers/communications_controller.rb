@@ -20,9 +20,11 @@ class CommunicationsController < ApplicationController
         on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
         ask( :attempts => 2,
              :bargein => true,
-             :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
+             :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)" },
              :name => 'main-menu',
-             :say => { :value => "To speak to #{user_name}, say connect or press 1. To leave a voicemail, say voicemail or press 2." })
+             :say => { :value => "To speak to #{user_name}, say connect or press 1. \
+                                  To leave a voicemail, say voicemail or press 2. \
+                                  To listen to your voicemail, say listen or press 3." })
       end
 
       render :json => tropo.response
@@ -68,6 +70,17 @@ class CommunicationsController < ApplicationController
         end
         render :json => tropo.response
 
+      when 'listen'
+        voicemails = @user.voicemails.map(&:filename)
+        tropo = Tropo::Generator.new do
+          # need to ask user to enter pin, but skip for now since we don't support pin yet
+          say 'Welcome to your voicemail system, please enter your pin code'
+          voicemails.each do |vm|
+            say 'next message'
+            say vm
+          end
+        end
+        render :json => tropo.response
       else
         tropo = Tropo::Generator.new do
           say "Please try again with keypad"
