@@ -15,16 +15,14 @@ class CommunicationsController < ApplicationController
       user_name = user.name
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
-#      say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
-#      say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
+#       say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
+#       say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
         on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
-
         ask( :attempts => 2,
              :bargein => true,
              :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2)" },
              :name => 'main-menu',
              :say => { :value => "To speak to #{user_name}, say connect or press 1. To leave a voicemail, say voicemail or press 2." })
-
       end
 
       render :json => tropo.response
@@ -100,7 +98,8 @@ class CommunicationsController < ApplicationController
 
   def get_caller_id(header, x_sbc_from, from_id)
     if header =~ /^<sip:990.*$/
-      "SKYPE"
+      caller_id = %r{(.*>)(.*)}.match(x_sbc_from)[1].gsub("\"", "")
+      CGI::escape(caller_id)      
     elsif header =~ /^.*<sip:1999.*$/
       %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
     elsif header =~ /^<sip:883.*$/
