@@ -6,8 +6,8 @@ class Messaging < ActiveRecord::Base
   after_create :send_text
 
   def sanitize_numbers
-    to = to.gsub(/\D/, "")
-    from = from.gsub(/\D/, "")  
+    self.to.gsub!(/\D/, "")
+    self.from.gsub!(/\D/, "")  
   end
 
   def send_text
