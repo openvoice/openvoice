@@ -2,8 +2,14 @@ class VoiceCall < ActiveRecord::Base
 
   belongs_to :user
 
+  before_create :sanitize_numbers
   after_create :dial
 
+  def sanitize_numbers
+    self.to.gsub!(/\D/, "")
+    self.from.gsub!(/\D/, "")
+  end
+  
   def dial
     user_id = user.id.to_s
     from = user.phone_numbers.first.number
