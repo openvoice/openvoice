@@ -6,12 +6,13 @@ class VoiceCall < ActiveRecord::Base
   after_create :dial
 
   def sanitize_numbers
-    self.to.gsub!(/\D/, "")
-    self.from.gsub!(/\D/, "")
+    self.to && self.to.gsub!(/\D/, "")
+    self.from && self.from.gsub!(/\D/, "")
   end
   
   def dial
     user_id = user.id.to_s
+    # TODO should add funtion that letting user to pick which phone to ring
     from = user.phone_numbers.first.number
     profile = user.profiles.first
     call_url = profile.call_url
