@@ -10,7 +10,6 @@ class CommunicationsController < ApplicationController
       x_voxeo_to = headers["x-voxeo-to"]
       caller_id = get_caller_id(x_voxeo_to, headers["x-sbc-from"], params[:session][:from][:id])
       sip_client = get_sip_client_from_header(x_voxeo_to)
-      #from = params["session"]["from"]["id"]
       user = locate_user(sip_client, x_voxeo_to)
       user_name = user.name
       tropo = Tropo::Generator.new do

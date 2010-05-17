@@ -2,7 +2,13 @@ class Messaging < ActiveRecord::Base
 
   belongs_to :user
 
+  before_create :sanitize_numbers
   after_create :send_text
+
+  def sanitize_numbers
+    to = to.gsub(/\D/, "")
+    from = from.gsub(/\D/, "")  
+  end
 
   def send_text
     if outgoing
