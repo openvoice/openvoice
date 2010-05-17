@@ -7,7 +7,6 @@ class VoiceCall < ActiveRecord::Base
 
   def sanitize_numbers
     self.to && self.to.gsub!(/\D/, "")
-    self.from && self.from.gsub!(/\D/, "")
   end
   
   def dial
