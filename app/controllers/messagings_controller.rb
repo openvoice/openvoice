@@ -55,7 +55,7 @@ class MessagingsController < ApplicationController
         # incoming request, build request to tropo for outbound sms
         p "+++++++++++++++sending TropoML payload for outbound SMS"
         session_params = session[:parameters]
-        from = session_params[:from]                                                
+        from = session_params[:from]
         to = session_params[:to]
         msg = session_params[:text]
         tropo = Tropo::Generator.new do
@@ -91,7 +91,7 @@ class MessagingsController < ApplicationController
         format.html { render :action => "new" }
         format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }
         format.json { render head => 404 }
-      end                              
+      end
     end
   end
 

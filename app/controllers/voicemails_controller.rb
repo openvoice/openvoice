@@ -46,7 +46,7 @@ class VoicemailsController < ApplicationController
 
     # TODO locate user via caller_id
     @voicemail = Voicemail.new(:filename => path,
-                               :user_id => User.find(params[:user_id]),
+                               :user_id => params[:user_id],
                                :from => params[:caller_id],
                                :text => "",
                                :transcription_id => params[:transcription_id])
