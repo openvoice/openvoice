@@ -3,11 +3,12 @@ class ProfilesController < ApplicationController
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
 
   def index
-    @profiles = Profile.all
+    @user = User.find(params[:user_id])
+    @profiles = @user.profiles
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @profiles }
+      format.xml { render :xml => @profiles }
     end
   end
 
@@ -16,7 +17,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @profile }
+      format.xml { render :xml => @profile }
     end
   end
 
@@ -25,7 +26,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render :xml => @profile }
+      format.xml { render :xml => @profile }
     end
   end
 
@@ -41,10 +42,10 @@ class ProfilesController < ApplicationController
       if @profile.save
         flash[:notice] = 'Profile was successfully created.'
         format.html { redirect_to(user_profiles_path(current_user)) }
-        format.xml  { render :xml => @profile, :status => :created, :location => @profile }
+        format.xml { render :xml => @profile, :status => :created, :location => @profile }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @profile.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -56,10 +57,10 @@ class ProfilesController < ApplicationController
       if @profile.update_attributes(params[:profile])
         flash[:notice] = 'Profile was successfully updated.'
         format.html { redirect_to(user_profiles_path(current_user)) }
-        format.xml  { head :ok }
+        format.xml { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @profile.errors, :status => :unprocessable_entity }
+        format.xml { render :xml => @profile.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -70,7 +71,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to(user_profiles_url(current_user)) }
-      format.xml  { head :ok }
+      format.xml { head :ok }
     end
   end
 end
