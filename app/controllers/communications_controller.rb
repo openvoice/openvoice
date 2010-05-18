@@ -62,7 +62,7 @@ class CommunicationsController < ApplicationController
                   :maxTime => 30,
                   :format => "audio/wav",
                   :name => "voicemail",
-                  :url => SERVER_URL + "/voicemails/create?caller_id=#{caller_id}&transcription_id=" + transcription_id + "&user_id=" + user_id,
+                  :url => SERVER_URL + "/voicemails/create?caller_id=#{CGI::escape(caller_id)}&transcription_id=" + transcription_id + "&user_id=" + user_id,
                   :transcription => {
                           :id => transcription_id,
                           :url => SERVER_URL + "/voicemails/set_transcription"
