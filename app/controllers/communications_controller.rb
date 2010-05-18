@@ -34,13 +34,14 @@ class CommunicationsController < ApplicationController
     value = params[:result][:actions][:value]
     caller_id = params[:caller_id]
     @user = User.find(params[:user_id])
+    user_name = @user.name
     CallLog.create(:from => caller_id, :to => "you", :user_id => params[:user_id], :nature => "incoming")
     forward = @user.phone_numbers.select{ |pn| pn.forward == true }.first
     forward_number = forward && forward.number
     case value
       when 'connect'
         tropo = Tropo::Generator.new do
-          say :value => 'connecting to zhao'
+          say :value => 'connecting to ' + user_name
           transfer({ # TODO where to send the incoming calls?  ring all phones?
                      :to => forward_number,
                      :ringRepeat => 3,
