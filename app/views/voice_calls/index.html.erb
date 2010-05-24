@@ -1,5 +1,6 @@
 <h1>your voice calls</h1>
-
+<%= link_to 'new voice call', new_user_voice_call_path(current_user) %>
+<br />
 <table>
   <tr>
     <th>To</th>
@@ -17,6 +18,4 @@
 <% end %>
 </table>
 
-<br />
 
-<%= link_to 'new voice call', new_user_voice_call_path(current_user) %>
