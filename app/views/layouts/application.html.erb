@@ -4,6 +4,11 @@
 </head>
 
 <body>
+
+<div class="header">
+  <h1 class="header">Welcome to OpenVoice</h1>
+</div>
+
 <div>
   <div>
     <% unless current_user.nil? %>
@@ -18,8 +23,11 @@
         <a href="/logout">logout</a>
     <% end %>
   </div>
-  <div>
+  <div class="container">
     <%= yield %>
   </div>
 </div>
+
+<div class="footer">Copyright 2010, Zhao Lu <a href="http://myopenvoice.org">OpenVoice</a>.</div>
+
 </body>
