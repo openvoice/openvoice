@@ -1,33 +1,54 @@
-body
-{
-    background-color:#000000;
+body {
+    background-color: #000000;
     color: #528F6C;
     font-size: 14px;
     font-family: "Arial";
 }
 
-h1
-{
-    color: #528F6C; font-size:14px;
+h1 {
+    color: #528F6C;
+    font-size: 14px;
 }
 
-a:link, a:visited
-{
+a:link, a:visited {
     color: #528F6C;
-    font-size: 13px;                 
+    font-size: 13px;
     font-family: "Arial";
 }
 
-table
-{
+table {
     border-collapse: collapse;
 }
 
-table, tr, th, td
-{
+table, tr, th, td {
     font-size: 13px;
     font-family: "Arial";
     border: 1px solid green;
     padding: 4px;
-    
+
+}
+
+div.container {
+    width: 100%;
+    margin: 0px;
+    line-height: 150%;
+}
+
+div.description {
+    float: left;
+    width: 70%;
+    margin: 0;
+    padding: 1em;
+}
+
+div.login {
+    padding: 1em;
+}
+
+form.login {
+    width: 20%;
+    float: left;
+    text-align: left;
+    margin-right: 0.5em;
+    display: block
 }
