@@ -2,7 +2,6 @@ class UsersController < ApplicationController
   before_filter :require_no_user, :only => [:new, :create]
   before_filter :require_user, :only => [:show, :edit, :update]
 
-
   def new
     @user = User.new
   end
@@ -42,5 +41,14 @@ class UsersController < ApplicationController
     else
       render :action => :edit
     end
+  end
+
+  def register_phone
+    @user = User.find_by_login(params[:user_login])
+    unless @user.phone_numbers.include?(params[:phone_number])
+      PhoneNumber.create({:number => params[:phone_number], :user_id => @user.id, :forward => true})
+    end
+
+    render :json => @user
   end
 end
