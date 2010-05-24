@@ -4,30 +4,31 @@
 </head>
 
 <body>
+<div class="container">
+  <div class="header">
+    <h1 class="header">Welcome to OpenVoice</h1>
+  </div>
 
-<div class="header">
-  <h1 class="header">Welcome to OpenVoice</h1>
-</div>
-
-<div>
   <div>
-    <% unless current_user.nil? %>
-        <%= link_to "inbound calls", user_call_logs_path(current_user, @call_logs) %> |
-        <%= link_to "outbound calls", user_voice_calls_path(current_user, @voice_calls) %> |
-        <%= link_to "messages", user_messagings_path(current_user, @messagings) %> |
-        <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails) %> |
-        <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |
-        <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers) %> |
-        <%= link_to "profile", user_profiles_path(current_user, @profiles) %> |
-        <%= link_to "account", account_path %> |
-        <a href="/logout">logout</a>
-    <% end %>
+    <div>
+      <% unless current_user.nil? %>
+          <%= link_to "inbound calls", user_call_logs_path(current_user, @call_logs) %> |
+          <%= link_to "outbound calls", user_voice_calls_path(current_user, @voice_calls) %> |
+          <%= link_to "messages", user_messagings_path(current_user, @messagings) %> |
+          <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails) %> |
+          <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |
+          <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers) %> |
+          <%= link_to "profile", user_profiles_path(current_user, @profiles) %> |
+          <%= link_to "account", account_path %> |
+          <a href="/logout">logout</a>
+      <% end %>
+    </div>
+    <div>
+      <%= yield %>
+    </div>
   </div>
-  <div class="container">
-    <%= yield %>
-  </div>
-</div>
 
-<div class="footer">Copyright 2010, Zhao Lu <a href="http://myopenvoice.org">OpenVoice</a>.</div>
+  <div class="footer">Copyright 2010, Zhao Lu <a href="http://myopenvoice.org">OpenVoice</a>.</div>
+</div>
 
 </body>
