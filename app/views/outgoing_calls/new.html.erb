@@ -1,0 +1,15 @@
+<h1>new outgoing call</h1>
+
+<% form_for([:user, @outgoing_call]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :callee_number %><br />
+    <%= f.text_field :callee_number %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', user_outgoing_calls_path(current_user) %>

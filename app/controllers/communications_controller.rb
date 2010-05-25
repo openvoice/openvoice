@@ -3,7 +3,7 @@ class CommunicationsController < ApplicationController
     if params[:session][:parameters] && params[:session][:parameters][:ov_action]
       ov_action = params[:session][:parameters][:ov_action]
       if ov_action == "call"
-        render :json => init_voice_call.response
+        render :json => OutgoingCall.init_call(params[:session][:parameters])
       end
     else
       headers = params["session"]["headers"]
@@ -14,8 +14,6 @@ class CommunicationsController < ApplicationController
       user_name = user.name
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
-#       say :value => 'Bienvenido a centro de comunicaci\227n de Zhao', :voice => 'carmen'
-#       say :value => 'Bienvenue au centre de communication de Zhao', :voice => 'florence'
         on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
         ask( :attempts => 2,
              :bargein => true,
@@ -85,24 +83,6 @@ class CommunicationsController < ApplicationController
         end
         render :json => tropo.response
     end
-  end
-
-  def init_voice_call
-    # call OV user first, once user answers, transfers the call to the destination number
-    user_id = params[:session][:parameters][:user_id]
-    ov_voice = User.find(user_id).profiles.first.voice
-    from = params[:session][:parameters][:from]
-    to = params[:session][:parameters][:to]
-    tropo = Tropo::Generator.new do
-      call({ :from => ov_voice,
-             :to => from,
-             :network => 'PSTN',
-             :channel => 'VOICE' })
-      say 'connecting you to destination'
-      transfer({ :to => to })
-    end
-
-    tropo
   end
 
   private
