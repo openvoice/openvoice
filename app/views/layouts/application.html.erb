@@ -13,7 +13,7 @@
     <div>
       <% unless current_user.nil? %>
           <%= link_to "inbound calls", user_call_logs_path(current_user, @call_logs) %> |
-          <%= link_to "outbound calls", user_voice_calls_path(current_user, @voice_calls) %> |
+          <%= link_to "outbound calls", user_outgoing_calls_path(current_user, @outgoing_calls) %> |
           <%= link_to "messages", user_messagings_path(current_user, @messagings) %> |
           <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails) %> |
           <%= link_to "addressbook", user_contacts_path(current_user, @contacts) %> |

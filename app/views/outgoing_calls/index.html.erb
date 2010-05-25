@@ -1,0 +1,21 @@
+<h1>your outgoing calls</h1>
+<%= link_to 'new voice call', new_user_outgoing_call_path(current_user) %>
+<br />
+<table>
+  <tr>
+    <th>To</th>
+    <th>Time</th>
+  </tr>
+
+<% @outgoing_calls.each do |outgoing_call| %>
+  <tr>
+    <td><%=h outgoing_call.callee_number %></td>
+    <td><%=h outgoing_call.created_at %></td>
+    <td><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => outgoing_call.callee_number }) %></td>
+    <td><%= link_to 'Show', user_outgoing_call_path(current_user, outgoing_call) %></td>
+    <td><%= link_to 'Destroy', user_outgoing_call_path(current_user, outgoing_call), :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+

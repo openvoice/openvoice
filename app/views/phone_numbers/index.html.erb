@@ -1,23 +1,25 @@
 <h1>My Phone Numbers</h1>
 
+<p>
+<%= link_to 'Add phone number', new_user_phone_number_path(current_user) %>
+(including country code)
+</p>
+
 <table>
   <tr>
     <th>Number</th>
     <th>Forward</th>
+    <th>Default</th>
   </tr>
 
-<% @phone_numbers.each do |phone_number| %>
-  <tr>
+  <% @phone_numbers.each do |phone_number| %>
+      <tr>
     <td><%=h phone_number.number %></td>
     <td><%=h phone_number.forward %></td>
+    <td><%=h phone_number.default %></td>
     <td><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
     <td><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
     <td><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
-
-<br />
-
-<%= link_to 'Add phone number', new_user_phone_number_path(current_user) %>
-(including country code)

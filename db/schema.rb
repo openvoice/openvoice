@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100508000547) do
+ActiveRecord::Schema.define(:version => 20100525053133) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -29,6 +29,16 @@ ActiveRecord::Schema.define(:version => 20100508000547) do
     t.datetime "updated_at"
   end
 
+  create_table "incoming_calls", :force => true do |t|
+    t.string   "caller_id"
+    t.integer  "user_id"
+    t.string   "duration"
+    t.string   "recording"
+    t.string   "transcription"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "messagings", :force => true do |t|
     t.string   "from"
     t.string   "text"
@@ -39,12 +49,20 @@ ActiveRecord::Schema.define(:version => 20100508000547) do
     t.boolean  "outgoing"
   end
 
+  create_table "outgoing_calls", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "callee_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "phone_numbers", :force => true do |t|
     t.integer  "user_id"
     t.string   "number"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "forward"
+    t.boolean  "default"
   end
 
   create_table "profiles", :force => true do |t|

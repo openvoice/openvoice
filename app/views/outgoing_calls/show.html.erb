@@ -1,0 +1,6 @@
+<p>
+  <b>To:</b>
+  <%=h @outgoing_call.callee_number %> at <%=h @outgoing_call.created_at %>
+</p>
+
+<%= link_to 'Back', user_outgoing_calls_path(current_user) %>
