@@ -37,11 +37,14 @@ class CommunicationsController < ApplicationController
   end
 
   def handle_incoming_call
-    IncomingCall.create(:user_id => params[:user_id],
-                        :caller_id => params[:caller_id], 
+    user_id = params[:user_id]
+    caller_id = params[:caller_id]
+    transcription_id = user_id + "_" + Time.now.to_i.to_s
+    IncomingCall.create(:user_id => user_id,
+                        :caller_id => caller_id,
                         :session_id => params[:session_id],
                         :call_id => params[:call_id])
-    conf_id = params[:user_id] + '<--->' + params[:caller_id]
+    conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
 #      on(:event => 'disconnect', :next => "hangup")
@@ -53,29 +56,29 @@ class CommunicationsController < ApplicationController
     render :json => tropo.response
   end
 
-  def answer
-    value = params[:result][:actions][:value]
-    caller_id = params[:caller_id]
-    @user = User.find(params[:user_id])
-    case value
-      when 'listen'
-        voicemails = @user.voicemails.map(& :filename)
-        tropo = Tropo::Generator.new do
-          # need to ask user to enter pin, but skip for now since we don't support pin yet
-          say 'Welcome to your voicemail system, please enter your pin code'
-          voicemails.each do |vm|
-            say 'next message'
-            say vm
-          end
-        end
-        render :json => tropo.response
-      else
-        tropo = Tropo::Generator.new do
-          say "Please try again with keypad"
-        end
-        render :json => tropo.response
-    end
-  end
+#  def answer
+#    value = params[:result][:actions][:value]
+#    caller_id = params[:caller_id]
+#    @user = User.find(params[:user_id])
+#    case value
+#      when 'listen'
+#        voicemails = @user.voicemails.map(& :filename)
+#        tropo = Tropo::Generator.new do
+#          # need to ask user to enter pin, but skip for now since we don't support pin yet
+#          say 'Welcome to your voicemail system, please enter your pin code'
+#          voicemails.each do |vm|
+#            say 'next message'
+#            say vm
+#          end
+#        end
+#        render :json => tropo.response
+#      else
+#        tropo = Tropo::Generator.new do
+#          say "Please try again with keypad"
+#        end
+#        render :json => tropo.response
+#    end
+#  end
 
   private
 

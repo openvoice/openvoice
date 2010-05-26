@@ -93,12 +93,12 @@ class VoicemailsController < ApplicationController
   end
 
   def recording
-    p "+++++++++++++++++++++++imma recording"
     user_id = params[:user_id]
+    user_name = User.find(user_id).name
     transcription_id = params[:transcription_id]
     caller_id = params[:caller_id]
     tropo = Tropo::Generator.new do
-      record(:say => [:value => 'please speak after the beep to leave a voicemail'],
+      record(:say => [:value => "you have reached #{user_name}\'s voicemail.  Please speak after the beep."],
              :beep => true,
              :maxTime => 30,
              :format => "audio/wav",
