@@ -91,4 +91,26 @@ class VoicemailsController < ApplicationController
     voicemail.update_attribute("text", transcription)
     head 200
   end
+
+  def recording
+    p "+++++++++++++++++++++++imma recording"
+    user_id = params[:user_id]
+    transcription_id = params[:transcription_id]
+    caller_id = params[:caller_id]
+    tropo = Tropo::Generator.new do
+      record(:say => [:value => 'please speak after the beep to leave a voicemail'],
+             :beep => true,
+             :maxTime => 30,
+             :format => "audio/wav",
+             :name => "voicemail",
+             :choices => { :terminator => "#" },
+             :url => SERVER_URL + "/voicemails/create?caller_id=#{CGI::escape(caller_id)}&transcription_id=" + transcription_id + "&user_id=" + user_id,
+             :transcription => {
+                     :id => transcription_id,
+                     :url => SERVER_URL + "/voicemails/set_transcription"
+             })
+    end
+    render :json => tropo.response
+
+  end
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100525053133) do
+ActiveRecord::Schema.define(:version => 20100526055309) do
 
   create_table "call_logs", :force => true do |t|
     t.string   "from"
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(:version => 20100525053133) do
     t.string   "transcription"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "session_id"
+    t.string   "call_id"
   end
 
   create_table "messagings", :force => true do |t|

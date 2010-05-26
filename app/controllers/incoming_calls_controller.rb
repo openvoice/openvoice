@@ -56,8 +56,7 @@ class IncomingCallsController < ApplicationController
     end
   end
 
-
-  def joinconf
+  def user_menu
     value = params[:result][:actions][:value]
     conf_id = params[:conf_id]
     case value
@@ -66,6 +65,16 @@ class IncomingCallsController < ApplicationController
           conference(:name => "conference",
                      :id => conf_id,
                      :terminator => "ring(*)")
+        end
+        render :json => tropo.response
+      when "voicemail"
+        session_id = params[:session_id]
+        call_id = params[:call_id]
+        voicemail_url = "http://api.tropo.com/1.0/sessions/#{session_id}/calls/#{call_id}/events?action=create&name=voicemail"
+        open(voicemail_url)
+        tropo = Tropo::Generator.new do
+          say 'sending caller to voicemail, goodbye'
+          hangup
         end
         render :json => tropo.response
     end

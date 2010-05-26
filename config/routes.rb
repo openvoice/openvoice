@@ -35,9 +35,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'phone_numbers/get_user', :controller => 'phone_numbers', :action => 'locate_user'
   map.connect 'voicemails/set_transcription', :controller => 'voicemails', :action => 'set_transcription'
+  map.connect 'voicemails/recording', :controller => 'voicemails', :action => 'recording'
   map.connect 'users/register_phone', :controller => 'users', :action => 'register_phone'
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
-  map.connect 'incoming_calls/joinconf', :controller => 'incoming_calls', :action => 'joinconf'
+  map.connect 'incoming_calls/user_menu', :controller => 'incoming_calls', :action => 'user_menu'
 
   map.resource :user_session
   map.resource :account, :controller => "users"
