@@ -2,8 +2,10 @@ class CommunicationsController < ApplicationController
   def index
     if params[:session][:parameters] && params[:session][:parameters][:ov_action]
       ov_action = params[:session][:parameters][:ov_action]
-      if ov_action == "call"
+      if ov_action == "outboundcall"
         render :json => OutgoingCall.init_call(params[:session][:parameters])
+      elsif ov_action == "joinconf"
+        render :json => IncomingCall.followme(params[:session][:parameters])
       end
     else
       headers = params["session"]["headers"]
@@ -14,18 +16,33 @@ class CommunicationsController < ApplicationController
       user_name = user.name
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
-        on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
-        ask( :attempts => 2,
-             :bargein => true,
-             :choices => { :value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)" },
-             :name => 'main-menu',
-             :say => { :value => "To speak to #{user_name}, say connect or press 1. \
+        on(:event => 'continue', :next => "handle_incoming_call?caller_id=#{caller_id}&user_id=#{user.id}")
+#        on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
+        ask(:attempts => 2,
+            :bargein => true,
+            :choices => {:value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)"},
+            :name => 'main-menu',
+            :say => {:value => "To speak to #{user_name}, say connect or press 1. \
                                   To leave a voicemail, say voicemail or press 2. \
-                                  To listen to your voicemail, say listen or press 3." })
+                                  To listen to your voicemail, say listen or press 3."})
       end
 
       render :json => tropo.response
     end
+  end
+
+  def handle_incoming_call
+    IncomingCall.create(:user_id => params[:user_id], :caller_id => params[:caller_id])
+    conf_id = params[:user_id] + '<--->' + params[:caller_id]
+    # put caller into the conference
+    tropo = Tropo::Generator.new do
+#      on(:event => 'disconnect', :next => "hangup")
+#      on(:event => 'voicemail', :next => "voicemail?profile_id=#{profile.id}&caller_id=#{caller_id}")
+      say("Please wait while we connect your call")
+      conference(:name => "conference", :id => conf_id, :terminator => "*")
+    end
+
+    render :json => tropo.response
   end
 
   def answer
@@ -34,17 +51,17 @@ class CommunicationsController < ApplicationController
     @user = User.find(params[:user_id])
     user_name = @user.name
     CallLog.create(:from => caller_id, :to => "you", :user_id => params[:user_id], :nature => "incoming")
-    forward = @user.phone_numbers.select{ |pn| pn.forward == true }
-    forward_numbers = forward && forward.map(&:number)
+    forward = @user.phone_numbers.select { |pn| pn.forward == true }
+    forward_numbers = forward && forward.map(& :number)
     case value
       when 'connect'
         tropo = Tropo::Generator.new do
           say :value => 'connecting to ' + user_name
-          transfer({ # TODO where to send the incoming calls?  ring all phones?
-                     :to => forward_numbers,
-                     :ringRepeat => 3,
-                     :timeout => 30,
-                     :answerOnMedia => false
+          transfer({# TODO where to send the incoming calls?  ring all phones?
+                    :to => forward_numbers,
+                    :ringRepeat => 3,
+                    :timeout => 30,
+                    :answerOnMedia => false
           })
         end
         render :json => tropo.response
@@ -53,21 +70,21 @@ class CommunicationsController < ApplicationController
         user_id = params[:user_id]
         transcription_id = user_id + "_" + Time.now.to_i.to_s
         tropo = Tropo::Generator.new do
-          record( :say => [:value => 'please speak after the beep to leave a voicemail'],
-                  :beep => true,
-                  :maxTime => 30,
-                  :format => "audio/wav",
-                  :name => "voicemail",
-                  :url => SERVER_URL + "/voicemails/create?caller_id=#{CGI::escape(caller_id)}&transcription_id=" + transcription_id + "&user_id=" + user_id,
-                  :transcription => {
-                          :id => transcription_id,
-                          :url => SERVER_URL + "/voicemails/set_transcription"
-                  })
+          record(:say => [:value => 'please speak after the beep to leave a voicemail'],
+                 :beep => true,
+                 :maxTime => 30,
+                 :format => "audio/wav",
+                 :name => "voicemail",
+                 :url => SERVER_URL + "/voicemails/create?caller_id=#{CGI::escape(caller_id)}&transcription_id=" + transcription_id + "&user_id=" + user_id,
+                 :transcription => {
+                         :id => transcription_id,
+                         :url => SERVER_URL + "/voicemails/set_transcription"
+                 })
         end
         render :json => tropo.response
 
       when 'listen'
-        voicemails = @user.voicemails.map(&:filename)
+        voicemails = @user.voicemails.map(& :filename)
         tropo = Tropo::Generator.new do
           # need to ask user to enter pin, but skip for now since we don't support pin yet
           say 'Welcome to your voicemail system, please enter your pin code'
@@ -90,7 +107,7 @@ class CommunicationsController < ApplicationController
   def get_caller_id(header, x_sbc_from, from_id)
     if header =~ /^<sip:990.*$/
       caller_id = %r{(.*>)(.*)}.match(x_sbc_from)[1].gsub("\"", "")
-      CGI::escape(caller_id)      
+      CGI::escape(caller_id)
     elsif header =~ /^.*<sip:1999.*$/
       %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
     elsif header =~ /^<sip:883.*$/
@@ -126,11 +143,11 @@ class CommunicationsController < ApplicationController
       user = Profile.find_by_skype(number_to_search).user
     elsif client == "SIP"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
-      profiles = Profile.all.select{ |profile| profile.sip.index(number_to_search) > 0}
+      profiles = Profile.all.select { |profile| profile.sip.index(number_to_search) > 0 }
       user = !profiles.empty? && profiles.first.user
     elsif client == "PSTN"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
-      profiles = Profile.all.select{ |profile| profile.voice == number_to_search }
+      profiles = Profile.all.select { |profile| profile.voice == number_to_search }
       user = !profiles.empty? && profiles.first.user
     end
 

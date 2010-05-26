@@ -37,6 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'voicemails/set_transcription', :controller => 'voicemails', :action => 'set_transcription'
   map.connect 'users/register_phone', :controller => 'users', :action => 'register_phone'
   map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
+  map.connect 'incoming_calls/joinconf', :controller => 'incoming_calls', :action => 'joinconf'
 
   map.resource :user_session
   map.resource :account, :controller => "users"
@@ -44,7 +45,6 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :phone_numbers
     user.resources :voicemails
     user.resources :messagings
-    user.resources :call_logs
     user.resources :incoming_calls
     user.resources :outgoing_calls
     user.resources :contacts

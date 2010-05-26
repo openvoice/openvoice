@@ -16,7 +16,7 @@ class OutgoingCall < ActiveRecord::Base
     profile = user.profiles.first
     call_url = profile.call_url
     voice_token = profile.voice_token
-    tropo_url = (call_url || TROPO_URL) + voice_token + '&to=' + callee_number + '&from=' + from + '&ov_action=call&user_id=' + user_id
+    tropo_url = (call_url || TROPO_URL) + voice_token + '&to=' + callee_number + '&from=' + from + '&ov_action=outboundcall&user_id=' + user_id
     open(tropo_url)
   end
 

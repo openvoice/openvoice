@@ -24,7 +24,7 @@ class OutgoingCallsController < ApplicationController
 
   def new
     @outgoing_call = OutgoingCall.new
-    @outgoing_call.to = params[:callee_number] unless params[:callee_number].nil?
+    @outgoing_call.callee_number = params[:callee_number] unless params[:callee_number].nil?
 
     respond_to do |format|
       format.html
