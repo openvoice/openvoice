@@ -4,7 +4,8 @@ class ContactsController < ApplicationController
 
   def index
     @contacts = current_user.contacts
-
+    @contacts = @contacts.paginate(:page => params[:page],:per_page => 15)
+    
     respond_to do |format|
       format.html
       format.xml  { render :xml => @contacts }

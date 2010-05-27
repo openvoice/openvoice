@@ -5,7 +5,7 @@ class IncomingCallsController < ApplicationController
   def index
     @user = current_user
     @incoming_calls = @user.incoming_calls.reverse
-
+    @incoming_calls = @incoming_calls.paginate(:page => params[:page],:per_page => 15)
     respond_to do |format|
       format.html
       format.xml { render :xml => @incoming_calls }

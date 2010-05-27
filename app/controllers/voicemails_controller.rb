@@ -3,7 +3,8 @@ class VoicemailsController < ApplicationController
   
   def index
     @voicemails = current_user.voicemails.reverse
-
+    @voicemails = @voicemails.paginate(:page => params[:page],:per_page => 15)
+    
     respond_to do |format|
       format.html
       format.xml  { render :xml => @voicemails }
