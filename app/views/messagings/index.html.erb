@@ -1,8 +1,7 @@
-<h1>your messages (sms/im)</h1>
-
-<%= link_to 'new message', new_user_messaging_path(current_user) %>
-
-<br />
+<h2>Your messages (SMS/IM)</h2>
+<!--<%= link_to "Link name", { :controller => 'controller_name', :action => 'action_name' }, :class => 'someclass' -%>-->
+<%= link_to 'New message', new_user_messaging_path(current_user), :class => 'special' %>
+<br /><br />
 
 <table>
   <tr>
@@ -24,5 +23,6 @@
   </tr>
   <% end %>
 </table>
+<br />
 <%= will_paginate @messagings %>
-
+<br />

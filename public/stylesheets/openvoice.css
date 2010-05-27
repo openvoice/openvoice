@@ -29,22 +29,33 @@ h1 {
     font-size: 20px;
 }
 
-a:link, a:visited {
+h2 {
     color: #cccccc;
-    font-size: 13px;
-    font-family: "Arial";
+    font-size: 18px;
+}
+
+a:link, a:visited {
+color: #cccccc;
+font-size: 13px;
+font-family: "Arial";
+}
+
+a.special {
+    color: #acb1ba;
+    font-size: 14px;
 }
 
 table {
     border-collapse: collapse;
+    background-color: #333333;
 }
 
 table, tr, th, td {
     font-size: 13px;
     font-family: "Arial";
     border: 1px solid #666666;
-    padding: 4px;
-
+    padding: 0.5em;
+    margin-left: 0.5em;
 }
 
 div.description {
