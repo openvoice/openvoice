@@ -7,12 +7,12 @@
   </tr>
 
 <% @incoming_calls.each do |incomging_call| %>
-  <tr>
+  <tr align="center">
     <td><%=h incomging_call.caller_id %></td>
     <td><%=h incomging_call.created_at %></td>
-    <td><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => incomging_call.caller_id }) %></td>
-    <td><%= link_to 'Show', user_incoming_call_path(current_user, incomging_call) %></td>
-    <td><%= link_to 'Destroy', user_incoming_call_path(current_user, incomging_call), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => incomging_call.caller_id }) %></td>
+    <td class="narrow"><%= link_to 'Show', user_incoming_call_path(current_user, incomging_call) %></td>
+    <td class="narrow"><%= link_to 'Destroy', user_incoming_call_path(current_user, incomging_call), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>

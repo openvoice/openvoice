@@ -92,3 +92,21 @@ form.login {
     margin-right: 0.5em;
     display: block
 }
+
+#flash_error{
+	border: 1px;
+	border-style: solid;
+	margin: 10px 10px 0px 10px;
+	padding: 5px 10px 10px 5px;
+	background-color: #333333;
+	color: #FF0000;
+}
+
+#flash_notice{
+	border: 1px;
+	border-style: solid;
+	margin: 10px 10px 0px 10px;
+	padding: 5px 5px 5px 5px;
+	background-color: #333333;
+	color: #33ff00;
+}

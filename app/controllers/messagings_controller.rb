@@ -71,7 +71,7 @@ class MessagingsController < ApplicationController
 
     respond_to do |format|
       if @messaging.save
-        flash[:notice] = 'Messaging was successfully created.'
+        flash[:notice] = 'Message sent successfully.'
         from = @messaging.from
         to = @messaging.to
         # suffix from or caller_id into text as a temp hack as we cannot set from to the original sender yet
@@ -81,13 +81,14 @@ class MessagingsController < ApplicationController
         format.json do
           tropo = Tropo::Generator.new do
             message({ :network => 'SMS',
-                      :to => to,
-                      :say => { :value => text }
-                    })
+            :to => to,
+            :say => { :value => text }
+            })
           end
           render :json => tropo.response
         end
       else
+        flash[:error] = 'Error sending message.'
         format.html { render :action => "new" }
         format.xml  { render :xml => @messaging.errors, :status => :unprocessable_entity }
         format.json { render head => 404 }

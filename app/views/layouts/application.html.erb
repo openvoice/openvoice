@@ -23,6 +23,19 @@
           <a class="special" href="/logout">logout</a>
       <% end %>
     </div>
+
+    <% if flash[:error]  %>
+    <div id="flash_error">
+        <%= flash[:error] %>
+    </div>
+    <% end %>
+
+    <% if flash[:notice]  %>
+    <div id="flash_notice">
+        <p><%= flash[:notice] %></p>
+    </div>
+    <% end %>
+    
     <div>
       <%= yield %>
     </div>

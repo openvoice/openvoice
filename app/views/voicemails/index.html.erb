@@ -14,8 +14,8 @@
     <td><%=h voicemail.text %></td>
     <td><embed src=<%= voicemail.filename%> height=15 width=144 controls=smallconsole volume=50 autostart=false></td>
     <td><%=h voicemail.created_at %></td>
-    <td><%= link_to 'Show', user_voicemail_path(current_user, voicemail) %></td>
-    <td><%= link_to 'Destroy', user_voicemail_path(current_user, voicemail), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="narrow"><%= link_to 'Show', user_voicemail_path(current_user, voicemail) %></td>
+    <td class="narrow"><%= link_to 'Destroy', user_voicemail_path(current_user, voicemail), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
