@@ -22,7 +22,6 @@ class CommunicationsController < ApplicationController
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
         on(:event => 'continue', :next => "handle_incoming_call?caller_id=#{caller_id}&user_id=#{user.id}&session_id=#{session_id}&call_id=#{call_id}")
-#        on(:event => 'continue', :next => "answer?caller_id=#{caller_id}&user_id=#{user.id}")
         ask(:attempts => 2,
             :bargein => true,
             :choices => {:value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)"},

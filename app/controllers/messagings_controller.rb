@@ -5,7 +5,7 @@ class MessagingsController < ApplicationController
   def index
     @user = current_user
     @messagings = @user.messagings.reverse
-
+    @messagings = @messagings.paginate(:page => params[:page],:per_page => 15)
     respond_to do |format|
       format.html
       format.json { render :json => @messagings }

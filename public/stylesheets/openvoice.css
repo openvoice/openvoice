@@ -59,6 +59,8 @@ div.login {
 }
 
 form.login {
+    border: 2px solid #333333;
+    padding: 1em;
     width: 20%;
     float: left;
     text-align: left;
