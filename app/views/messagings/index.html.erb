@@ -4,22 +4,25 @@
 <br /><br />
 
 <table>
-  <tr>
+  <tr class="header">
     <th>From</th>
     <th>To</th>
     <th>Text</th>
     <th>Time</th>
+    <th />
+    <th />
+    <th />
   </tr>
 
   <% @messagings.each do |messaging| %>
-      <tr>
+   <tr align="center" class="row">
     <td><%=h messaging.from %></td>
     <td><%=h messaging.to %></td>
     <td><%=h messaging.text %></td>
     <td><%=h messaging.created_at %></td>
-    <td><%= link_to 'Reply', new_user_messaging_path(current_user, { :to => messaging.from }) %></td>
-    <td><%= link_to 'Show', user_messaging_path(current_user, messaging) %></td>
-    <td><%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="narrow"><%= link_to 'Reply', new_user_messaging_path(current_user, { :to => messaging.from }) %></td>
+    <td class="narrow"><%= link_to 'Show', user_messaging_path(current_user, messaging) %></td>
+    <td class="narrow"><%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
 </table>

@@ -1,7 +1,7 @@
 div.container {
-    width: 100%;
+    width: 750px;
     margin: 0px;
-    border: 2px solid #333333;
+    border: 3px solid #333300;
     line-height: 150%;
 }
 
@@ -35,9 +35,9 @@ h2 {
 }
 
 a:link, a:visited {
-color: #cccccc;
-font-size: 13px;
-font-family: "Arial";
+    color: #cccccc;
+    font-size: 13px;
+    font-family: "Arial";
 }
 
 a.special {
@@ -46,16 +46,30 @@ a.special {
 }
 
 table {
-    border-collapse: collapse;
     background-color: #333333;
 }
 
-table, tr, th, td {
+table, td.narrow {
+    width: 20px;
+}
+
+tr.header {
+    background-color: #333300;
+}
+
+table, tr.row {
+    border: 2px white;
+}
+
+table, tr, td {
+    width: 750px;
     font-size: 13px;
     font-family: "Arial";
-    border: 1px solid #666666;
-    padding: 0.5em;
-    margin-left: 0.5em;
+    padding: 0.1em;
+}
+
+table, th {
+    font-size: 15px;
 }
 
 div.description {
