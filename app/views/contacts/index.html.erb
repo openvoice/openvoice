@@ -1,5 +1,7 @@
-<h1>Contacts</h1>
+<h2>Contacts</h2>
 
+<%= link_to 'New contact', new_user_contact_path(current_user) %>
+<br /><br />
 <table>
   <tr>
     <th>Name</th>
@@ -30,7 +32,3 @@
 <br />
 <%= will_paginate @contacts %>
 <br />
-
-<br />
-
-<%= link_to 'New contact', new_user_contact_path(current_user) %>
