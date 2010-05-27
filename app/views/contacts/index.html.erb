@@ -1,10 +1,15 @@
-<h1>Listing contacts</h1>
+<h1>Contacts</h1>
 
 <table>
   <tr>
     <th>Name</th>
     <th>Number</th>
-    <th>Im</th>
+    <th>IM</th>
+    <th />
+    <th />
+    <th />
+    <th />
+    <th />
   </tr>
 
 <% @contacts.each do |contact| %>
@@ -12,7 +17,7 @@
     <td><%=h contact.name %></td>
     <td><%=h contact.number %></td>
     <td><%=h contact.im %></td>
-    <td><%= link_to 'Call', new_user_voice_call_path(current_user, { :to => contact.number }) %></td>
+    <td><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :to => contact.number }) %></td>
     <td><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
     <td><%= link_to 'Show', user_contact_path(current_user, contact) %></td>
     <td><%= link_to 'Edit', edit_user_contact_path(current_user, contact) %></td>

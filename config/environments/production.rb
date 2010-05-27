@@ -27,6 +27,6 @@ config.action_view.cache_template_loading            = true
 # Enable threaded mode
 # config.threadsafe!
 
-SERVER_URL = "http://tropovoice.heroku.com"
+SERVER_URL = "http://openvoice.heroku.com"
 OUTBOUND_TOKEN_VOICE = "99044ae8cb64234e97db7cbdf2931d3d5ad0316f62883cc9fd836e9ef89100f31e9314a5e855ea908934f557"
 OUTBOUND_TOKEN_MESSAGING = "d24bcbd4e697df4da807f4f99dec0fa0a87201eb903b221e7094ff1d678f74e4df2e641c3928a827ea8dd731"
