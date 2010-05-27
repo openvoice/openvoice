@@ -6,19 +6,19 @@
 <body>
 <div class="container">
   <div class="header">
-    <h1 class="header">Welcome to OpenVoice</h1>
+    <h1 class="header">OpenVoice</h1>
   </div>
 
   <div>
     <div>
       <% unless current_user.nil? %>
-          <%= link_to "inbound calls", user_incoming_calls_path(current_user, @incoming_calls), :class => 'special' %> |
-          <%= link_to "outbound calls", user_outgoing_calls_path(current_user, @outgoing_calls), :class => 'special' %> |
-          <%= link_to "messages", user_messagings_path(current_user, @messagings), :class => 'special' %> |
-          <%= link_to "voicemails", user_voicemails_path(current_user, @voicemails), :class => 'special' %> |
-          <%= link_to "addressbook", user_contacts_path(current_user, @contacts), :class => 'special' %> |
-          <%= link_to "phone numbers", user_phone_numbers_path(current_user, @phone_numbers), :class => 'special' %> |
-          <%= link_to "profile", user_profiles_path(current_user, @profiles), :class => 'special' %> |
+          <%= link_to "inbound calls", user_incoming_calls_path(current_user), :class => 'special' %> |
+          <%= link_to "outbound calls", user_outgoing_calls_path(current_user), :class => 'special' %> |
+          <%= link_to "messages", user_messagings_path(current_user), :class => 'special' %> |
+          <%= link_to "voicemails", user_voicemails_path(current_user), :class => 'special' %> |
+          <%= link_to "addressbook", user_contacts_path(current_user), :class => 'special' %> |
+          <%= link_to "phone numbers", user_phone_numbers_path(current_user), :class => 'special' %> |
+          <%= link_to "profile", user_profiles_path(current_user), :class => 'special' %> |
           <%= link_to "account", account_path, :class => 'special' %> |
           <a class="special" href="/logout">logout</a>
       <% end %>

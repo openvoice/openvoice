@@ -74,7 +74,7 @@ table, th {
 
 div.description {
     float: left;
-    width: 70%;
+    width: 60%;
     margin: 0;
     padding: 1em;
 }
@@ -86,7 +86,7 @@ div.login {
 form.login {
     border: 2px solid #333333;
     padding: 1em;
-    width: 20%;
+    width: 30%;
     float: left;
     text-align: left;
     margin-right: 0.5em;

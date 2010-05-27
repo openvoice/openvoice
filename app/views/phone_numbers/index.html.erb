@@ -6,10 +6,13 @@
 </p>
 
 <table>
-  <tr>
+  <tr class="header">
     <th>Number</th>
     <th>Forward</th>
     <th>Default</th>
+    <th />
+    <th />
+    <th />
   </tr>
 
   <% @phone_numbers.each do |phone_number| %>
@@ -17,9 +20,9 @@
     <td><%=h phone_number.number %></td>
     <td><%=h phone_number.forward %></td>
     <td><%=h phone_number.default %></td>
-    <td><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
-    <td><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
-    <td><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number), :confirm => 'Are you sure?', :method => :delete %></td>
+    <td class="narrow"><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
+    <td class="narrow"><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
+    <td class="narrow"><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number), :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
   <% end %>
 </table>
