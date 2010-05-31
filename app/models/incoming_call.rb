@@ -26,10 +26,9 @@ class IncomingCall < ActiveRecord::Base
     user = User.find(user_id)
     forwards = user.forwarding_numbers
     next_action = "/incoming_calls/user_menu?conf_id=#{CGI::escape(conf_id)}&user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{params[:session_id]}&call_id=#{params[:call_id]}"
-    name_recording = "#{SERVER_URL}/contacts/get_name_recording?user_id=#{user_id}&amp;caller_id=#{caller_id}"
-    p "++++++++++++++++++++++++++++++++++++++++"
-    p name_recording
-    p "++++++++++++++++++++++++++++++++++++++++"
+    contact = user.contacts.select{ |c| c.number == caller_id }.first
+    contact = Contact.last if contact.nil?
+    name_recording = contact.name_recording
     tropo = Tropo::Generator.new do
       on(:event => 'continue', :next => next_action)
       call(:to => forwards)

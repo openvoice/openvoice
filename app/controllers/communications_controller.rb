@@ -147,3 +147,4 @@ class CommunicationsController < ApplicationController
   end
 
 end
+

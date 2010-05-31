@@ -82,14 +82,4 @@ class ContactsController < ApplicationController
     render :content_type => 'text/plan', :text => "STORED"
   end
   
-  def get_name_recording
-    user = User.find(params[:user_id])
-    # TODO handle contact not found
-    contact = user.contacts.select{ |c| c.number == params[:caller_id] }.first
-    contact = Contact.last if contact.nil?
-    name_recording = contact.name_recording
-    file_name = name_recording.match(%r{(.*/)(.*)})[2]
-    p file_name
-    send_data(name_recording, :type => 'audio/mp3', :filename => file_name, :disposition => 'inline')
-  end
 end

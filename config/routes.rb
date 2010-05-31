@@ -41,7 +41,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'incoming_calls/user_menu', :controller => 'incoming_calls', :action => 'user_menu'
   map.connect 'communications/handle_incoming_call', :controller => 'communications', :action => 'handle_incoming_call'
   map.connect 'contacts/set_name_recording', :controller => 'contacts', :action => 'set_name_recording'
-  map.connect 'contacts/get_name_recording', :controller => 'contacts', :action => 'get_name_recording'
 
   map.resource :user_session
   map.resource :account, :controller => "users"
