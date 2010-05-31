@@ -21,7 +21,7 @@ class CommunicationsController < ApplicationController
       call_id = params[:session][:callId]
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
-        on(:event => 'continue', :next => "handle_incoming_call?caller_id=#{caller_id}&user_id=#{user.id}&session_id=#{session_id}&call_id=#{call_id}")
+        on(:event => 'continue', :next => "call_screen?caller_id=#{caller_id}&user_id=#{user.id}&session_id=#{session_id}&call_id=#{call_id}")
         ask(:attempts => 2,
             :bargein => true,
             :choices => {:value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)"},
@@ -33,6 +33,21 @@ class CommunicationsController < ApplicationController
 
       render :json => tropo.response
     end
+  end
+
+  # call screen, request caller to record a name if caller_id cannot be located from ov user's addressbook
+  def call_screen
+    # TODO refactor this logic to contact model
+    user = User.find(params[:user_id])
+    existing_contact = user.contacts.select{ |c| c.number == params[:caller_id] }
+    if existing_contact.empty?
+      # create a new contact for the user
+      existing_contact = Contact.create(:user_id => params[:user_id], :number => params[:caller_id])
+    else
+      existing_contact = existing_contact.first
+    end
+    render :json => existing_contact.record_name(params[:session_id], params[:call_id])
+
   end
 
   def handle_incoming_call

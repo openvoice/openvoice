@@ -3,11 +3,23 @@ class Messaging < ActiveRecord::Base
   belongs_to :user
 
   before_create :sanitize_numbers
+  before_create :set_from_name
+
   after_create :send_text
 
   def sanitize_numbers
-    self.to.gsub!(/\D/, "")
-    self.from.gsub!(/\D/, "")  
+    self.to.gsub!(/\D/, "") if self.to
+    self.from.gsub!(/\D/, "")
+  end
+
+  # Looks up contact name by caller_id and set it for every incoming message
+  def set_from_name
+    caller = Contact.find_by_number(from)
+    if caller
+      self.from_name = caller.name
+    else
+      self.from_name = "Unknown caller"
+    end
   end
 
   def send_text

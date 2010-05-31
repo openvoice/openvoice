@@ -42,7 +42,7 @@ class MessagingsController < ApplicationController
       text = session[:initialText]
       to = session[:to][:id]
       @user = Profile.find_by_voice(to).user
-      forward_to = @user.phone_numbers.first.number
+      forward_to = @user.profiles.first.voice
       @messaging = Messaging.new(:from => from, :text => text, :to => forward_to, :user_id => @user.id, :outgoing => false)
     else
       if session.nil?

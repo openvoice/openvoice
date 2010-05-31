@@ -2,6 +2,7 @@
 
 <table>
   <tr class="header">
+    <th>From</th>
     <th>Caller ID</th>
     <th>Time</th>
     <th/>
@@ -11,6 +12,7 @@
 
   <% @incoming_calls.each do |incomging_call| %>
       <tr align="center">
+        <td><%= h incomging_call.caller_name %></td>
         <td><%= h incomging_call.caller_id %></td>
         <td><%= h incomging_call.created_at %></td>
         <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => incomging_call.caller_id }) %></td>
