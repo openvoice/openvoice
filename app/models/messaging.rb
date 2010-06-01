@@ -24,7 +24,7 @@ class Messaging < ActiveRecord::Base
 
   def send_text
     if outgoing
-      from = user.phone_numbers.first.number
+      from = user.profiles.first.voice
       profile = user.profiles.first
       call_url = profile.call_url
       messaging_token = profile.messaging_token
