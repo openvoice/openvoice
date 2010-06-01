@@ -22,13 +22,6 @@ class CommunicationsController < ApplicationController
       tropo = Tropo::Generator.new do
         say "hello, welcome to #{user_name}'s open voice communication center"
         on(:event => 'continue', :next => "call_screen?caller_id=#{caller_id}&user_id=#{user.id}&session_id=#{session_id}&call_id=#{call_id}")
-        ask(:attempts => 2,
-            :bargein => true,
-            :choices => {:value => "connect(connect, 1), voicemail(voicemail, 2), listen(listen, 3)"},
-            :name => 'main-menu',
-            :say => {:value => "To speak to #{user_name}, say connect or press 1. \
-                                  To leave a voicemail, say voicemail or press 2. \
-                                  To listen to your voicemail, say listen or press 3."})
       end
 
       render :json => tropo.response
@@ -70,6 +63,8 @@ class CommunicationsController < ApplicationController
     render :json => tropo.response
   end
 
+
+  
 #  def answer
 #    value = params[:result][:actions][:value]
 #    caller_id = params[:caller_id]
