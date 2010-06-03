@@ -51,7 +51,7 @@ class IncomingCallsController < ApplicationController
     @incoming_call.destroy
 
     respond_to do |format|
-      format.html { redirect_to(incoming_calls_url) }
+      format.html { redirect_to(user_incoming_calls_path) }
       format.xml  { head :ok }
     end
   end

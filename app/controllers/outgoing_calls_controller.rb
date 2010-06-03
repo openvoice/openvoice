@@ -39,7 +39,7 @@ class OutgoingCallsController < ApplicationController
     respond_to do |format|
       if @outgoing_call.save
         flash[:notice] = 'VoiceCall was successfully created.'
-        format.html { redirect_to(user_outgoing_calls_path(current_user)) }
+        format.html { redirect_to(user_outgoing_calls_path) }
         format.xml  { render :xml => @outgoing_call, :status => :created, :location => @outgoing_call }
         format.json { render :json => @outgoing_call }
       else
@@ -69,7 +69,7 @@ class OutgoingCallsController < ApplicationController
     @outgoing_call.destroy
 
     respond_to do |format|
-      format.html { redirect_to(user_outgoing_calls_url(current_user)) }
+      format.html { redirect_to(user_outgoing_calls_url) }
       format.xml  { head :ok }
     end
   end
