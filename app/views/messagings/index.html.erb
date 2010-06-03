@@ -4,8 +4,10 @@
 
 <table>
   <tr class="header">
-    <th>From</th>
-    <th>To</th>
+
+    <th>Sender</th>
+    <th>Number</th>
+    <th>Recipient</th>
     <th>Text</th>
     <th>Time</th>
     <th />
@@ -15,6 +17,7 @@
 
   <% @messagings.each do |messaging| %>
    <tr align="center" class="row">
+    <td><%=h messaging.from_name %></td>
     <td><%=h messaging.from %></td>
     <td><%=h messaging.to %></td>
     <td align="left"><%=h messaging.text %></td>

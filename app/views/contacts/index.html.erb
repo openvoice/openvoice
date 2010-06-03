@@ -7,7 +7,6 @@
     <th>Name</th>
     <th>Number</th>
     <th>IM</th>
-    <th>Name Recording</th>
     <th />
     <th />
     <th />
@@ -20,7 +19,6 @@
     <td><%=h contact.name %></td>
     <td><%=h contact.number %></td>
     <td><%=h contact.im %></td>
-    <td><embed src=<%= contact.name_recording%> height=15 width=144 controls=smallconsole volume=50 autostart=false></td>
     <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :to => contact.number }) %></td>
     <td class="narrow"><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
     <td class="narrow"><%= link_to 'Show', user_contact_path(current_user, contact) %></td>

@@ -93,7 +93,7 @@ class CommunicationsController < ApplicationController
 
   def get_caller_id(header, x_sbc_from, from_id)
     if header =~ /^<sip:990.*$/
-      caller_id = %r{(.*>)(.*)}.match(x_sbc_from)[1].gsub("\"", "")
+      caller_id = %r{(.*)(<.*)}.match(x_sbc_from)[1].gsub("\"", "")
       CGI::escape(caller_id)
     elsif header =~ /^.*<sip:1999.*$/
       %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
