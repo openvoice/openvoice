@@ -43,11 +43,11 @@ class IncomingCall < ActiveRecord::Base
 
   # Looks up contact name by caller_id and set it for every incoming message
   def set_caller_name
-    caller = Contact.find_by_number(caller_id)
-    if caller
-      self.caller_name = caller.name
+    caller = user.contacts.select{ |c| c.number == caller_id }.first
+    unless caller.nil?
+      update_attribute(:caller_name, caller.name)
     else
-      self.caller_name = "Unknown caller"
+      update_attribute(:caller_name, "Unknown caller")
     end
   end
 
