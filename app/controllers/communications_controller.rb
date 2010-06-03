@@ -39,8 +39,8 @@ class CommunicationsController < ApplicationController
     else
       existing_contact = existing_contact.first
     end
-    render :json => existing_contact.record_name(params[:session_id], params[:call_id])
 
+    render :json => existing_contact.record_name(params[:session_id], params[:call_id])
   end
 
   def handle_incoming_call

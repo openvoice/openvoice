@@ -15,13 +15,15 @@ class Contact < ActiveRecord::Base
     tropo = Tropo::Generator.new do
 #     on(:event => 'incomplete', :next => "hangup")
       on(:event => 'continue', :next => "/communications/handle_incoming_call?user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{session_id}&call_id=#{call_id}")
-      record(:attempts => 2,
-             :beep => true,
-             :name => 'record-name',
-             :url => "#{SERVER_URL}/contacts/set_name_recording?contact_id=#{contact_id}",
-             :format => "audio/mp3",
-             :choices => {:terminator => "#"},
-             :say => {:value => "Before being connected please record your name, press pound when you are done"})
+      if name_recording.blank?
+        record(:attempts => 2,
+               :beep => true,
+               :name => 'record-name',
+               :url => "#{SERVER_URL}/contacts/set_name_recording?contact_id=#{contact_id}",
+               :format => "audio/mp3",
+               :choices => {:terminator => "#"},
+               :say => {:value => "Before being connected please record your name, press pound when you are done"})
+      end
     end
 
     tropo.response
