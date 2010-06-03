@@ -12,6 +12,7 @@ class Contact < ActiveRecord::Base
     user_id = user.id
     caller_id = CGI::escape(number)
     contact_id = id
+    name_recording = self.name_recording
     tropo = Tropo::Generator.new do
 #     on(:event => 'incomplete', :next => "hangup")
       on(:event => 'continue', :next => "/communications/handle_incoming_call?user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{session_id}&call_id=#{call_id}")
