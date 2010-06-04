@@ -77,6 +77,23 @@ class IncomingCallsController < ApplicationController
           hangup
         end
         render :json => tropo.response
+      when "listenin"
+        caller_id = CGI::escape(params[:caller_id])
+        user_id = params[:user_id]
+        user_name = User.find(user_id).name
+        transcription_id = user_id + "_" + Time.now.to_i.to_s
+        tropo = Tropo::Generator.new do
+          say ("you have reached #{user_name}\'s voicemail.  Please speak after the beep.")
+          start_recording(:name => "recording",
+            :format => "audio/wav",
+            :url => "#{SERVER_URL}/voicemails/create?caller_id=#{caller_id}&transcription_id=" + transcription_id + "&user_id=" + user_id
+          )
+          conference(:name => "conference",
+                     :id => conf_id,
+                     :mute => true,
+                     :terminator => "*")
+        end
+        render :json => tropo.response
     end
   end
 end

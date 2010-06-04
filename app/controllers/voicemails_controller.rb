@@ -78,7 +78,7 @@ class VoicemailsController < ApplicationController
     @voicemail.destroy
 
     respond_to do |format|
-      format.html { redirect_to(voicemails_url) }
+      format.html { redirect_to(user_voicemails_url) }
       format.xml  { head :ok }
     end
   end
@@ -111,7 +111,8 @@ class VoicemailsController < ApplicationController
                      :url => SERVER_URL + "/voicemails/set_transcription"
              })
     end
-    render :json => tropo.response
 
+    render :json => tropo.response
   end
+
 end

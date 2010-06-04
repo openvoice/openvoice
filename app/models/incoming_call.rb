@@ -35,8 +35,8 @@ class IncomingCall < ActiveRecord::Base
       ask(:name => 'main-menu-incoming',
           :attempts => 3,
           :bargein => true,
-          :choices => {:value => "connect(1), voicemail(2)", :mode => "DTMF"},
-          :say => {:value => "Incoming call from #{name_recording} , press 1 to accept, press 2 to send to voicemail"})
+          :choices => {:value => "connect(1), voicemail(2), listenin(3)", :mode => "DTMF"},
+          :say => {:value => "Incoming call from #{name_recording} , press 1 to accept, press 2 to send to voicemail, press 3 to listen in. "})
     end
     tropo.response
   end

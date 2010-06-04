@@ -45,7 +45,9 @@ class CommunicationsController < ApplicationController
 
   def handle_incoming_call
     user_id = params[:user_id]
-    caller_id = params[:caller_id]
+    caller_id = CGI::escape(params[:caller_id])
+    session_id = params[:session_id]
+    call_id = params[:call_id]
     transcription_id = user_id + "_" + Time.now.to_i.to_s
     IncomingCall.create(:user_id => user_id,
                         :caller_id => caller_id,
@@ -55,7 +57,7 @@ class CommunicationsController < ApplicationController
     # put caller into the conference
     tropo = Tropo::Generator.new do
 #      on(:event => 'disconnect', :next => "hangup")
-      on(:event => 'voicemail', :next => "/voicemails/recording?user_id=#{user_id}&caller_id=#{CGI::escape(caller_id)}&transcription_id=#{transcription_id}")
+      on(:event => 'voicemail', :next => "/voicemails/recording?user_id=#{user_id}&caller_id=#{caller_id}&transcription_id=#{transcription_id}")
       say("Please wait while we connect your call")
       conference(:name => "conference", :id => conf_id, :terminator => "*")
     end
