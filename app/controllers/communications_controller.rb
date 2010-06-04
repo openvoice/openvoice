@@ -123,6 +123,7 @@ class CommunicationsController < ApplicationController
   end
 
   # TODO i'm not too happy with the implementation of this method, will revisit to refactor
+  # TODO either this method should inform caller of null user case or the caller needs to handle it
   def locate_user(client, callee)
     number_to_search = ""
     user = User.new
@@ -132,7 +133,11 @@ class CommunicationsController < ApplicationController
       user = Profile.find_by_skype(number_to_search).user
     elsif client == "SIP"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
-      profiles = Profile.all.select { |profile| profile.sip.index(number_to_search) > 0 }
+      p "+++++++++++++++++++++++++++++++++++++"
+      p callee
+      p number_to_search
+      p "+++++++++++++++++++++++++++++++++++++"
+      profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
       user = !profiles.empty? && profiles.first.user
     elsif client == "PSTN"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
