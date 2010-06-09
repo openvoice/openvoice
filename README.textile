@@ -8,29 +8,41 @@ OpenVoice is built on top of Tropo, it can be deployed onto any server because i
 OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and will
 support Flash phone.
 
-To test the live application
-Phone Numbers:
-Voice & Messaging: (408) 940-5938
-Skype Voice: +99000936 9991429707
-SIP Voice: sip:9991429707@sip.tropo.com
+== To create an OpenVoice account:
 
-IM: openvoice@tropo.im
-Twitter: myopenvoice@twitter
+First go to http://openvoice.heroku.com/users/new to create a new login.
 
-Setup your development environment
+Then you need to create a tropo application.  Go to tropo.com and sign up for a free developer's account.
+Create a tropo application and make it look like this:
+http://idisk.me.com/zlu/Public/Pictures/Skitch/Tropo.com-20100609-082358.jpg
+If you use my OpenVoice server at http://openvoice.heroku.com, then the url for voice call should be:
+http://openvoice.heroku.com/communications/index?format=json
+And the url for messaging is:
+http://openvoice.heroku.com/messagings/create?format=json
+If you deploy openvoice on your own server, then replace the server url to your own.
+
+Once you obtain all the tropo information, then goto openvoice.heroku.com, log in, and go to profile to create a new profile.
+Your prfoile should look like this but with your own tropo information
+http://idisk.me.com/zlu/Public/Pictures/Skitch/OpenVoice_-_profiles_index-20100609-082551.jpg
+then you can add a forwarding/default number at the phone number page.
+
+Please keep in mind that this openvoice server is under active developement thus in no way stable.  If you want stability,
+deploy the code on your own server.
+
+If you find bugs, please log them in the issues section on github.
+
+== To setup your development environment:
+
 Create a tropo app first and get your own phone numbers and IMs
 Clone this project and start the rails server on your local machine
 Highly recommend use rake tunnel:tunnel:start to reverse tunnel to your local machine for faster development.
+You can either setup your own reverse ssh tunnel or get one from tunnlr.com.
 Please don't use my tunnlr credential.
 
-go to users/new to create a new user.
-login with the new user and click on profile
-fill in information of your tropo application such as voice #, skype #, etc.
+== To call me and complain
 
-go to phone_numbers and add a new phone number and make sure you check forward.  this is the number you want to forward
-OpenVoice calls to.  Currently we can only forward to one number but hoping to remove this limitation soon.
-
-Now go ahead and make some calls.
-
-If you don't need voicemail function then you are done.  If you do need voicemail, then open voicemail_controllers and
-replace aws information with your own.
+Voice & Messaging: (408) 940-5938
+Skype Voice: +99000936 9991429707
+SIP Voice: sip:9991429707@sip.tropo.com
+IM: openvoice@tropo.im
+Twitter: myopenvoice@twitter
