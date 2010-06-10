@@ -45,4 +45,4 @@ Voice & Messaging: (408) 940-5938
 Skype Voice: +99000936 9991429707
 SIP Voice: sip:9991429707@sip.tropo.com
 IM: openvoice@tropo.im
-Twitter: myopenvoice@twitter
+Twitter: openvoice

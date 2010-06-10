@@ -15,6 +15,7 @@ class CommunicationsController < ApplicationController
       x_voxeo_to = headers["x-voxeo-to"]
       caller_id = get_caller_id(x_voxeo_to, headers["x-sbc-from"], params[:session][:from][:id])
       sip_client = get_sip_client_from_header(x_voxeo_to)
+      # TODO this user can be null thus causing npe in the next linee
       user = locate_user(sip_client, x_voxeo_to)
       user_name = user.name
       session_id = params[:session][:id]
@@ -133,10 +134,6 @@ class CommunicationsController < ApplicationController
       user = Profile.find_by_skype(number_to_search).user
     elsif client == "SIP"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
-      p "+++++++++++++++++++++++++++++++++++++"
-      p callee
-      p number_to_search
-      p "+++++++++++++++++++++++++++++++++++++"
       profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
       user = !profiles.empty? && profiles.first.user
     elsif client == "PSTN"

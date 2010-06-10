@@ -56,6 +56,12 @@ class IncomingCallsController < ApplicationController
     end
   end
 
+  def jumpin
+    p "+++++++++++++++++++++++++++++++++++++++++"
+    p "inside of jumpin"
+    p "+++++++++++++++++++++++++++++++++++++++++"
+  end
+
   def user_menu
     value = params[:result][:actions][:value]
     conf_id = params[:conf_id]
@@ -84,6 +90,7 @@ class IncomingCallsController < ApplicationController
         transcription_id = user_id + "_" + Time.now.to_i.to_s
         tropo = Tropo::Generator.new do
           say ("you have reached #{user_name}\'s voicemail.  Please speak after the beep.")
+          on(:event => 'jumpin', :next => "/incoming_calls/jumpin?user_id=#{user_id}&caller_id=#{caller_id}")
           start_recording(:name => "recording",
             :format => "audio/wav",
             :url => "#{SERVER_URL}/voicemails/create?caller_id=#{caller_id}&transcription_id=" + transcription_id + "&user_id=" + user_id
