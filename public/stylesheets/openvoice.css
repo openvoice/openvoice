@@ -13,8 +13,10 @@ div.header, div.footer {
 }
 
 h1.header {
+    position: relative;
+    left:50px;
+    top: -40px;
     padding: 0;
-    margin: 35;
 }
 
 body {
