@@ -114,30 +114,39 @@ form.login {
 }
 
 .messaging {
-  height:150px;
-  margin:10px;
+  height:120px;
+  margin:1px;
   position: relative;
+  background-color: #333333;
 }
 
 .messaging .message {
+    margin: 5px;
     float: left;
-    width: 400px;
+    width: 600px;
+    height: 110px;
+    position: relative;
 }
 
 .messaging .message .kv {
-    padding-top: 10px;
+    padding-top: 3px;
+    width: 600px;
+    height: 20px;
 }
 
 .messaging .message .kv .k {
-  width: 100px;
-  font-weight: bold;
+    width: 125px;
+    float: left;
+    height: 20px;
+    font-weight: bold;
 }
 
 .messaging .message .kv .v {
-  width: 300px;
-  padding: 5px 0px 0px 10px;
+    width: 300px;
+    height: 20px;
 }
 
 .messaging .date {
   float: right;
+  margin: 5px;
 }
