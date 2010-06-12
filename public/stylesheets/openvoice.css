@@ -112,3 +112,32 @@ form.login {
 	background-color: #333333;
 	color: #33ff00;
 }
+
+.messaging {
+  height:150px;
+  margin:10px;
+  position: relative;
+}
+
+.messaging .message {
+    float: left;
+    width: 400px;
+}
+
+.messaging .message .kv {
+    padding-top: 10px;
+}
+
+.messaging .message .kv .k {
+  width: 100px;
+  font-weight: bold;
+}
+
+.messaging .message .kv .v {
+  width: 300px;
+  padding: 5px 0px 0px 10px;
+}
+
+.messaging .date {
+  float: right;
+}

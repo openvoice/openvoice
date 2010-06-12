@@ -1,33 +1,38 @@
 <h2>Messages (SMS/IM)</h2>
 <%= link_to 'New message', new_user_messaging_path(current_user), :class => 'special' %>
-<br /><br />
+<br/><br/>
 
-<table>
-  <tr class="header">
 
-    <th>Sender</th>
-    <th>Number</th>
-    <th>Recipient</th>
-    <th>Text</th>
-    <th>Time</th>
-    <th />
-    <th />
-    <th />
-  </tr>
+<% @messagings.each do |messaging| %>
+    <div class="messaging">
+      <div class="message">
+        <div class="kv">
+          <span class="k">Sender Name</span>
+          <span class="v"><%= h messaging.from_name %></span>
+        </div>
+        <div class="kv">
+          <span class="k">From</span>
+          <span class="v"><%= h messaging.from %></span>
+        </div>
+        <div class="kv">
+          <span class="k">To</span>
+          <span class="v"><%= h messaging.to %></span>
+        </div>
+        <div class="kv">
+          <span class="k">Text</span>
+          <span class="v"><%= h messaging.text %></span>
+        </div>
+      </div>
 
-  <% @messagings.each do |messaging| %>
-   <tr align="center" class="row">
-    <td><%=h messaging.from_name %></td>
-    <td><%=h messaging.from %></td>
-    <td><%=h messaging.to %></td>
-    <td align="left"><%=h messaging.text %></td>
-    <td><%=h messaging.created_at %></td>
-    <td class="narrow"><%= link_to 'Reply', new_user_messaging_path(current_user, { :to => messaging.from }) %></td>
-    <td class="narrow"><%= link_to 'Show', user_messaging_path(current_user, messaging) %></td>
-    <td class="narrow"><%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
-  <% end %>
-</table>
-<br />
+      <div class="date">
+        <%= h messaging.created_at %>
+        <div>
+          <%= link_to 'Reply', new_user_messaging_path(current_user, { :to => messaging.from }) %>
+          <%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<br/>
+
 <%= will_paginate @messagings %>
-<br />
