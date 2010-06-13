@@ -19,7 +19,7 @@
     <td><%=h contact.name %></td>
     <td><%=h contact.number %></td>
     <td><%=h contact.im %></td>
-    <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :to => contact.number }) %></td>
+    <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => contact.number }) %></td>
     <td class="narrow"><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
     <td class="narrow"><%= link_to 'Show', user_contact_path(current_user, contact) %></td>
     <td class="narrow"><%= link_to 'Edit', edit_user_contact_path(current_user, contact) %></td>
