@@ -34,7 +34,7 @@ class OutgoingCall < ActiveRecord::Base
              :network => 'PSTN',
              :channel => 'VOICE' })
       say 'connecting you to destination'
-      transfer({ :to => params[:to] })
+      transfer({ :to => params[:to], :from => ov_voice })
     end
 
     tropo.response
