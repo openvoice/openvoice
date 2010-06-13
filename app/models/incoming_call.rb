@@ -31,7 +31,7 @@ class IncomingCall < ActiveRecord::Base
     name_recording = contact.name_recording
     tropo = Tropo::Generator.new do
       on(:event => 'continue', :next => next_action)
-      call(:to => forwards)
+      call(:to => forwards, :from => caller_id)
       ask(:name => 'main-menu-incoming',
           :attempts => 3,
           :bargein => true,
