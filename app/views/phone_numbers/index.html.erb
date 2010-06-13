@@ -7,6 +7,7 @@
 
 <table>
   <tr class="header">
+    <th>Name</th>
     <th>Number</th>
     <th>Forward</th>
     <th>Default</th>
@@ -17,6 +18,7 @@
 
   <% @phone_numbers.each do |phone_number| %>
       <tr>
+    <td><%=h phone_number.name %></td>
     <td><%=h phone_number.number %></td>
     <td><%=h phone_number.forward %></td>
     <td><%=h phone_number.default %></td>
