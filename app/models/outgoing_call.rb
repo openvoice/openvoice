@@ -11,30 +11,29 @@ class OutgoingCall < ActiveRecord::Base
 
   def dial
     user_id = user.id.to_s
-    # TODO should add funtion that letting user to pick which phone to ring
-    from = user.phone_numbers.first.number
+    # TODO should add function that letting user to pick which phone to ring
+    from = user.default_phone_number
+    ov_voice = user.profiles.first.voice
     profile = user.profiles.first
     call_url = profile.call_url
     voice_token = profile.voice_token
-    tropo_url = (call_url || TROPO_URL) + voice_token + '&to=' + callee_number + '&from=' + from + '&ov_action=outboundcall&user_id=' + user_id
+    tropo_url = (call_url || TROPO_URL) + voice_token + '&to=' + callee_number + '&from=' + from + '&ov_action=outboundcall&user_id=' + user_id + '&ov_voice=' + ov_voice
     open(tropo_url)
   end
 
   # perform tropo call transfer
   def self.init_call(params)
     # call OV user first, once user answers, transfers the call to the destination number
-    user = User.find(params[:user_id])
-    ov_voice = user.profiles.first.voice
-    phone_numbers = user.phone_numbers
-    defaults = phone_numbers.select{|p| p.default == true }
-    default_number = defaults.empty? ? phone_numbers.first.number : defaults.first.number
+    ov_voice = params[:ov_voice]
+    default_number = params[:from]
+    destination = params[:to]
     tropo = Tropo::Generator.new do
       call({ :from => ov_voice,
              :to => default_number,
              :network => 'PSTN',
              :channel => 'VOICE' })
       say 'connecting you to destination'
-      transfer({ :to => params[:to], :from => ov_voice })
+      transfer({ :to => destination, :from => ov_voice })
     end
 
     tropo.response
