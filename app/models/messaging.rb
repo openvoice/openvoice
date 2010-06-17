@@ -2,9 +2,11 @@ class Messaging < ActiveRecord::Base
 
   belongs_to :user
 
+  validates_presence_of :text
+  validates_presence_of :to
+  
   before_create :sanitize_numbers
   before_create :set_from_name
-
   after_create :send_text
 
   def sanitize_numbers
