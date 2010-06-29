@@ -11,15 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20100613001724) do
 
-  create_table "call_logs", :force => true do |t|
-    t.string   "from"
-    t.string   "to"
-    t.string   "nature"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "contacts", :force => true do |t|
     t.string   "name"
     t.string   "number"
@@ -103,13 +94,6 @@ ActiveRecord::Schema.define(:version => 20100613001724) do
     t.string   "current_login_ip"
     t.string   "last_login_ip"
     t.string   "name"
-  end
-
-  create_table "voice_calls", :force => true do |t|
-    t.string   "to"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "voicemails", :force => true do |t|
