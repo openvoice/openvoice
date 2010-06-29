@@ -8,6 +8,7 @@ class CommunicationsController < ApplicationController
       elsif ov_action == "joinconf"
         render :json => IncomingCall.followme(parameters)
       else
+        # TODO log error
         render 404
       end
     else
@@ -15,14 +16,21 @@ class CommunicationsController < ApplicationController
       x_voxeo_to = headers["x-voxeo-to"]
       caller_id = get_caller_id(x_voxeo_to, headers["x-sbc-from"], params[:session][:from][:id])
       sip_client = get_sip_client_from_header(x_voxeo_to)
-      # TODO this user can be null thus causing npe in the next linee
-      user = locate_user(sip_client, x_voxeo_to)
-      user_name = user.name
-      session_id = params[:session][:id]
-      call_id = params[:session][:callId]
-      tropo = Tropo::Generator.new do
-        say "hello, welcome to #{user_name}'s open voice communication center"
-        on(:event => 'continue', :next => "call_screen?caller_id=#{caller_id}&user_id=#{user.id}&session_id=#{session_id}&call_id=#{call_id}")
+      tropo = nil
+      unless (user = locate_user(sip_client, x_voxeo_to))
+        #TODO log the error
+        tropo = Tropo::Generator.new do
+          say "Unable to locate open voice user, we will look into the issue."
+          hangup
+        end
+      else
+        user_name = "#{user.name}'s open voice" || "open voice user's"
+        tropo = Tropo::Generator.new do
+          say "hello, welcome to #{user_name} communication center"
+          on(:event => 'continue', :next => "call_screen?caller_id=#{caller_id}&user_id=#{user.id}")
+          on(:event => 'disconnect', :next => 'hangup')
+          on(:event => 'incomplete', :next => 'hangup')
+        end
       end
 
       render :json => tropo.response
@@ -57,7 +65,7 @@ class CommunicationsController < ApplicationController
     conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
-#      on(:event => 'disconnect', :next => "hangup")
+      on(:event => 'disconnect', :next => "hangup")
       on(:event => 'voicemail', :next => "/voicemails/recording?user_id=#{user_id}&caller_id=#{caller_id}&transcription_id=#{transcription_id}")
       say("Please wait while we connect your call")
       conference(:name => "conference", :id => conf_id, :terminator => "*")
@@ -65,8 +73,6 @@ class CommunicationsController < ApplicationController
 
     render :json => tropo.response
   end
-
-
   
 #  def answer
 #    value = params[:result][:actions][:value]
@@ -94,6 +100,10 @@ class CommunicationsController < ApplicationController
 
   private
 
+  def hangup
+    Tropo::Generator.new{ hangup }.to_json
+  end
+
   def get_caller_id(header, x_sbc_from, from_id)
     if header =~ /^<sip:990.*$/
       caller_id = %r{(.*)(<.*)}.match(x_sbc_from)[1].gsub("\"", "")
@@ -101,11 +111,11 @@ class CommunicationsController < ApplicationController
     elsif header =~ /^.*<sip:1999.*$/
       %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
     elsif header =~ /^<sip:883.*$/
-      "INUM"
+      "TODO-INUM" #TODO return correct caller_id for INUM
     elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
       from_id
     else
-      "OTHER"
+      x_sbc_from
     end
   end
 
@@ -124,25 +134,23 @@ class CommunicationsController < ApplicationController
   end
 
   # TODO i'm not too happy with the implementation of this method, will revisit to refactor
-  # TODO either this method should inform caller of null user case or the caller needs to handle it
+  # Locate the openvoice user being called
+  # Caller should handle nil user and hanup the call, log the error if needed
   def locate_user(client, callee)
-    number_to_search = ""
-    user = User.new
+    profiles = nil
     if client == "SKYPE"
-      # the reason for the last delete is because if tropo skype number contains whitespace
+      # delete any white space in skype number
       number_to_search = "+" + %r{(^<sip:)(990.*)(@.*)}.match(callee)[2].delete(" ")
-      user = Profile.find_by_skype(number_to_search).user
+      profiles = Profile.find_all_by_skype(number_to_search)
     elsif client == "SIP"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
       profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
-      user = !profiles.empty? && profiles.first.user
     elsif client == "PSTN"
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
       profiles = Profile.all.select { |profile| profile.voice == number_to_search }
-      user = !profiles.empty? && profiles.first.user
     end
 
-    user
+    profiles.first && profiles.first.user
   end
 
 end
