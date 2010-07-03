@@ -36,10 +36,8 @@ class PhoneNumbersController < ApplicationController
   end
 
   def create
-    @phone_number = PhoneNumber.new(:number => params[:phone_number][:number],
-                                    :forward => params[:phone_number][:forward], 
-                                    :user_id => params[:user_id])
-
+    @user = current_user
+    @phone_number = @user.phone_numbers.build(params[:phone_number])
     respond_to do |format|
       if @phone_number.save
         flash[:notice] = 'PhoneNumber was successfully created.'
