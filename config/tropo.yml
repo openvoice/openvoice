@@ -1,0 +1,10 @@
+development:
+  user_name: zlu
+  password: flute
+test:
+  user_name: zlu
+  password: flute
+
+production:
+  user_name: zlu
+  password: flute
