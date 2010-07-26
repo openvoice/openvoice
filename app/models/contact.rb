@@ -13,17 +13,20 @@ class Contact < ActiveRecord::Base
     caller_id = CGI::escape(number)
     contact_id = id
     name_recording = self.name_recording
+    signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
     tropo = Tropo::Generator.new do
-#     on(:event => 'incomplete', :next => "hangup")
+#      on(:event => 'incomplete', :next => signal_url)
+#      on(:event => 'disconnect', :next => signal_url)
       on(:event => 'continue', :next => "/communications/handle_incoming_call?user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{session_id}&call_id=#{call_id}")
-      if name_recording.blank?
-        record(:attempts => 2,
-               :beep => true,
-               :name => 'record-name',
-               :url => "#{SERVER_URL}/contacts/set_name_recording?contact_id=#{contact_id}",
-               :format => "audio/mp3",
-               :choices => {:terminator => "#"},
-               :say => {:value => "Before being connected please record your name, press pound when you are done"})
+      unless name_recording
+        record({ :beep => true,
+                 :attempts => 2,
+                 :name => 'record-name',
+                 :url => "#{SERVER_URL}/contacts/set_name_recording?contact_id=#{contact_id}",
+                 :format => "audio/mp3",
+                 :terminator => "#" }) do
+          say "Before being connected please record your name, press pound when you are done"
+        end
       end
     end
 
@@ -46,6 +49,16 @@ class Contact < ActiveRecord::Base
 
     path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
     update_attribute(:name_recording, path)
+  end
+
+  def hangup
+    Tropo::Generator.new{ hangup }.to_json
+  end
+
+  def signal_peer
+    tropo_url = "http://api.tropo.com/1.0/sessions/#{session_id}/calls/#{call_id}/events?action=create&name=#{event}"
+    open(tropo_url)
+    render head 204
   end
 
 end

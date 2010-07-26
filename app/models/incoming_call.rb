@@ -23,14 +23,20 @@ class IncomingCall < ActiveRecord::Base
     user_id = params[:user_id]
     conf_id = params[:conf_id]
     caller_id = CGI::escape(params[:caller_id])
+    call_id = params[:call_id]
+    session_id = params[:session_id]
     user = User.find(user_id)
     forwards = user.forwarding_numbers
-    next_action = "/incoming_calls/user_menu?conf_id=#{CGI::escape(conf_id)}&user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{params[:session_id]}&call_id=#{params[:call_id]}"
+    next_action = "/incoming_calls/user_menu?conf_id=#{CGI::escape(conf_id)}&user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{session_id}&call_id=#{call_id}"
     contact = user.contacts.select{ |c| c.number == caller_id }.first
     contact = Contact.last if contact.nil?
-    name_recording = contact.name_recording
+    name_recording = contact.name_recording ||"Unannounced caller"
+    signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
     tropo = Tropo::Generator.new do
       on(:event => 'continue', :next => next_action)
+      on(:event => 'error', :next => signal_url)
+      on(:event => 'incomplete', :next => signal_url)
+      on(:event => 'hangup', :next => signal_url)
       call(:to => forwards, :from => caller_id)
       ask(:name => 'main-menu-incoming',
           :attempts => 3,
@@ -56,5 +62,14 @@ class IncomingCall < ActiveRecord::Base
       self.read_attribute(:created_at).strftime("%a, %b %d")
     end
   end
-  
+
+  def hangup
+    Tropo::Generator.new{ hangup }.to_json
+  end
+
+  def signal_peer
+    tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
+    open(tropo_url)
+    render head 204
+  end
 end

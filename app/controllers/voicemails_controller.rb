@@ -85,12 +85,20 @@ class VoicemailsController < ApplicationController
 
   def set_transcription
     # let the ugliness begin until tropo changes the mal-formed return of transcription results
-    result_to_parse = params["<?xml version"]
-    transcription_id = %r{(.*<identifier>)(.*)(</identifier>.*)}.match(result_to_parse)[2]
-    transcription = %r{(.*<transcription>)(.*)(</transcription>.*)}.match(result_to_parse)[2]
-    voicemail = Voicemail.find_by_transcription_id(transcription_id)
-    voicemail.update_attribute("text", transcription)
-    head 200
+#    result_to_parse = params["<?xml version"]
+#    transcription_id = %r{(.*<identifier>)(.*)(</identifier>.*)}.match(result_to_parse)[2]
+#    transcription = %r{(.*<transcription>)(.*)(</transcription>.*)}.match(result_to_parse)[2]
+    params.each do |k, v|
+      if v == nil
+        # this json parse should not be necessary, remove once tropo fix the parameter bug
+        json = JSON.parse(k)
+        transcription = json["result"]["transcription"]
+        transcription_id = json["result"]["identifier"]
+        voicemail = Voicemail.find_by_transcription_id(transcription_id)
+        voicemail.update_attribute("text", transcription)
+        head 200
+      end
+    end
   end
 
   def recording

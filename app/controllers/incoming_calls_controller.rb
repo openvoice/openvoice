@@ -63,6 +63,11 @@ class IncomingCallsController < ApplicationController
   end
 
   def user_menu
+    p "+++++++++++++++++ in user_menu"
+    p params
+    return if params[:result][:state] == "DISCONNECTED"
+    p "+++++++++++++++++ in user_menu"
+
     value = params[:result][:actions][:value]
     conf_id = params[:conf_id]
     case value
@@ -76,8 +81,13 @@ class IncomingCallsController < ApplicationController
       when "voicemail"
         session_id = params[:session_id]
         call_id = params[:call_id]
-        voicemail_url = "http://api.tropo.com/1.0/sessions/#{session_id}/calls/#{call_id}/events?action=create&name=voicemail"
-        open(voicemail_url)
+        server_url = "api.tropo.com"
+        voicemail_url = "/1.0/sessions/#{session_id}/calls/#{call_id}/events"
+        req = Net::HTTP::Post.new(voicemail_url)
+        req.content_type = "text/xml"
+        event_info = "<?xml version='1.0' encoding='UTF-8'?><event><name>voicemail</name></event>"
+        req.body = event_info
+        resp = Net::HTTP.start(server_url) { |http| http.request(req) }
         tropo = Tropo::Generator.new do
           say 'sending caller to voicemail, goodbye'
           hangup

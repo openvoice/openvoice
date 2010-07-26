@@ -49,31 +49,35 @@ class CommunicationsController < ApplicationController
       existing_contact = existing_contact.first
     end
 
-    render :json => existing_contact.record_name(params[:session_id], params[:call_id])
+    render :json => existing_contact.record_name(params[:result][:sessionId], params[:result][:callId])
   end
 
   def handle_incoming_call
     user_id = params[:user_id]
     caller_id = CGI::escape(params[:caller_id])
-    session_id = params[:session_id]
-    call_id = params[:call_id]
+    session_id = params[:result][:sessionId]
+    call_id = params[:result][:callId]
     transcription_id = user_id + "_" + Time.now.to_i.to_s
     IncomingCall.create(:user_id => user_id,
                         :caller_id => caller_id,
-                        :session_id => params[:session_id],
-                        :call_id => params[:call_id])
+                        :session_id => session_id,
+                        :call_id => call_id)
+    voicemail_action_url = "/voicemails/recording?user_id=#{user_id}&caller_id=#{caller_id}&transcription_id=#{transcription_id}"
     conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
-      on(:event => 'disconnect', :next => "hangup")
-      on(:event => 'voicemail', :next => "/voicemails/recording?user_id=#{user_id}&caller_id=#{caller_id}&transcription_id=#{transcription_id}")
+      signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
+#      on(:event => 'disconnect', :next => signal_url)
+#      on(:event => 'error', :next => signal_url)
+#      on(:event => 'hangup', :next => signal_url)
+      on(:event => 'voicemail', :next => voicemail_action_url)
       say("Please wait while we connect your call")
       conference(:name => "conference", :id => conf_id, :terminator => "*")
     end
 
     render :json => tropo.response
   end
-  
+
 #  def answer
 #    value = params[:result][:actions][:value]
 #    caller_id = params[:caller_id]
@@ -102,6 +106,12 @@ class CommunicationsController < ApplicationController
 
   def hangup
     Tropo::Generator.new{ hangup }.to_json
+  end
+
+  def signal_peer
+    tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
+    open(tropo_url)
+    render head 204
   end
 
   def get_caller_id(header, x_sbc_from, from_id)
