@@ -55,10 +55,10 @@ class Contact < ActiveRecord::Base
     Tropo::Generator.new{ hangup }.to_json
   end
 
-  def signal_peer
-    tropo_url = "http://api.tropo.com/1.0/sessions/#{session_id}/calls/#{call_id}/events?action=create&name=#{event}"
-    open(tropo_url)
-    render head 204
-  end
+#  def signal_peer
+#    tropo_url = "http://api.tropo.com/1.0/sessions/#{session_id}/calls/#{call_id}/events?action=create&name=#{event}"
+#    open(tropo_url)
+#    render head 204
+#  end
 
 end
