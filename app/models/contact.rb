@@ -13,7 +13,7 @@ class Contact < ActiveRecord::Base
     caller_id = CGI::escape(number)
     contact_id = id
     name_recording = self.name_recording
-    signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
+#    signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
     tropo = Tropo::Generator.new do
 #      on(:event => 'incomplete', :next => signal_url)
 #      on(:event => 'disconnect', :next => signal_url)

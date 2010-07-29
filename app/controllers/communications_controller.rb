@@ -66,7 +66,7 @@ class CommunicationsController < ApplicationController
     conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
-      signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
+#      signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
 #      on(:event => 'disconnect', :next => signal_url)
 #      on(:event => 'error', :next => signal_url)
 #      on(:event => 'hangup', :next => signal_url)
