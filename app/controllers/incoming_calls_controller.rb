@@ -65,7 +65,7 @@ class IncomingCallsController < ApplicationController
   def user_menu
     p "+++++++++++++++++ in user_menu"
     p params
-    return if params[:result][:state] == "DISCONNECTED"
+#    return if params[:result][:state] == "DISCONNECTED"
     p "+++++++++++++++++ in user_menu"
 
     value = params[:result][:actions][:value]
