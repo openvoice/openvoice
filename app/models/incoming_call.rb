@@ -8,7 +8,7 @@ class IncomingCall < ActiveRecord::Base
   # signals tropo by making a session token call, passing ov_action=joinconf
   # when tropo response comes back, ov will put the user into an existing conference identified by conference_id
   def signal_tropo
-    # TODO should add funtion that letting user to pick which phone to ring
+    # TODO should add function that letting user to pick which phone to ring
     profile = user.profiles.first
     call_url = profile.call_url
     voice_token = profile.voice_token

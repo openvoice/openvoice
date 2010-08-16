@@ -9,6 +9,8 @@ class User < ActiveRecord::Base
   has_many :contacts
   has_many :profiles
 
+  after_create :create_profile
+
   # returns the default phone to ring, if user defines multiple default phones, then pick the first one;
   # if user does not define a default, then just pick the first forwarding phone;
   # if user does not define a forwarding phone, just pick the first phone number;
@@ -25,5 +27,19 @@ class User < ActiveRecord::Base
   # returns all the forward phone_numbers
   def forwarding_numbers
     phone_numbers.select{ |n| n.forward == true }.map(&:number)
+  end
+
+  def create_profile
+    tropo = YAML::load_file('config/tropo.yml')
+    resp = RestClient.post "http://#{tropo[RAILS_ENV]["username"]}:#{tropo[RAILS_ENV]["password"]}@api.tropo.com/provisioning/applications/#{tropo[RAILS_ENV]["app_id"]}/addresses/",
+           { :type => "number" }.to_json, :content_type=> :json, :accept => :json
+
+    new_number = JSON.parse(resp.body)["href"].match(%r{(.*/)(.*)})[2]
+    profile = profiles.build(:voice => new_number,
+                             :voice_token => OUTBOUND_TOKEN_VOICE,
+                             :messaging_token => OUTBOUND_TOKEN_MESSAGING,
+                             :call_url => TROPO_URL)
+    profile.save
+
   end
 end
