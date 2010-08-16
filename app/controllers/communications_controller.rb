@@ -17,7 +17,7 @@ class CommunicationsController < ApplicationController
       caller_id = get_caller_id(x_voxeo_to, headers["x-sbc-from"], params[:session][:from][:id])
       sip_client = get_sip_client_from_header(x_voxeo_to)
       tropo = nil
-      unless (user = locate_user(sip_client, x_voxeo_to))
+      unless (user = locate_user(sip_client, x_voxeo_to, params[:session][:to][:id]))
         #TODO log the error
         tropo = Tropo::Generator.new do
           say "Unable to locate open voice user, we will look into the issue."
@@ -122,7 +122,7 @@ class CommunicationsController < ApplicationController
       %r{(^<)(sip.*)(>.*)}.match(x_sbc_from)[2]
     elsif header =~ /^<sip:883.*$/
       "TODO-INUM" #TODO return correct caller_id for INUM
-    elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
+    elsif header =~ /^.*<sip:\+*|[1-9][0-9][0-9].*$/
       from_id
     else
       x_sbc_from
@@ -136,7 +136,7 @@ class CommunicationsController < ApplicationController
       "SIP"
     elsif header =~ /^<sip:883.*$/
       "INUM"
-    elsif header =~ /^.*<sip:|[1-9][0-9][0-9].*$/
+    elsif header =~ /^.*<sip:\+*|[1-9][0-9][0-9].*$/
       "PSTN"
     else
       "OTHER"
@@ -146,7 +146,7 @@ class CommunicationsController < ApplicationController
   # TODO i'm not too happy with the implementation of this method, will revisit to refactor
   # Locate the openvoice user being called
   # Caller should handle nil user and hanup the call, log the error if needed
-  def locate_user(client, callee)
+  def locate_user(client, callee, to)
     profiles = nil
     if client == "SKYPE"
       # delete any white space in skype number
@@ -156,8 +156,13 @@ class CommunicationsController < ApplicationController
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
       profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
     elsif client == "PSTN"
-      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
-      profiles = Profile.all.select { |profile| profile.voice == number_to_search }
+#      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
+#      profiles = Profile.all.select { |profile| profile.voice == number_to_search }
+      profiles = Profile.all.select { |profile| profile.voice == to }
+      # TODO currently tropo does not return country code and assumes it is 1.
+      if profiles.empty?
+        profiles = Profile.all.select{ |profile| profile.voice == "1" + to }
+      end
     end
 
     profiles.first && profiles.first.user
