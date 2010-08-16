@@ -8,28 +8,54 @@ OpenVoice is built on top of Tropo, it can be deployed onto any server because i
 OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and will
 support Flash phone.
 
-h3. To create an OpenVoice account:
+There are two ways to use OpenVoice:
+1. Use http://openvoice.heroku.com
 
 First go to http://openvoice.heroku.com/users/new to create a new login.
-
-Then you need to create a tropo application.  Go to tropo.com and sign up for a free developer's account.
-Create a tropo application and make it look like this:
-"tropo application setup":http://idisk.me.com/zlu/Public/Pictures/Skitch/Tropo.com-20100609-082358.jpg
-If you use my OpenVoice server at http://openvoice.heroku.com, then the url for voice call should be:
-http://openvoice.heroku.com/communications/index?format=json
-And the url for messaging is:
-http://openvoice.heroku.com/messagings/create?format=json
-If you deploy openvoice on your own server, then replace the server url to your own.
-
-Once you obtain all the tropo information, then goto openvoice.heroku.com, log in, and go to profile to create a new profile.
-Your prfoile should look like this but with your own tropo information
-"openvoice profile example":http://idisk.me.com/zlu/Public/Pictures/Skitch/OpenVoice_-_profiles_index-20100609-082551.jpg
-then you can add a forwarding/default number at the phone number page.
+Then click on profile link and note that you have a voice number provisioned.  This is your openvoice number.
+Then click on "phone numbers" link and add some number you want to link to your openvoice number.
+Forward: check this box if you want the call to be forwarded to this number when someone calls your openvoice number.
+Default: only check one of these.  This number is used for outbound calls.  When you call someone, it will first ring
+this number.  Once your pick up the phone, it will ring the destination number.
 
 Please keep in mind that this openvoice server is under active developement thus in no way stable.  If you want stability,
 deploy the code on your own server.
 
-If you find bugs, please log them in the issues section on github.
+2. Self-hosted
+
+First you need to create a tropo application.  Go to tropo.com and sign up for a free developer's account.
+Create a tropo application and make it look like this:
+"tropo application setup":http://idisk.me.com/zlu/Public/Pictures/Skitch/Tropo.com-20100609-082358.jpg
+Url for voice (replace server to your own domain)
+http://openvoice.heroku.com/communications/index?format=json
+And the url for messaging is (replace server to your own domain):
+http://openvoice.heroku.com/messagings/create?format=json
+
+Create tropo.yml under the config directory.
+development:
+  username: tropo_user_name
+  password: tropo_password
+  app_id: tropo_app_id
+
+production:
+  username: tropo_user_name
+  password: tropo_password
+  app_id: tropo_app_id
+
+To find out the tropo_app_id, add a skype number in tropo, it will look like something like this: Skype Voice: +99000936 9991429707
+The digits after " 999" is app_id, or "1429707" in this example.
+
+Next edition production.rb
+SERVER_URL = your_domain
+OUTBOUND_TOKEN_VOICE = your_tropo_voice_token
+OUTBOUND_TOKEN_MESSAGING = your_tropo_messaging_token
+
+Start ov server and create a new user.  Now go to
+Then click on profile link and note that you have a voice number provisioned.  This is your openvoice number.
+Then click on "phone numbers" link and add some number you want to link to your openvoice number.
+Forward: check this box if you want the call to be forwarded to this number when someone calls your openvoice number.
+Default: only check one of these.  This number is used for outbound calls.  When you call someone, it will first ring
+this number.  Once your pick up the phone, it will ring the destination number.
 
 h3. To setup your development environment:
 
@@ -38,6 +64,10 @@ Clone this project and start the rails server on your local machine
 Highly recommend use rake tunnel:tunnel:start to reverse tunnel to your local machine for faster development.
 You can either setup your own reverse ssh tunnel or get one from tunnlr.com.
 Please don't use my tunnlr credential.
+
+h3. Bugs
+
+If you find bugs, please log them in the issues section on github.
 
 h3. To call me and complain
 
