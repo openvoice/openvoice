@@ -8,8 +8,9 @@ OpenVoice is built on top of Tropo, it can be deployed onto any server because i
 OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and will
 support Flash phone.
 
-There are two ways to use OpenVoice:
-1. Use http://openvoice.heroku.com
+h3. There are two ways to use OpenVoice:
+
+h4. 1. Use http://openvoice.heroku.com
 
 First go to http://openvoice.heroku.com/users/new to create a new login.
 Then click on profile link and note that you have a voice number provisioned.  This is your openvoice number.
@@ -21,7 +22,7 @@ this number.  Once your pick up the phone, it will ring the destination number.
 Please keep in mind that this openvoice server is under active developement thus in no way stable.  If you want stability,
 deploy the code on your own server.
 
-2. Self-hosted
+h4. 2. Self-hosted
 
 First you need to create a tropo application.  Go to tropo.com and sign up for a free developer's account.
 Create a tropo application and make it look like this:
