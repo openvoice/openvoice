@@ -1,0 +1,28 @@
+<h2>Incoming calls</h2>
+
+<table>
+  <tr class="header">
+    <th>From</th>
+    <th>Caller ID</th>
+    <th>Time</th>
+    <th/>
+    <th/>
+    <th/>
+  </tr>
+
+  <% @incoming_calls.each do |incomging_call| %>
+      <tr align="center">
+        <td><%= h incomging_call.caller_name %></td>
+        <td><%= h incomging_call.caller_id %></td>
+        <td><%= h incomging_call.created_at %></td>
+        <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => incomging_call.caller_id }) %></td>
+        <td class="narrow"><%= link_to 'Show', user_incoming_call_path(current_user, incomging_call) %></td>
+        <td class="narrow"><%= link_to 'Destroy', user_incoming_call_path(current_user, incomging_call), :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+  <% end %>
+</table>
+
+<br/>
+<%= will_paginate @incoming_calls %>
+<br/>
+

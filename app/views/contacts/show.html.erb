@@ -1,0 +1,22 @@
+<p>
+  <b>Name:</b>
+  <%=h @contact.name %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%=h @contact.number %>
+</p>
+
+<p>
+  <b>IM:</b>
+  <%=h @contact.im %>
+</p>
+
+<p>
+  <b>Name recording:</b>
+  <embed src=<%= @contact.name_recording%> height=15 width=144 controls=smallconsole volume=50 autostart=false>
+</p>
+
+<%= link_to 'Edit', edit_user_contact_path(current_user, @contact) %> |
+<%= link_to 'Back', user_contacts_path(current_user) %>

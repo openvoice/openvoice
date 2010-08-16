@@ -1,0 +1,51 @@
+<h1>Editing profile</h1>
+<% form_for([@user, @profile]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :voice %><br />
+    <%= f.text_field :voice %>
+  </p>
+  <p>
+    <%= f.label :skype %><br />
+    <%= f.text_field :skype %>
+  </p>
+  <p>
+    <%= f.label :sip %><br />
+    <%= f.text_field :sip %>
+  </p>
+  <p>
+    <%= f.label :inum %><br />
+    <%= f.text_field :inum %>
+  </p>
+  <p>
+    <%= f.label :tropo %><br />
+    <%= f.text_field :tropo %>
+  </p>
+  <p>
+    <%= f.label :twitter %><br />
+    <%= f.text_field :twitter %>
+  </p>
+  <p>
+    <%= f.label :gtalk %><br />
+    <%= f.text_field :gtalk %>
+  </p>
+  <p>
+    <%= f.label :call_url %><br />
+    <%= f.text_field :call_url %>
+  </p>
+  <p>
+    <%= f.label :voice_token %><br />
+    <%= f.text_field :voice_token %>
+  </p>
+  <p>
+    <%= f.label :messaging_token %><br />
+    <%= f.text_field :messaging_token %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', user_profiles_path(current_user, @profile) %> |
+<%= link_to 'Back', user_profiles_path(current_user) %>

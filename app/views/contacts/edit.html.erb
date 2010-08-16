@@ -1,0 +1,24 @@
+<h1>Editing contact</h1>
+
+<% form_for([@user, @contact]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.label :im %><br />
+    <%= f.text_field :im %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', user_contact_path(current_user, @contact) %> |
+<%= link_to 'Back', user_contacts_path(current_user) %>

@@ -1,0 +1,39 @@
+<h2>Profiles</h2>
+<%= link_to 'New profile', new_user_profile_path(current_user) %>
+<br /><br />
+
+<% @profiles.each do |profile| %>
+    <b>Voice:</b>
+    <%= h profile.voice %>
+    <br/>
+    <b>Skype:</b>
+    <%= h profile.skype %>
+    <br/>
+    <b>Sip:</b>
+    <%= h profile.sip %>
+    <br/>
+    <b>INum:</b>
+    <%= h profile.inum %>
+    <br />
+    <b>Tropo:</b>
+    <%= h profile.tropo %>
+    <br />
+    <b>Twitter:</b>
+    <%= h profile.twitter %>
+    <br />
+    <b>Gtalk:</b>
+    <%= h profile.gtalk %>
+    <br />
+    <b>Call URL:</b>
+    <%= h profile.call_url %>
+    <br />
+    <b>Voice Token:</b>
+    <%= h profile.voice_token %>
+    <br />
+    <b>Messaging Token:</b>
+    <%= h profile.messaging_token %>
+    <br />
+    <%= link_to 'Show', user_profile_path(current_user, profile) %>
+    <%= link_to 'Edit', edit_user_profile_path(current_user, profile) %>
+    <%= link_to 'Destroy', user_profile_path(current_user, profile), :confirm => 'Are you sure?', :method => :delete %>
+<% end %>

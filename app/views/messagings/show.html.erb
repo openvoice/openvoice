@@ -1,0 +1,26 @@
+<p>
+  <b>Sender:</b>
+  <%=h @messaging.from_name %>
+</p>
+
+<p>
+  <b>Number:</b>
+  <%=h @messaging.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%=h @messaging.to %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%=h @messaging.text %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @messaging.user_id %>
+</p>
+
+<%= link_to 'Back', user_messagings_path %>

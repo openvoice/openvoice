@@ -1,0 +1,19 @@
+<h1>New Message</h1>
+
+<% form_for([:user, @messaging]) do |f| %>
+    <%= f.error_messages %>
+
+    <p>
+      <%= f.label :to %><br/>
+      <%= f.text_field :to %>
+    </p>
+    <p>
+      <%= f.label :text %><br/>
+      <%= f.text_field :text %>
+    </p>
+    <p>
+      <%= f.submit 'Create' %>
+    </p>
+<% end %>
+
+<%= link_to 'Back', user_messagings_path(current_user) %>

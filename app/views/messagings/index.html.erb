@@ -1,0 +1,38 @@
+<h2>Messages (SMS/IM)</h2>
+<%= link_to 'New message', new_user_messaging_path(current_user), :class => 'special' %>
+<br/><br/>
+
+
+<% @messagings.each do |messaging| %>
+    <div class="messaging">
+      <div class="message">
+        <div class="kv">
+          <div class="k">Sender Name</div>
+          <div class="v"><%= h messaging.from_name %></div>
+        </div>
+        <div class="kv">
+          <div class="k">Sender Number</div>
+          <div class="v"><%= h messaging.from %></div>
+        </div>
+        <div class="kv">
+          <div class="k">To</div>
+          <div class="v"><%= h messaging.to %></div>
+        </div>
+        <div class="kv">
+          <div class="k">Text</div>
+          <div class="v"><%= h messaging.text %></div>
+        </div>
+      </div>
+
+      <div class="date">
+        <%= h messaging.created_at %>
+        <div>
+          <%= link_to 'Reply', new_user_messaging_path(current_user, { :to => messaging.from }) %>
+          <%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %>
+        </div>
+      </div>
+    </div>
+<% end %>
+<br/>
+
+<%= will_paginate @messagings %>

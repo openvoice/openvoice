@@ -1,0 +1,79 @@
+OpenVoice is a light-weight, open-source web framework enabling developers to write GoogleVoice-like applications
+using RESTful APIs. Thanks to Ruby-on-Rails and Tropo, developers can create next generation telephony applications
+quickly. Under the hood, OpenVoice handles call routing/forwarding, voicemails services including transcription,
+SIP/Skype support, and IM/SMS  support. Some notable differences from GoogleVoice are: open-source, API support,
+and SIP/Skype support where GoogleVoice only supports Gizmo.
+
+OpenVoice is built on top of Tropo, it can be deployed onto any server because it is a Rails application. In the future
+OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and will
+support Flash phone.
+
+h3. There are two ways to use OpenVoice:
+
+h4. 1. Use http://openvoice.heroku.com
+
+First go to http://openvoice.heroku.com/users/new to create a new login.
+Then click on profile link and note that you have a voice number provisioned.  This is your openvoice number.
+Then click on "phone numbers" link and add some number you want to link to your openvoice number.
+Forward: check this box if you want the call to be forwarded to this number when someone calls your openvoice number.
+Default: only check one of these.  This number is used for outbound calls.  When you call someone, it will first ring
+this number.  Once your pick up the phone, it will ring the destination number.
+
+Please keep in mind that this openvoice server is under active developement thus in no way stable.  If you want stability,
+deploy the code on your own server.
+
+h4. 2. Self-hosted
+
+First you need to create a tropo application.  Go to tropo.com and sign up for a free developer's account.
+Create a tropo application and make it look like this:
+"tropo application setup":http://idisk.me.com/zlu/Public/Pictures/Skitch/Tropo.com-20100609-082358.jpg
+Url for voice (replace server to your own domain)
+http://openvoice.heroku.com/communications/index?format=json
+And the url for messaging is (replace server to your own domain):
+http://openvoice.heroku.com/messagings/create?format=json
+
+Create tropo.yml under the config directory.
+development:
+  username: tropo_user_name
+  password: tropo_password
+  app_id: tropo_app_id
+
+production:
+  username: tropo_user_name
+  password: tropo_password
+  app_id: tropo_app_id
+
+To find out the tropo_app_id, add a skype number in tropo, it will look like something like this: Skype Voice: +99000936 9991429707
+The digits after " 999" is app_id, or "1429707" in this example.
+
+Next edition production.rb
+SERVER_URL = your_domain
+OUTBOUND_TOKEN_VOICE = your_tropo_voice_token
+OUTBOUND_TOKEN_MESSAGING = your_tropo_messaging_token
+
+Start ov server and create a new user.  Now go to
+Then click on profile link and note that you have a voice number provisioned.  This is your openvoice number.
+Then click on "phone numbers" link and add some number you want to link to your openvoice number.
+Forward: check this box if you want the call to be forwarded to this number when someone calls your openvoice number.
+Default: only check one of these.  This number is used for outbound calls.  When you call someone, it will first ring
+this number.  Once your pick up the phone, it will ring the destination number.
+
+h3. To setup your development environment:
+
+Create a tropo app first and get your own phone numbers and IMs
+Clone this project and start the rails server on your local machine
+Highly recommend use rake tunnel:tunnel:start to reverse tunnel to your local machine for faster development.
+You can either setup your own reverse ssh tunnel or get one from tunnlr.com.
+Please don't use my tunnlr credential.
+
+h3. Bugs
+
+If you find bugs, please log them in the issues section on github.
+
+h3. To call me and complain
+
+Voice & Messaging: (408) 940-5938
+Skype Voice: +99000936 9991429707
+SIP Voice: sip:9991429707@sip.tropo.com
+IM: openvoice@tropo.im
+Twitter: openvoice

@@ -1,0 +1,48 @@
+<head>
+  <title>OpenVoice - <%= controller.controller_name %>:<%= controller.action_name %></title>
+  <%= stylesheet_link_tag "openvoice" %>
+</head>
+
+<body>
+<div class="container">
+  <div class="header">
+    <%= image_tag("ov_logo.png", :size => "35x35") %>
+    <h1 class="header">OpenVoice</h1>
+  </div>
+
+  <div>
+    <div>
+      <% unless current_user.nil? %>
+          <%= link_to "inbound calls", user_incoming_calls_path(current_user), :class => 'special' %> |
+          <%= link_to "outbound calls", user_outgoing_calls_path(current_user), :class => 'special' %> |
+          <%= link_to "messages", user_messagings_path(current_user), :class => 'special' %> |
+          <%= link_to "voicemails", user_voicemails_path(current_user), :class => 'special' %> |
+          <%= link_to "addressbook", user_contacts_path(current_user), :class => 'special' %> |
+          <%= link_to "phone numbers", user_phone_numbers_path(current_user), :class => 'special' %> |
+          <%= link_to "profile", user_profiles_path(current_user), :class => 'special' %> |
+          <%= link_to "account", account_path, :class => 'special' %> |
+          <a class="special" href="/logout">logout</a>
+      <% end %>
+    </div>
+
+    <% if flash[:error]  %>
+    <div id="flash_error">
+        <%= flash[:error] %>
+    </div>
+    <% end %>
+
+    <% if flash[:notice]  %>
+    <div id="flash_notice">
+        <p><%= flash[:notice] %></p>
+    </div>
+    <% end %>
+    
+    <div>
+      <%= yield %>
+    </div>
+  </div>
+
+  <div class="footer">Copyright 2010, Zhao Lu <a href="http://myopenvoice.org">OpenVoice</a>.</div>
+</div>
+
+</body>

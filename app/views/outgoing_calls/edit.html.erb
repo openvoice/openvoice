@@ -1,0 +1,16 @@
+<h1>Editing outgoing_call</h1>
+
+<% form_for([@user, @outgoing_call]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :to %><br />
+    <%= f.text_field :to %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', user_outgoing_call_path(current_user, @outgoing_call) %> |
+<%= link_to 'Back', user_outgoing_calls_path(current_user) %>

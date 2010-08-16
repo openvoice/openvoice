@@ -1,0 +1,53 @@
+<p>
+  <b>Voice:</b>
+  <%=h @profile.voice %>
+</p>
+
+<p>
+  <b>Skype:</b>
+  <%=h @profile.skype %>
+</p>
+
+<p>
+  <b>Sip:</b>
+  <%=h @profile.sip %>
+</p>
+
+<p>
+  <b>INum:</b>
+  <%=h @profile.inum %>
+</p>
+
+<p>
+  <b>Tropo:</b>
+  <%=h @profile.tropo %>
+</p>
+
+<p>
+  <b>Twitter:</b>
+  <%=h @profile.twitter %>
+</p>
+
+<p>
+  <b>Gtalk:</b>
+  <%=h @profile.gtalk %>
+</p>
+
+<p>
+  <b>Call URL:</b>
+  <%=h @profile.call_url %>
+</p>
+
+<p>
+  <b>Voice Token:</b>
+  <%=h @profile.voice_token %>
+</p>
+
+<p>
+  <b>Messaging Token:</b>
+  <%=h @profile.messaging_token %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_profile_path(current_user, @profile) %> |
+<%= link_to 'Back', user_profiles_path(current_user) %>

@@ -1,0 +1,28 @@
+<h1>Editing phone_number</h1>
+
+<% form_for([@user, @phone_number]) do |f| %>
+    <%= f.error_messages %>
+
+    <p>
+      <%= f.label :name %><br/>
+      <%= f.text_field :name %>
+    </p>
+    <p>
+      <%= f.label :number %><br/>
+      <%= f.text_field :number %>
+    </p>
+    <p>
+      <%= f.label :default %>
+      <%= f.check_box :default %>
+    </p>
+    <p>
+      <%= f.label :forward %>
+      <%= f.check_box :forward %>
+    </p>
+    <p>
+      <%= f.submit 'Update' %>
+    </p>
+<% end %>
+
+<%= link_to 'Show', user_phone_number_path(current_user, @phone_number) %> |
+<%= link_to 'Back', user_phone_numbers_path(current_user) %>

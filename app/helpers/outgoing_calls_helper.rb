@@ -1,0 +1,2 @@
+module OutgoingCallsHelper
+end

@@ -1,0 +1,152 @@
+div.container {
+    width: 750px;
+    margin: 0px;
+    border: 3px solid #333300;
+    line-height: 150%;
+}
+
+div.header, div.footer {
+    padding: 0.5em;
+    color: #cccccc;
+    background-color: #333333;
+    clear: left;
+}
+
+h1.header {
+    position: relative;
+    left:50px;
+    top: -40px;
+    padding: 0;
+}
+
+body {
+    background-color: #000000;
+    color: #cccccc;
+    font-size: 14px;
+    font: "Lucida granda",tahoma,verdana,arial,sans-serif;
+}
+
+h1 {
+    color: #cccccc;
+    font-size: 20px;
+}
+
+h2 {
+    color: #cccccc;
+    font-size: 18px;
+}
+
+a:link, a:visited {
+    color: #cccccc;
+    font-size: 13px;
+    font: "Lucida granda",tahoma,verdana,arial,sans-serif;
+}
+
+a.special {
+    color: #acb1ba;
+    font-size: 14px;
+}
+
+table {
+    background-color: #333333;
+}
+
+table, td.narrow {
+    width: 20px;
+}
+
+tr.header {
+    background-color: #333300;
+}
+
+table, tr.row {
+    border: 2px white;
+}
+
+table, tr, td {
+    width: 750px;
+    font-size: 13px;
+    font: "lucida grande",tahoma,verdana,arial,sans-serif;
+    padding: 0.1em;
+}
+
+table, th {
+    font-size: 15px;
+}
+
+div.description {
+    float: left;
+    width: 60%;
+    margin: 0;
+    padding: 1em;
+}
+
+div.login {
+    padding: 1em;
+}
+
+form.login {
+    border: 2px solid #333333;
+    padding: 1em;
+    width: 30%;
+    float: left;
+    text-align: left;
+    margin-right: 0.5em;
+    display: block
+}
+
+#flash_error{
+	border: 1px;
+	border-style: solid;
+	margin: 10px 10px 0px 10px;
+	padding: 5px 10px 10px 5px;
+	background-color: #333333;
+	color: #FF0000;
+}
+
+#flash_notice{
+	border: 1px;
+	border-style: solid;
+	margin: 10px 10px 0px 10px;
+	padding: 5px 5px 5px 5px;
+	background-color: #333333;
+	color: #33ff00;
+}
+
+.messaging {
+  height:120px;
+  margin:1px;
+  position: relative;
+  background-color: #333333;
+}
+
+.messaging .message {
+    margin: 5px;
+    float: left;
+    width: 600px;
+    height: 110px;
+    position: relative;
+}
+
+.messaging .message .kv {
+    padding-top: 3px;
+    width: 600px;
+    height: 20px;
+}
+
+.messaging .message .kv .k {
+    width: 125px;
+    float: left;
+    height: 20px;
+    font-weight: bold;
+}
+
+.messaging .message .kv .v {
+    width: 600px;
+    height: 20px;
+}
+
+.messaging .date {
+  float: right;
+  margin: 5px;
+}

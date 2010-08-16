@@ -1,0 +1,21 @@
+<p>
+  <b>From:</b>
+  <%=h @voicemail.from %>
+</p>
+
+<p>
+  <b>To:</b>
+  <%=h @voicemail.to %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%=h @voicemail.text %>
+</p>
+
+<p>
+  <b>Uri:</b>
+  <%=h @voicemail.filename %>
+</p>
+
+<%= link_to 'Back', user_voicemails_path(current_user) %>
