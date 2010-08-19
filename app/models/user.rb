@@ -30,10 +30,11 @@ class User < ActiveRecord::Base
   end
 
   def create_profile
-    tropo = YAML::load_file('config/tropo.yml')
-    resp = RestClient.post "http://#{tropo[RAILS_ENV]["username"]}:#{tropo[RAILS_ENV]["password"]}@api.tropo.com/provisioning/applications/#{tropo[RAILS_ENV]["app_id"]}/addresses/",
-           { :type => "number" }.to_json, :content_type=> :json, :accept => :json
-
+    tu = ENV['TROPO_USER']
+    tp = ENV['TROPO_PASS']
+    ta = ENV["TROPO_APP"]
+    url = "http://" + tu + ":" + tp + "@api.tropo.com/provisioning/applications/" + ta + "/addresses/"
+    resp = RestClient.post (url, { :type => "number" }.to_json, :content_type=> :json, :accept => :json )
     new_number = JSON.parse(resp.body)["href"].match(%r{(.*/)(.*)})[2]
     profile = profiles.build(:voice => new_number,
                              :voice_token => OUTBOUND_TOKEN_VOICE,
@@ -41,5 +42,5 @@ class User < ActiveRecord::Base
                              :call_url => TROPO_URL)
     profile.save
 
-  end
+  end                                       
 end
