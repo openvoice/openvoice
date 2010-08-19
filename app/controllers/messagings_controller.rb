@@ -41,7 +41,13 @@ class MessagingsController < ApplicationController
       from = session[:from][:id]
       text = session[:initialText]
       to = session[:to][:id]
-      @user = Profile.find_by_voice(to).user
+      begin
+        @user = Profile.find_by_voice(to).user
+      rescue
+        to.slice!(0) if to.first == "1"
+        @user = Profile.find_by_voice(to)
+      end
+
       forward_to = @user.profiles.first.voice
       @messaging = Messaging.new(:from => from, :text => text, :to => forward_to, :user_id => @user.id, :outgoing => false)
     else
