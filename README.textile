@@ -32,18 +32,15 @@ http://openvoice.heroku.com/communications/index?format=json
 And the url for messaging is (replace server to your own domain):
 http://openvoice.heroku.com/messagings/create?format=json
 
-Create tropo.yml under the config directory.
-development:
-  username: tropo_user_name
-  password: tropo_password
-  app_id: tropo_app_id
+export the following environment variables for shell (in .bashrc or .profile)
+export TROPO_APP=your_tropo_applicaton_id
+export TROPO_USER=your_tropo_user_name
+export TROPO_PASS=your_tropo_password
 
-production:
-  username: tropo_user_name
-  password: tropo_password
-  app_id: tropo_app_id
+if you are deploying to heroku, use the following instruction to define config vars:
+http://docs.heroku.com/config-vars
 
-To find out the tropo_app_id, add a skype number in tropo, it will look like something like this: Skype Voice: +99000936 9991429707
+* To find out the tropo_app_id, add a skype number in tropo, it will look like something like this: Skype Voice: +99000936 9991429707
 The digits after " 999" is app_id, or "1429707" in this example.
 
 Next edition production.rb

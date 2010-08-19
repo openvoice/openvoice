@@ -3,4 +3,3 @@
 log
 .idea
 db/development.sqlite3
-config/tropo.yml
