@@ -40,8 +40,12 @@ export TROPO_PASS=your_tropo_password
 if you are deploying to heroku, use the following instruction to define config vars:
 http://docs.heroku.com/config-vars
 
-* To find out the tropo_app_id, add a skype number in tropo, it will look like something like this: Skype Voice: +99000936 9991429707
-The digits after " 999" is app_id, or "1429707" in this example.
+* To find out the tropo_app_id:
+Go to this url in your browser:
+http://your_tropo_user_name:your_tropo_password@api.tropo.com/provisioning/applications
+Accept warnings and you should see a list of all your tropo apps in json.
+The number at then end of href is the app_id.  I know this approach is less ideal, but in the future tropo will
+display app_id in web ui.  Also I plan to add tropo app provision in OV.
 
 Next edition production.rb
 SERVER_URL = your_domain
