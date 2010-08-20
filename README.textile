@@ -47,7 +47,7 @@ Accept warnings and you should see a list of all your tropo apps in json.
 The number at then end of href is the app_id.  I know this approach is less ideal, but in the future tropo will
 display app_id in web ui.  Also I plan to add tropo app provision in OV.
 
-Next edition production.rb
+Next edit development.rb and production.rb
 SERVER_URL = your_domain
 OUTBOUND_TOKEN_VOICE = your_tropo_voice_token
 OUTBOUND_TOKEN_MESSAGING = your_tropo_messaging_token
