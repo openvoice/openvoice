@@ -3,4 +3,5 @@ authlogic
 pg --version 0.9.0
 will_paginate
 rest-client
+eventmachine
 freeswitcher
