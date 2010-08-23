@@ -1,0 +1,7 @@
+<p>
+  <b>SIP Address:</b>
+  <%=h @profile.sip_address %>
+</p>
+
+<%= link_to 'Edit', edit_user_fs_profile_path(current_user, @profile) %> |
+<%= link_to 'Back', user_fs_profiles_path(current_user) %>

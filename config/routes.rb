@@ -52,6 +52,7 @@ ActionController::Routing::Routes.draw do |map|
     user.resources :outgoing_calls
     user.resources :contacts
     user.resources :profiles
+    user.resources :fs_profiles
   end
 
 

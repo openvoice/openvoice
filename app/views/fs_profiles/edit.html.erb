@@ -1,0 +1,16 @@
+<h1>Editing FreeSwitch profile</h1>
+<% form_for([@user, @profile]) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :sip_address %><br />
+    <%= f.text_field :sip_address %>
+  </p>
+
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', user_fs_profiles_path(current_user, @profile) %> |
+<%= link_to 'Back', user_fs_profiles_path(current_user) %>

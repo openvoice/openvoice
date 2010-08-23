@@ -1,0 +1,12 @@
+<h2>FreeSwitch Profiles</h2>
+<%= link_to 'New FS profile', new_user_fs_profile_path(current_user) %>
+<br /><br />
+
+<% @profiles.each do |profile| %>
+    <b>SIP Address:</b>
+    <%= h profile.sip_address %>
+    <br/>
+    <%= link_to 'Show', user_fs_profile_path(current_user, profile) %>
+    <%= link_to 'Edit', edit_user_fs_profile_path(current_user, profile) %>
+    <%= link_to 'Destroy', user_fs_profile_path(current_user, profile), :confirm => 'Are you sure?', :method => :delete %>
+<% end %>

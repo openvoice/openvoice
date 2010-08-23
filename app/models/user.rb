@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :incoming_calls
   has_many :contacts
   has_many :profiles
+  has_many :fs_profiles
 
   after_create :create_profile
 
