@@ -1,5 +1,3 @@
-require 'fsr'
-
 class FSInboundListener < FSR::Listener::Inbound
   def on_event(event)
     # Be sure to check out the content of `event`. It has all the good stuff.
@@ -19,5 +17,5 @@ class FSInboundListener < FSR::Listener::Inbound
   end
 end
 
-FSR.start FSInboundListener, :host => ENV["FS_HOST"], :port => ENV["FS_PORT"], :auth => ENV['FS_PASSWORD']
+FSR.start_ies! FSInboundListener, :host => ENV["FS_HOST"], :port => ENV["FS_PORT"], :auth => ENV['FS_PASSWORD']
 
