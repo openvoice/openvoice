@@ -19,5 +19,5 @@ class FSInboundListener < FSR::Listener::Inbound
   end
 end
 
-FSR.start FSInboundListener, :host => ENV["FS_HOST"], :port => ENV["FS_PORT"], :auth => ENV['FS_PASSWORD']
+#FSR.start FSInboundListener, :host => ENV["FS_HOST"], :port => ENV["FS_PORT"], :auth => ENV['FS_PASSWORD']
 

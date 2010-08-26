@@ -1,3 +1,5 @@
+require 'fsr/command_socket'
+
 class IncomingCall < ActiveRecord::Base
 
   belongs_to :user
@@ -27,6 +29,16 @@ class IncomingCall < ActiveRecord::Base
     session_id = params[:session_id]
     user = User.find(user_id)
     forwards = user.forwarding_numbers
+
+    if (fsp = user.fs_profiles.first )
+      fs_addr = fsp.sip_address
+      dest = fs_addr.match(%r{(.*)@(.*)})[1] + "%" + ENV['FS_HOST_IP']
+      FSR.load_all_commands                           
+      sock = FSR::CommandSocket.new(:server => ENV['FS_HOST'], :auth => ENV['FS_PASSWORD'])
+      # TODO for now only allow calls from myopenvoice.org domain
+      sock.originate(:target => "sofia/internal/1000%#{ENV['FS_HOST_IP']}", :endpoint =>FSR::App::Bridge.new("sofia/internal/#{dest}")).run
+    end
+    
     next_action = "/incoming_calls/user_menu?conf_id=#{CGI::escape(conf_id)}&user_id=#{user_id}&caller_id=#{caller_id}&session_id=#{session_id}&call_id=#{call_id}"
     contact = user.contacts.select{ |c| c.number == caller_id }.first
     contact = Contact.last if contact.nil?
