@@ -1,64 +1,91 @@
-ActionController::Routing::Routes.draw do |map|
-
-  # The priority is based upon order of creation: first created -> highest priority.
+Openvoice::Application.routes.draw do
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
   # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
+  #   match 'products/:id' => 'catalog#view'
   # Keep in mind you can assign values other than :controller and :action
 
   # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
   # This route can be invoked with purchase_url(:id => product.id)
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
+  #   resources :products
 
   # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
   # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-  
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
+
   # Sample resource route with more complex sub-resources
-  #   map.resources :products do |products|
-  #     products.resources :comments
-  #     products.resources :sales, :collection => { :recent => :get }
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
   #   end
 
   # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
   #   end
 
-  map.root :controller => "user_sessions", :action => "new"
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => "welcome#index"
 
-  map.connect 'phone_numbers/get_user', :controller => 'phone_numbers', :action => 'locate_user'
-  map.connect 'voicemails/set_transcription', :controller => 'voicemails', :action => 'set_transcription'
-  map.connect 'voicemails/recording', :controller => 'voicemails', :action => 'recording'
-  map.connect 'users/register_phone', :controller => 'users', :action => 'register_phone'
-  map.logout '/logout', :controller => 'user_sessions', :action => 'destroy'
-  map.connect 'incoming_calls/user_menu', :controller => 'incoming_calls', :action => 'user_menu'
-  map.connect 'communications/handle_incoming_call', :controller => 'communications', :action => 'handle_incoming_call'
-  map.connect 'contacts/set_name_recording', :controller => 'contacts', :action => 'set_name_recording'
+  # See how all your routes lay out with "rake routes"
 
-  map.resource :user_session
-  map.resource :account, :controller => "users"
-  map.resources :users do |user|
-    user.resources :phone_numbers
-    user.resources :voicemails
-    user.resources :messagings
-    user.resources :incoming_calls
-    user.resources :outgoing_calls
-    user.resources :contacts
-    user.resources :profiles
-    user.resources :fs_profiles
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id(.:format)))'
+  root :to => "user_sessions#new"
+
+  match 'login' => 'user_sessions#new', :as => :login
+  match 'logout' => 'user_sessions#destroy', :as => :logout
+  match 'signup' => 'users#new', :as => :signup
+  match 'activate/:activation_code' => 'users#activate', :as => :activate, :activation_code => nil
+
+  match 'phone_numbers/get_user' => 'phone_numbers#locate_user'
+  match 'voicemails/set_transcription' => 'voicemails#set_transcription'
+  match 'voicemails/recording' => 'voicemails#recording'
+  match 'users/register_phone' => 'users#register_phone'
+  match 'logout' => 'user_sessions#destroy'
+  match 'incoming_calls/user_menu' => 'incoming_calls#user_menu'
+  match 'communications/handle_incoming_call' => 'communications#handle_incoming_call'
+  match 'contacts/set_name_recording' => 'contacts#set_name_recording'
+
+  resource :user_session
+  resource :account, :controller => "users"
+  resources :users do
+    member do
+      put :suspend
+      put :unsuspend
+      delete :purge
+    end    
+    resources :phone_numbers
+    resources :voicemails
+    resources :messagings
+    resources :incoming_calls
+    resources :outgoing_calls
+    resources :contacts
+    resources :profiles
+    resources :fs_profiles
   end
-
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing or commenting them out if you're using named routes and resources.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
 end

@@ -1,5 +1,8 @@
+.rspec
+.bundle
 \#*
 *~
 log
 .idea
 db/development.sqlite3
+tmp
