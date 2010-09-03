@@ -27,8 +27,8 @@ namespace :tunnel do
     end
 
     task :config => :environment do
-     tunnel_config = File.join(RAILS_ROOT, 'config', 'tunnel.yml')
-     TUNNEL = YAML.load(ERB.new(File.read(tunnel_config)).result)[RAILS_ENV]
+     tunnel_config = File.join(::Rails.root.to_s, 'config', 'tunnel.yml')
+     TUNNEL = YAML.load(ERB.new(File.read(tunnel_config)).result)[::Rails.env]
      @public_host_username = TUNNEL['tunnel']['public_host_username']
      @public_host = TUNNEL['tunnel']['public_host']
      @public_port = TUNNEL['tunnel']['public_port']
