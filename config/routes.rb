@@ -69,6 +69,8 @@ Openvoice::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy'
   match 'incoming_calls/user_menu' => 'incoming_calls#user_menu'
   match 'communications/handle_incoming_call' => 'communications#handle_incoming_call'
+  match 'communications/index' => 'communications#index'
+  match 'communications/call_screen' => 'communications#call_screen'
   match 'contacts/set_name_recording' => 'contacts#set_name_recording'
 
   resource :user_session
