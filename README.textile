@@ -36,6 +36,11 @@ export the following environment variables for shell (in .bashrc or .profile)
 export TROPO_APP=your_tropo_applicaton_id
 export TROPO_USER=your_tropo_user_name
 export TROPO_PASS=your_tropo_password
+export FS_HOST=your_freeswitch_server
+export FS_HOST_IP=your_freeswitch_ip
+export FS_PORT=your_freeswitch_port
+export FS_PASSWORD=your_freeswitch_password
+
 
 if you are deploying to heroku, use the following instruction to define config vars:
 http://docs.heroku.com/config-vars
