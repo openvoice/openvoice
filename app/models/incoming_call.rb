@@ -32,7 +32,7 @@ class IncomingCall < ActiveRecord::Base
 
     if (fsp = user.fs_profiles.first )
       fs_addr = fsp.sip_address
-      dest = fs_addr.match(%r{(.*)@(.*)})[1] + "%" + ENV['FS_HOST_IP']
+      dest = fs_addr.match(%r{(.*)@(.*)})[1].to_s + "%" + ENV['FS_HOST_IP']
       FSR.load_all_commands                           
       sock = FSR::CommandSocket.new(:server => ENV['FS_HOST'], :auth => ENV['FS_PASSWORD'])
       # TODO for now only allow calls from myopenvoice.org domain
