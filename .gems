@@ -1,4 +1,5 @@
-tropo-webapi-ruby --version 0.1.7  
+rails -v 3.0.0
+tropo-webapi-ruby --version 0.1.7
 authlogic
 pg --version 0.9.0
 will_paginate
