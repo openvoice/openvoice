@@ -54,7 +54,6 @@ Openvoice::Application.routes.draw do
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id(.:format)))'
   root :to => "user_sessions#new"
 
   match 'login' => 'user_sessions#new', :as => :login
@@ -68,6 +67,7 @@ Openvoice::Application.routes.draw do
   match 'users/register_phone' => 'users#register_phone'
   match 'logout' => 'user_sessions#destroy'
   match 'incoming_calls/user_menu' => 'incoming_calls#user_menu'
+  match 'communications/index' => 'communications#index'
   match 'communications/handle_incoming_call' => 'communications#handle_incoming_call'
   match 'contacts/set_name_recording' => 'contacts#set_name_recording'
 
@@ -88,4 +88,5 @@ Openvoice::Application.routes.draw do
     resources :profiles
     resources :fs_profiles
   end
+
 end
