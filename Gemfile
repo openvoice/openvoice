@@ -12,6 +12,6 @@ gem "rest-client"
 gem "freeswitcher", :require => "fsr"
 
 group :test do
-  gem "rspec", "2.0.0.beta.20"
-  gem "rspec-rails", "2.0.0.beta.20"
+  gem "rspec", "2.1.0"
+  gem "rspec-rails", "2.1.0"
 end
