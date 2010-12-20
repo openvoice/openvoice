@@ -95,6 +95,9 @@ GEM
     thor (0.14.0)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
+    tropo-provisioning (0.0.1)
+      activesupport
+      hashie (>= 0.2.1)
     tropo-webapi-ruby (0.1.8)
       hashie (>= 0.2.0)
       json_pure (>= 1.2.0)
@@ -114,5 +117,6 @@ DEPENDENCIES
   rspec (= 2.1.0)
   rspec-rails (= 2.1.0)
   sqlite3-ruby
+  tropo-provisioning
   tropo-webapi-ruby
   will_paginate

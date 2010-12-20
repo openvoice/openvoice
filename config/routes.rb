@@ -71,7 +71,8 @@ Openvoice::Application.routes.draw do
   match 'communications/handle_incoming_call' => 'communications#handle_incoming_call'
   match 'communications/call_screen' => 'communications#call_screen'
   match 'contacts/set_name_recording' => 'contacts#set_name_recording'
-
+  match 'messagings/create' => 'messagings#create'
+  
   resource :user_session
   resource :account, :controller => "users"
   resources :users do

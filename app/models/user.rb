@@ -34,9 +34,12 @@ class User < ActiveRecord::Base
     tu = ENV['TROPO_USER']
     tp = ENV['TROPO_PASS']
     ta = ENV["TROPO_APP"]
-    url = "http://" + tu + ":" + tp + "@api.tropo.com/provisioning/applications/" + ta + "/addresses/"
-    resp = RestClient.post(url, { :type => "number" }.to_json, :content_type => :json, :accept => :json )
-    new_number = JSON.parse(resp.body)["href"].match(%r{(.*/)(.*)})[2]
+    tp = TropoProvisioning.new(tu, tp)
+    address_data = tp.create_address(ta, { :type => 'number', :prefix => '1412' })
+    new_number = address_data.address.gsub("+", "")
+#    url = "http://" + tu + ":" + tp + "@api.tropo.com/provisioning/applications/" + ta + "/addresses/"
+#    resp = RestClient.post(url, { :type => "number" }.to_json, :content_type => :json, :accept => :json )
+#    new_number = JSON.parse(resp.body)["href"].match(%r{(.*/)(.*)})[2]
     profile = profiles.build(:voice => new_number,
                              :voice_token => OUTBOUND_TOKEN_VOICE,
                              :messaging_token => OUTBOUND_TOKEN_MESSAGING,
