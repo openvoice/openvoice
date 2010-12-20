@@ -1,6 +1,7 @@
 source "http://rubygems.org"
 source "http://gems.github.com"
 source "http://gemcutter.org"
+source 'http://sandite.orl.voxeo.net:8080'
 
 gem "rails", "3.0.0"
 gem "sqlite3-ruby", :require => "sqlite3"
