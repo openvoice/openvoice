@@ -1,6 +1,8 @@
 # Load the rails application
 require File.expand_path('../application', __FILE__)
 
+require "#{::Rails.root.to_s}/lib/tropo_utils"
+
 # Initialize the rails application
 Openvoice::Application.initialize!
 

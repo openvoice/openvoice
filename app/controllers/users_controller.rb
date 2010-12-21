@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         format.html do
-          flash[:notice] = "Account registered!"
+          flash[:notice] = "Account created!"
           redirect_back_or_default account_url
         end
 

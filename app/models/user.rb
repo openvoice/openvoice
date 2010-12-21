@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :profiles
   has_many :fs_profiles
 
+  attr_accessor :prefix
+
   after_create :create_profile
 
   # returns the default phone to ring, if user defines multiple default phones, then pick the first one;
@@ -35,12 +37,16 @@ class User < ActiveRecord::Base
     tp = ENV['TROPO_PASS']
     ta = ENV["TROPO_APP"]
     tp = TropoProvisioning.new(tu, tp)
-    address_data = tp.create_address(ta, { :type => 'number', :prefix => '1412' })
+    address_data = tp.create_address(ta, { :type => 'number', :prefix => @prefix })
     new_number = address_data.address.gsub("+", "")
     profile = profiles.build(:voice => new_number,
                              :voice_token => OUTBOUND_TOKEN_VOICE,
                              :messaging_token => OUTBOUND_TOKEN_MESSAGING,
                              :call_url => TROPO_URL)
     profile.save
+  end
+
+  def usa_numbers
+    TropoUtils.available_numbers
   end
 end

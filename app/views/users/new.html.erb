@@ -1,7 +1,13 @@
 <h1>Register</h1>
 
 <% form_for @user, :url => account_path do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Register" %>
+    <%= f.error_messages %>
+    <%= render :partial => "form", :object => f %>
+    <br/>
+    <div>
+      <%= f.label "Available Area Code" %><br />
+      <%= f.select(:prefix, options_for_select(@user.usa_numbers)) %>
+    </div>
+    <br/>
+    <%= f.submit "Register" %>
 <% end %>
