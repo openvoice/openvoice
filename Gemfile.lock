@@ -10,6 +10,7 @@ GEM
   remote: http://rubygems.org/
   remote: http://gems.github.com/
   remote: http://gemcutter.org/
+  remote: http://sandite.orl.voxeo.net:8080/
   specs:
     abstract (1.0.0)
     actionmailer (3.0.0)
@@ -79,8 +80,6 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
-    rest-client (1.6.1)
-      mime-types (>= 1.16)
     rspec (2.1.0)
       rspec-core (~> 2.1.0)
       rspec-expectations (~> 2.1.0)
@@ -113,7 +112,6 @@ DEPENDENCIES
   aws-s3
   freeswitcher
   rails (= 3.0.0)
-  rest-client
   rspec (= 2.1.0)
   rspec-rails (= 2.1.0)
   sqlite3-ruby

@@ -10,7 +10,6 @@ gem "tropo-webapi-ruby"
 gem "tropo-provisioning"
 gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => 'rails3'
 gem "will_paginate"
-gem "rest-client"
 gem "freeswitcher", :require => "fsr"
 
 group :test do
