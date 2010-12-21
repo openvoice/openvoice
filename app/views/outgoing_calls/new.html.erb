@@ -8,8 +8,37 @@
     <%= f.text_field :callee_number %>
   </p>
   <p>
-    <%= f.submit 'Create' %>
+    <%= f.submit 'Call with your phone' %> Or
+    <input id="call" type="button" disabled="true" value="Loading..." />
+    <span id="status"></span>
   </p>
 <% end %>
 
 <%= link_to 'Back', user_outgoing_calls_path(current_user) %>
+
+<script>
+$(document).ready(function(){
+  var phono = $.phono({
+    apiKey: "246718baa63464f91cb348a76559d700",
+    onReady: function() {
+      $("#call").attr("disabled", false).val("Call with browser");
+    }
+  });
+
+  $("#call").click(function() {
+    $("#call").attr("disabled", true).val("Busy");
+    phono.phone.dial($('#outgoing_call_callee_number').val(), {
+      onRing: function() {
+        $("#status").html("Ringing");
+      },
+      onAnswer: function() {
+        $("#status").html("Answered");
+      },
+      onHangup: function() {
+        $("#call").attr("disabled", false).val("Call with browser");
+        $("#status").html("Hangup");
+      }
+    });
+  });
+})
+</script>
