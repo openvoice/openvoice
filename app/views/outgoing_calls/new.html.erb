@@ -27,7 +27,13 @@ $(document).ready(function(){
 
   $("#call").click(function() {
     $("#call").attr("disabled", true).val("Busy");
-    phono.phone.dial($('#outgoing_call_callee_number').val(), {
+
+    phono.phone.dial("app:9991480119", {
+      headers:[
+      {
+        name:"x-numbertodial",
+        value:$('#outgoing_call_callee_number').val()
+      }],
       onRing: function() {
         $("#status").html("Ringing");
       },
