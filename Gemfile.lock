@@ -102,7 +102,7 @@ GEM
       hashie (>= 0.2.0)
       json_pure (>= 1.2.0)
     tzinfo (0.3.23)
-    will_paginate (2.3.15)
+    will_paginate (3.0.pre)
     xml-simple (1.0.12)
 
 PLATFORMS
@@ -118,4 +118,4 @@ DEPENDENCIES
   sqlite3-ruby
   tropo-provisioning
   tropo-webapi-ruby
-  will_paginate
+  will_paginate (= 3.0.pre)

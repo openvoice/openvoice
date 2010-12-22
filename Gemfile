@@ -9,7 +9,7 @@ gem "aws-s3", :require => "aws/s3"
 gem "tropo-webapi-ruby"
 gem "tropo-provisioning"
 gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => 'rails3'
-gem "will_paginate"
+gem "will_paginate", '3.0.pre'
 gem "freeswitcher", :require => "fsr"
 
 group :test do
