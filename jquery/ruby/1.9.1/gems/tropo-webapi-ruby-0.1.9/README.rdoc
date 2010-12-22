@@ -1,0 +1,248 @@
+= Tropo Web API Ruby Library
+
+A Ruby library for interaction with the Tropo Web API (http://tropo.com) using JSON.
+
+== Tropo Web API Overview
+
+The Tropo Remote API provides a RESTful JSON API for controlling realtime communications applications from
+your own web servers.
+
+== Requirements
+
+* Unit tests passed on: Ruby MRI v1.8.6/1.8.7 and JRuby v1.5.0
+* RubyGems
+
+Note: If using with ActiveSupport, v2.3.5 or better of ActiveSupport is required.
+
+== Installation
+
+  $ sudo gem install tropo-webapi-ruby
+
+Optional, if you would like to use with Sinatra:
+
+  $ sudo gem install sinatra
+
+== Generate Documentation
+
+=== Developer
+
+  $ gemserver
+
+=== Project Developer
+
+  $ sudo gem install yard
+
+From within the project:
+
+  $ yardoc
+
+== Usage
+
+  require 'rubygems'
+  require 'tropo-webapi-ruby'
+
+  # Will return the properly formatted JSON to pass to Tropo
+  response = Tropo::Generator.ask({ :say => 'Hello world!' })
+
+  # Will return a Ruby Hash, with some transformations, from the JSON string received from Tropo
+  response = Tropo::Generator.parse(json_string)
+
+  # Will provide instance variables that will allow you to easily reference session type
+  tropo = Tropo::Generator.new
+  response = tropo.parse(json_string)
+  p 'Hey, this is a voice session!' if tropo.voice_session
+  p 'Hey, this is a text messaging session!' if tropo.text_session
+
+== Examples
+
+=== Sinatra
+
+Using the great RESTful Web Services framework Sinatra for Ruby.
+
+==== Hello World
+
+  require 'rubygems'
+  require 'sinatra'
+  require 'tropo-webapi-ruby'
+
+  post '/helloworld.json' do
+    Tropo::Generator.say 'Hello World!'
+  end
+
+  post '/helloworld_block.json' do
+    tropo = Tropo::Generator.new do
+      say 'Hello World!'
+    end
+    tropo.response
+  end
+
+  post '/helloworld_twice.json' do
+    tropo = Tropo::Generator.new
+    tropo.say 'Hello World!'
+    tropo.say 'Hello again.'
+    tropo.response
+  end
+
+==== Getting Session Information
+
+  # Produces a Ruby hash:
+  #
+  # { :session => 
+  #   { :timestamp    => Tue Jan 19 18:27:46 -0500 2010, 
+  #     :user_type    =>"HUMAN", 
+  #     :initial_text => nil,
+  #     :account_id   =>"0", 
+  #     :headers      => [{ "value" => "70", "key"=>"Max-Forwards" }, 
+  #                       { "value" => "385", "key"=>"Content-Length" }, 
+  #                       { "value" => "<sip:127.0.0.1:49152>", "key"=>"Contact" }, 
+  #                       { "value" => "replaces", "key"=>"Supported" }, 
+  #                       { "value" => "<sip:sample.json@localhost:5555>", "key"=>"To" }, 
+  #                       { "value" => "1 INVITE", "key"=>"CSeq" }, 
+  #                       { "value" => "SJphone-M/1.65.382f (SJ Labs)", "key"=>"User-Agent" }, 
+  #                       { "value" => "SIP/2.0/UDP 127.0.0.1:49152;branch=z9000000a9;rport=49152", "key"=>"Via" }, 
+  #                       { "value" => "3FA7C70A1DD211B286B7A583D7B46DDD0xac106207", "key"=>"Call-ID" }, 
+  #                       { "value" => "application/sdp", "key"=>"Content-Type" }, 
+  #                       { "value" => "unknown <sip:127.0.0.1:49152>;tag=750b1b1648e9c876", "key"=>"From" }],
+  #     :id            => "3FA7C70A1DD211B286B7A583D7B46DDD0xac106207", 
+  #     :to            => { :network => "PSTN", 
+  #                         :channel => "VOICE", 
+  #                         :name    => "unknown", 
+  #                         :id      => "sample.json"}, 
+  #     :from          => { :network => "PSTN", 
+  #                         :channel => "VOICE", 
+  #                         :name    => "unknown", 
+  #                         :id      => "unknown"}}}
+  #
+  post '/start_session.json' do
+    tropo_session = Tropo::Generator.parse request.env["rack.input"].read
+    p tropo_session
+  end
+
+==== Asking for input and receiving the response, or catching a hangup
+
+  post '/ask.json' do
+    tropo = Tropo::Generator.new do
+              on :event => 'hangup', :next => '/hangup.json'
+              on :event => 'continue', :next => '/answer.json'
+              ask({ :name    => 'account_number', 
+                    :bargein => true, 
+                    :timeout => 30,
+                    :require => 'true' }) do
+                      say     :value => 'Please say your account number'
+                      choices :value => '[5 DIGITS]'
+                    end
+              end
+    tropo.response
+  end
+
+  # Produces a Ruby hash, if the user gives a response before hanging up:
+  #
+  # { :result => 
+  #   { :actions          => { :attempts       => 1, 
+  #                            :disposition    => "SUCCESS", 
+  #                            :interpretation => "12345", 
+  #                            :confidence     => 100, 
+  #                            :name           => "account_number", 
+  #                            :utterance      => "1 2 3 4 5" }, 
+  #     :session_duration => 3, 
+  #     :error            => nil, 
+  #     :sequence         => 1, 
+  #     :session_id       => "5325C262-1DD2-11B2-8F5B-C16F64C1D62E@127.0.0.1", 
+  #     :state            => "ANSWERED", 
+  #     :complete         => true } }
+  #
+  post '/answer.json' do
+    tropo_event = Tropo::Generator.parse request.env["rack.input"].read
+    p tropo_event
+  end
+
+  # Produces a Ruby hash, if the user hangs up before giving a reponse
+  # { :result => 
+  #   { :actions          => {}, 
+  #     :session_duration => 1, 
+  #     :error            => nil, 
+  #     :sequence         => 1, 
+  #     :session_id       => "812BEF50-1DD2-11B2-8F5B-C16F64C1D62E@127.0.0.1", 
+  #     :state            => "DISCONNECTED", 
+  #     :complete         => true } }
+  #
+  post '/hangup.json' do
+    tropo_event = Tropo::Generator.parse request.env["rack.input"].read
+    p tropo_event
+  end
+
+==== Redirect a call before answering
+
+  # A redirect method
+  post '/redirect.json' do
+    Tropo::Generator.redirect({ :to => 'sip:1234', :from => '4155551212' })
+  end
+
+==== Reject a call before answering
+
+  # A reject method
+  post '/reject.json' do
+    Tropo::Generator.reject
+  end
+
+==== Setting a default voice for speech synthesis (text-to-speech/TTS)
+
+  post '/speak.json' do
+    t = Tropo::Generator.new(:voice => 'kate')
+    t.say 'Hello!' # Will speak as kate now
+    
+    # or
+
+    t = Tropo::Generator.new
+    t.voice = 'kate'
+    t.say 'Hello!' # Will speak as kate now
+  end
+
+==== Setting a default recognizer for speech recognition (ASR)
+
+  post '/ask.json' do
+    t = Tropo::Generator.new(:recognizer => 'fr-fr')
+    t.ask({ :name    => 'account_number', # Will now use the French speech recognition engine
+            :bargein => true, 
+            :timeout => 30,
+            :require => 'true' }) do
+              say     :value => "S'il vous plaît dire votre numéro de compte", :voice => 'florence'
+              choices :value => '[5 DIGITS]'
+            end
+
+    # or
+
+    t = Tropo::Generator.new
+    t.recognizer = 'fr-fr'
+    t.ask({ :name    => 'account_number', # Will now use the French speech recognition engine
+            :bargein => true, 
+            :timeout => 30,
+            :require => 'true' }) do
+              say     :value => "S'il vous plaît dire votre numéro de compte", :voice => 'florence'
+              choices :value => '[5 DIGITS]'
+            end
+  end
+
+=== Additional Examples
+
+May be found by checking out the project from Github, and then looking in $PROJECT_HOME/examples and $PROJECT_HOME/spec/tropo-webapi-ruby_spec.rb.
+
+=== Documentation
+
+* API Documentation:
+
+http://voxeo.github.com/tropo-webapi-ruby
+
+* Tropo Web API Documentation
+
+http://docs.tropo.com/webapi/2.0/home.htm
+
+== Notes
+
+In order to maintain compatibility between Ruby MRI and JRuby the gem requires 'json_pure'. If you are using the Ruby MRI and would prefer to use the C version of 'json', simply install the 'json' gem as follows:
+
+  sudo gem install json
+
+== Copyright
+
+Copyright (c) 2010 Voxeo, Corporation. See LICENSE for details.

@@ -1,0 +1,19 @@
+= Tropo Release History
+
+== Version 0.1.5
+
+- First public release
+
+== Version 0.1.6
+
+- Added the appropriate ActiveSupport dependency for 'instance_exec' for Ruby 1.8.6 support.
+- Added a dependency and support for Hashie.
+
+== Version 0.1.9
+
+- Fixed the start_recording so it does not require a 'name' parameter
+- Aliased start_call_recording -> start_recording
+- Aliased stop_call_recording -> stop_recording
+- Fixes to the README
+- Fixed the yardoc install
+- The Tropo::Generator.parse method will now take a JSON string or a Ruby hash.

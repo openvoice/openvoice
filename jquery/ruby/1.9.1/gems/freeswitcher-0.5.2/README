@@ -1,0 +1,179 @@
+=========================================================
+FreeSWITCHeR
+Copyright (c) 2009 The Rubyists (Jayson Vaughn, Tj Vanderpoel, Michael Fellinger, Kevin Berry) 
+Distributed under the terms of the MIT License.
+==========================================================
+
+ABOUT
+-----
+A ruby library for interacting with the "FreeSWITCH" (http://www.freeswitch.org) opensource telephony platform
+
+REQUIREMENTS
+------------
+* ruby (>= 1.8)
+* eventmachine (If you wish to use Outbound and Inbound listener)
+
+USAGE
+-----
+
+An Outbound Event Listener Example that reads and returns DTMF input:
+--------------------------------------------------------------------
+
+Simply just create a subclass of FSR::Listner::Outbound and all
+new calls/sessions will invoke the "session_initiated" callback method.
+ 
+<b>NOTE</b>: FSR uses blocks within the 'session_inititated' method to ensure that the next "freeswich command" is not executed until the previous "Freeswitch command" has finished.  (Basically a continuation) This is kicked off by "answer do". 
+
+  #!/usr/bin/ruby
+  require 'fsr'
+  require 'fsr/listener/outbound'
+
+  class OutboundDemo < FSR::Listener::Outbound
+
+    def session_initiated
+      exten = @session.headers[:caller_caller_id_number]
+      FSR::Log.info "*** Answering incoming call from #{exten}"
+
+      answer do
+        FSR::Log.info "***Reading DTMF from #{exten}"
+        read("/home/freeswitch/freeswitch/sounds/music/8000/sweet.wav", 4, 10, "input", 7000) do |read_var|
+          FSR::Log.info "***Success, grabbed #{read_var.to_s.strip} from #{exten}"
+          # Tell the caller what they entered
+          speak("Got the DTMF of: #{read_var.to_s.strip}") do 
+            #Hangup the call
+            hangup 
+          end
+        end
+      end
+
+    end
+
+  end
+
+  FSR.start_oes! OutboundDemo, :port => 8084, :host => "127.0.0.1"
+
+An Inbound Event Socket Listener example using FreeSWITCHeR's hook system:
+--------------------------------------------------------------------------
+
+  #!/usr/bin/ruby
+  require 'fsr'
+  require "fsr/listener/inbound"
+
+  class MyEventListener < FSR::Listener::Inbound
+    def before_session
+      # This adds a hook on CHANNEL_CREATE events. You can also create a method to handle the event you're after. See the next example
+      add_event(:CHANNEL_CREATE) { |e| p e }
+
+      # This adds a hook on CHANNEL_HANGUP events with a callback method.
+      add_event(:CHANNEL_HANGUP) { |e| channel_hangup(e) }
+    end
+
+    def channel_hangup(event)
+      p event
+    end
+
+    def on_event(event)
+      # This gets called for _every_ event that's subscribed (through add_event)
+      p event
+    end
+  end
+
+
+  # Start FSR Inbound Listener
+  FSR.start_ies!(MyEventListener, :host => "localhost", :port => 8021)
+
+A More Advanced Example, Publishing Events To A Web Socket:
+-----------------------------------------------------------
+
+  class MyWebSocketClient < Struct.new(:reporter, :socket, :channel_id)
+    Channel = EM::Channel.new
+
+    def initialize(reporter, socket)
+      self.reporter, self.socket = reporter, socket
+      socket.onopen(&method(:on_open))
+      socket.onmessage(&method(:on_message))
+      socket.onclose(&method(:on_close))
+    end
+
+    def on_message(json)
+      msg = JSON.parse(json)
+      FSR::Log.info "Websocket got #{msg}"
+    end
+
+    def send(msg)
+      socket.send(msg.to_json)
+    end
+
+    def on_open
+      FSR::Log.info("Subscribed listener")
+      self.channel_id = Channel.subscribe { |message| send(message) }
+    end
+
+    def on_close
+      Channel.unsubscribe(channel_id)
+      FSR::Log.info("Unsubscribed listener")
+    end
+  end
+
+  # Add the Channel to your event listener
+  class MyEventListener
+    def on_event(event)
+      MyWebSocketClient::Channel << event.content
+    end
+  end
+
+  # Start Listener within and EM.run
+  EM.epoll
+  EM.run do
+    server, port = '127.0.0.1', 8021
+    EventMachine.connect(server, port, MyEventListener, auth: 'MyPassword') do |listener|
+      FSR::Log.info "MyEventListener connected to #{server} on #{port}"
+      EventMachine.start_server('0.0.0.0'), 8080, EventSocket::WebSocket::Connection, {}) do |websocket|
+        MyWebSocketClient.new(listener, websocket)
+      end
+    end
+  end
+
+
+An Inbound Event Socket Listener example using the on_event callback method instead of hooks:
+---------------------------------------------------------------------------------------------
+
+  #!/usr/bin/ruby
+  require 'pp'
+  require 'fsr'
+  require "fsr/listener/inbound"
+
+
+  class IesDemo < FSR::Listener::Inbound
+
+    def on_event
+      pp event.headers
+      pp event.content[:event_name]
+    end
+
+  end
+
+  FSR.start_ies!(IesDemo, :host => "localhost", :port => 8021, :auth => "ClueCon")
+
+
+An example of using FSR::CommandSocket to originate a new call in irb:
+----------------------------------------------------------------------
+
+  irb(main):001:0> require 'fsr'
+  => true
+
+  irb(main):002:0> FSR.load_all_commands
+  => [:sofia, :originate]
+
+  irb(main):003:0> sock = FSR::CommandSocket.new
+  => #<FSR::CommandSocket:0xb7a89104 @server="127.0.0.1", @socket=#<TCPSocket:0xb7a8908c>, @port="8021", @auth="ClueCon">
+
+  irb(main):007:0> sock.originate(:target => 'sofia/gateway/carlos/8179395222', :endpoint => FSR::App::Bridge.new("user/bougyman")).run
+  => {"Job-UUID"=>"732075a4-7dd5-4258-b124-6284a82a5ae7", "body"=>"", "Content-Type"=>"command/reply", "Reply-Text"=>"+OK Job-UUID: 732075a4-7dd5-4258-b124-6284a82a5ae7"}
+
+
+
+SUPPORT
+-------
+Home page at http://code.rubyists.com/projects/fs
+#rubyists on FreeNode

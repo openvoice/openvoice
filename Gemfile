@@ -11,6 +11,7 @@ gem "tropo-provisioning"
 gem "authlogic", :git => "git://github.com/odorcicd/authlogic.git", :branch => 'rails3'
 gem "will_paginate", '3.0.pre'
 gem "freeswitcher", :require => "fsr"
+gem 'jquery-rails', '>= 0.2.6'
 
 group :test do
   gem "rspec", "2.1.0"
