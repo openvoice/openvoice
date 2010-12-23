@@ -4,5 +4,7 @@
 *~
 log
 .idea
-db/development.sqlite3
+db/test.sqlite3
+db/*.sqlite3
 tmp
+jquery
