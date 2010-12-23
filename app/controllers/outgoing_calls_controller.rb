@@ -6,7 +6,6 @@ class OutgoingCallsController < ApplicationController
     @user = current_user
     @outgoing_calls = @user.outgoing_calls.reverse
     @outgoing_calls = @outgoing_calls.paginate(:page => params[:page],:per_page => 15)
-    
     respond_to do |format|
       format.html
       format.xml { render :xml => @outgoing_calls }

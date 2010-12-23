@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   # if user does not define a forwarding phone, just pick the first phone number;
   # if user does not define any phone yet, returns an error message
   def default_phone_number
-    return "Please add a phone number to OpenVoice" if phone_numbers.empty?
+    return nil if phone_numbers.empty?
     defaults = phone_numbers.select{ |n| n.default == true }
     return defaults.first.number unless defaults.empty?
     forwards = phone_numbers.select{ |n| n.forward == true }

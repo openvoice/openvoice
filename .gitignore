@@ -8,3 +8,4 @@ db/test.sqlite3
 db/*.sqlite3
 tmp
 jquery
+factory_girl_rails
