@@ -42,6 +42,7 @@ class OutgoingCallsController < ApplicationController
         format.xml  { render :xml => @outgoing_call, :status => :created, :location => @outgoing_call }
         format.json { render :json => @outgoing_call }
       else
+        flash[:error] = "Unable to place call.  Have you added a default phone number?"
         format.html { render :action => "new" }
         format.xml  { render :xml => @outgoing_call.errors, :status => :unprocessable_entity }
       end
