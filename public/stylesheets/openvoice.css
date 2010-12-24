@@ -47,9 +47,9 @@ a.special {
     font-size: 14px;
 }
 
-table {
-    background-color: #333333;
-}
+/*table {*/
+    /*background-color: #333333;*/
+/*}*/
 
 table, td.narrow {
     width: 20px;
@@ -58,6 +58,15 @@ table, td.narrow {
 tr.header {
     background-color: #333300;
 }
+
+/*START:table_stripe*/
+tr:nth-of-type(even){
+  background-color: #333333;
+}
+tr:nth-of-type(odd) {
+  background-color: #666666;
+}
+/*END:table_stripe*/
 
 table, tr.row {
     border: 2px white;
