@@ -2,8 +2,13 @@ class OutgoingCall < ActiveRecord::Base
 
   belongs_to :user
 
+  before_create :has_phone_number?
   before_create :sanitize_numbers
   after_create :dial
+
+  def has_phone_number?
+    !user.default_phone_number.nil?
+  end
 
   def sanitize_numbers
     self.callee_number && self.callee_number.gsub!(/\D/, "")
