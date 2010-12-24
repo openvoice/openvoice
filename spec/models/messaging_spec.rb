@@ -9,12 +9,15 @@ describe Messaging do
   end
 
   it "should set from_name for existing contact upon creation" do
+    pending
+
     message = Messaging.create(:from => @caller_id, :user_id => @user_id)
     message.from_name.should == @caller_name
     Messaging.last.from_name.should == @caller_name
   end
 
   it "should set from_name to unknown caller for non-existing contact" do
+    pending
     message = Messaging.create(:from => "whatever caller", :user_id => @user_id)
     message.from_name.should == "Unknown caller"
   end

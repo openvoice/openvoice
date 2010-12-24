@@ -5,8 +5,12 @@
     <%= render :partial => "form", :object => f %>
     <br/>
     <div>
-      <%= f.label "Available Area Code" %><br />
+      <%= f.label "Available Area Code for your OpenVoice number" %><br />
       <%= f.select(:prefix, options_for_select(@user.usa_numbers)) %>
+    </div>
+    <div>
+      <%= f.label "Please add your phone number" %><br />
+      <%= f.telephone_field(:default_number) %>
     </div>
     <br/>
     <%= f.submit "Register" %>

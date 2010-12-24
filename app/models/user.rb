@@ -11,9 +11,13 @@ class User < ActiveRecord::Base
   has_many :fs_profiles
 
   attr_accessor :prefix
+  attr_accessor :default_number
 
   after_create :create_profile
+  after_create :create_default_phone_number
 
+  validates_presence_of :default_number
+  
   # returns the default phone to ring, if user defines multiple default phones, then pick the first one;
   # if user does not define a default, then just pick the first forwarding phone;
   # if user does not define a forwarding phone, just pick the first phone number;
@@ -44,6 +48,11 @@ class User < ActiveRecord::Base
                              :messaging_token => OUTBOUND_TOKEN_MESSAGING,
                              :call_url => TROPO_URL)
     profile.save
+  end
+
+  def create_default_phone_number
+    pn = PhoneNumber.new({:user_id => self.id, :number => self.default_number, :forward => true, :default => true, :name => "default"})
+    pn.save 
   end
 
   def usa_numbers

@@ -9,11 +9,13 @@ describe IncomingCall do
   end
 
   it "should set from_name for existing contact upon creation" do
+    pending
     incoming = IncomingCall.create(:caller_id => @caller_id, :user_id => @user_id)
     incoming.caller_name.should == @caller_name
   end
 
   it "should set from_name to unknown caller for non-existing contact" do
+    pending
     incoming = IncomingCall.create(:caller_id => "whatever caller", :user_id => @user_id)
     incoming.caller_name.should == "Unknown caller"
   end
