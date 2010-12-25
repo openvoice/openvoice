@@ -13,24 +13,25 @@
 </div>
 
 <div class="login">
-  <% form_for @user_session, :url => user_session_path, :html => {:class => "login"} do |f| %>
+  <% form_for @user_session, :url => user_session_path do |f| %>
+  <!--% form_for @user_session, :url => user_session_path, :html => {:class => "login"} do |f| % -->
       <fieldset id="login">
-      <legend>Log in</legend>
-      <%= f.error_messages %>
-      <%= f.label "user name" %>
-      <br/>
-      <%= f.text_field :login %>
-      <br/>
-      <%= f.label :password %>
-      <br/>
-      <%= f.password_field :password %>
-      <br/>
-      <div class="loginrem">
-        <div class="logininnerleft"><%= f.check_box :remember_me %></div>
-        <div class="logininerright"><%= f.label :remember_me %></div>
-      </div>
-      <br/>
-      <%= f.submit "Login" %>
+        <legend>Log in</legend>
+        <%= f.error_messages %>
+        <%= f.label "user name" %>
+        <br/>
+        <%= f.text_field :login %>
+        <br/>
+        <%= f.label :password %>
+        <br/>
+        <%= f.password_field :password %>
+        <br/>
+        <div class="loginrem">
+          <div class="logininnerleft"><%= f.check_box :remember_me %></div>
+          <div class="logininerright"><%= f.label :remember_me %></div>
+        </div>
+        <br/>
+        <%= f.submit "Login" %>
       </fieldset>
   <% end %>
 </div>
