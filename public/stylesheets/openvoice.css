@@ -4,8 +4,58 @@
     src: url('fonts/Garogier_unhinted-webfont.woff') format('woff'),
          url('fonts/Garogier_unhinted-webfont.ttf') format('truetype'),
          url('fonts/Garogier_unhinted-webfont.svg#webfontew0qE0O9') format('svg');
-    font-weight: normal;
+    font-weight: normal
+;
 }
+
+/*ov header area contains icon, logo, and ov number, logout link*/
+.header {
+    width: 736px;
+    height: 70px;
+}
+
+/*ov icon and logo*/
+.right {
+    float: right;
+    width: 200px;
+    color: #cccccc;
+    background-color: #333333;
+}
+
+.rightinnerovnumber {
+   font-size: 14px;
+   float:right;
+}
+
+.rightinnerlogout {
+   font-size: 14px;
+   float:right;
+}
+
+/*ov number and logout link*/
+.left {
+    float: left;
+    width: 400px;
+    height: 60px;
+    color: #cccccc;
+    background-color: #333333;
+}
+
+/*put ov icon here*/
+.leftinnerleft {
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+
+/*put ov logo here*/
+.leftinnerright {
+    /*float: right;*/
+    width: 200px;
+    height: 40px;
+}
+/*end of ov header*/
+
 
 div.container {
     width: 750px;
@@ -23,7 +73,7 @@ div.header, div.footer {
 
 h1.header {
     position: relative;
-    left:50px;
+    left: 50px;
     top: -40px;
     padding: 0;
 }
@@ -32,7 +82,6 @@ body {
     background-color: #000000;
     color: #cccccc;
     font-size: 14px;
-    /*font: "Lucida granda",tahoma,verdana,arial,sans-serif;*/
     font-family: "GarogierRegular"
 }
 
@@ -49,7 +98,7 @@ h2 {
 a:link, a:visited {
     color: #cccccc;
     font-size: 13px;
-    font: "Lucida granda",tahoma,verdana,arial,sans-serif;
+    font: "Lucida granda", tahoma, verdana, arial, sans-serif;
 }
 
 a.special {
@@ -74,16 +123,18 @@ tr.header {
 }
 
 /*START:table_stripe*/
-tr:nth-of-type(even){
-  background-color: #333333;
+tr:nth-of-type(even) {
+    background-color: #333333;
 }
+
 tr:nth-of-type(odd) {
-  background-color: #666666;
+    background-color: #666666;
 }
+
 /*END:table_stripe*/
 
 td:nth-child(n+2) {
-    text-align: right;    
+    text-align: right;
 }
 
 table, tr.row {
@@ -93,7 +144,7 @@ table, tr.row {
 table, tr, td {
     width: 750px;
     font-size: 13px;
-    font: "lucida grande",tahoma,verdana,arial,sans-serif;
+    font: "lucida grande", tahoma, verdana, arial, sans-serif;
     padding: 0.1em;
 }
 
@@ -113,31 +164,31 @@ div.login {
 }
 
 /*form.login {*/
-    /*border: 2px solid #333333;*/
-    /*padding: 1em;*/
-    /*width: 30%;*/
-    /*float: left;*/
-    /*text-align: left;*/
-    /*margin-right: 0.5em;*/
-    /*display: block*/
+/*border: 2px solid #333333;*/
+/*padding: 1em;*/
+/*width: 30%;*/
+/*float: left;*/
+/*text-align: left;*/
+/*margin-right: 0.5em;*/
+/*display: block*/
 /*}*/
 
-fieldset{
+fieldset {
     width: 216px;
     border: none;
     background-color: #333333;
 }
 
-fieldset legend{
+fieldset legend {
     background-color: #333333;
     padding: 0 64px 0 2px;
 }
 
 fieldset input {
-    display:block;
+    display: block;
 }
 
-input{
+input {
     width: 200px;
     background-color: #fff;
     border: 1px solid #bbb;
@@ -147,7 +198,7 @@ input[type="checkbox"] {
     width: 20px;
 }
 
-input[type="submit"]{
+input[type="submit"] {
     width: 202px;
     padding: 0;
     background-color: #bbb;
@@ -159,29 +210,29 @@ input {
     -webkit-border-radius: 5px;
 }
 
-#flash_error{
-	border: 1px;
-	border-style: solid;
-	margin: 10px 10px 0px 10px;
-	padding: 5px 10px 10px 5px;
-	background-color: #333333;
-	color: #FF0000;
+#flash_error {
+    border: 1px;
+    border-style: solid;
+    margin: 10px 10px 0px 10px;
+    padding: 5px 10px 10px 5px;
+    background-color: #333333;
+    color: #FF0000;
 }
 
-#flash_notice{
-	border: 1px;
-	border-style: solid;
-	margin: 10px 10px 0px 10px;
-	padding: 5px 5px 5px 5px;
-	background-color: #333333;
-	color: #33ff00;
+#flash_notice {
+    border: 1px;
+    border-style: solid;
+    margin: 10px 10px 0px 10px;
+    padding: 5px 5px 5px 5px;
+    background-color: #333333;
+    color: #33ff00;
 }
 
 .messaging {
-  height:120px;
-  margin:1px;
-  position: relative;
-  background-color: #333333;
+    height: 120px;
+    margin: 1px;
+    position: relative;
+    background-color: #333333;
 }
 
 .messaging .message {
@@ -211,6 +262,6 @@ input {
 }
 
 .messaging .date {
-  float: right;
-  margin: 5px;
+    float: right;
+    margin: 5px;
 }

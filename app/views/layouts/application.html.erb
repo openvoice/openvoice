@@ -11,11 +11,20 @@
 
 <body>
 <div class="container">
-  <div class="header">
-    <%= image_tag("ov_logo.png", :size => "35x35") %>
-    <h1 class="header">OpenVoice</h1>
-  </div>
 
+  <div class="header">
+    <div class="left">
+      <div class="leftinnerleft"><%= image_tag("ov_logo.png", :size => "35x35") %></div>
+      <div class="leftinnerright"><h1>OpenVoice</h1></div>
+    </div>
+    <div class="right">
+      <% if current_user %>
+        <div class="rightinnerovnumber">OpenVoice Number: <%= current_user.profiles.first.voice %></div>
+        <div class="rightinnerlogout"><a class="special" href="/logout">logout</a></div>
+      <% end %>
+    </div>
+  </div>
+  
   <div>
     <div>
       <% unless current_user.nil? %>
@@ -28,7 +37,6 @@
           <%= link_to_unless_current "profile", user_profiles_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "account", account_path, :class => 'special' %> |
-          <a class="special" href="/logout">logout</a>
       <% end %>
     </div>
 
@@ -49,7 +57,7 @@
     </div>
   </div>
 
-  <div class="footer">Copyright 2010, Zhao Lu <a href="http://myopenvoice.org">OpenVoice</a>.</div>
+  <footer class="footer">Copyright 2010, Zhao Lu <a href="http://blog.myopenvoice.org">OpenVoice</a>.</footer>
 </div>
 
 </body>
