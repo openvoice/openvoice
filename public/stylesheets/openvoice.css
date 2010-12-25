@@ -218,21 +218,25 @@ input {
 }
 
 #flash_error {
-    border: 1px;
-    border-style: solid;
-    margin: 10px 10px 0px 10px;
-    padding: 5px 10px 10px 5px;
-    background-color: #333333;
     color: #FF0000;
+    background-color: #333333;
+    font-size: 18px;
+    text-align: center;
+    border-top: 2px solid #cccccc;
+    border-bottom: 2px solid #cccccc;
+    margin: 10px auto;
+    padding: 5px 20px;
 }
 
 #flash_notice {
-    border: 1px;
-    border-style: solid;
-    margin: 10px 10px 0px 10px;
-    padding: 5px 5px 5px 5px;
     background-color: #333333;
-    color: #33ff00;
+    color: #cccccc;
+    font-size: 18px;
+    text-align: center;
+    border-top: 2px solid #cccccc;
+    border-bottom: 2px solid #cccccc;
+    margin: 10px auto;
+    padding: 5px 20px;
 }
 
 .messaging {
