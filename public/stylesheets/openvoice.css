@@ -47,9 +47,13 @@ a.special {
     font-size: 14px;
 }
 
-/*table {*/
-    /*background-color: #333333;*/
-/*}*/
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: none;
+}
 
 table, td.narrow {
     width: 20px;
@@ -67,6 +71,10 @@ tr:nth-of-type(odd) {
   background-color: #666666;
 }
 /*END:table_stripe*/
+
+td:nth-child(n+2) {
+    text-align: right;    
+}
 
 table, tr.row {
     border: 2px white;
