@@ -21,6 +21,8 @@
       <% if current_user %>
         <div class="rightinnerovnumber">OpenVoice Number: <%= current_user.profiles.first.voice %></div>
         <div class="rightinnerlogout"><a class="special" href="/logout">logout</a></div>
+      <% else %>
+        <div class="rightinnerlogout"><a class="special" href="/users/new">Signup</a></div>      
       <% end %>
     </div>
   </div>
