@@ -29,7 +29,7 @@
   
   <div>
     <div>
-      <% unless current_user.nil? %>
+      <% if current_user %>
           <%= link_to_unless_current "inbound calls", user_incoming_calls_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "outbound calls", user_outgoing_calls_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "messages", user_messagings_path(current_user), :class => 'special' %> |
@@ -38,7 +38,7 @@
           <%= link_to_unless_current "phone numbers", user_phone_numbers_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "profile", user_profiles_path(current_user), :class => 'special' %> |
           <%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "account", account_path, :class => 'special' %> |
+          <%= link_to_unless_current "account", account_path, :class => 'special' %>
       <% end %>
     </div>
 
