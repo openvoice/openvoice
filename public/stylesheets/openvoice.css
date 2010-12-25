@@ -117,7 +117,6 @@ h2 {
 a:link, a:visited {
     color: #cccccc;
     font-size: 13px;
-    font: "Lucida granda", tahoma, verdana, arial, sans-serif;
 }
 
 a.special {
@@ -163,7 +162,6 @@ table, tr.row {
 table, tr, td {
     width: 750px;
     font-size: 13px;
-    font: "lucida grande", tahoma, verdana, arial, sans-serif;
     padding: 0.1em;
 }
 
