@@ -102,14 +102,51 @@ div.login {
     padding: 1em;
 }
 
-form.login {
-    border: 2px solid #333333;
-    padding: 1em;
-    width: 30%;
-    float: left;
-    text-align: left;
-    margin-right: 0.5em;
-    display: block
+/*form.login {*/
+    /*border: 2px solid #333333;*/
+    /*padding: 1em;*/
+    /*width: 30%;*/
+    /*float: left;*/
+    /*text-align: left;*/
+    /*margin-right: 0.5em;*/
+    /*display: block*/
+/*}*/
+
+fieldset{
+    width: 216px;
+    border: none;
+    background-color: #333333;
+}
+
+fieldset legend{
+    background-color: #333333;
+    padding: 0 64px 0 2px;
+}
+
+fieldset input {
+    display:block;
+}
+
+input{
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+}
+
+input[type="submit"]{
+    width: 202px;
+    padding: 0;
+    background-color: #bbb;
+}
+
+input {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
 }
 
 #flash_error{
