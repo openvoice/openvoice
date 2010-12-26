@@ -152,12 +152,17 @@ a.nav:hover, a.nav:active {
 
 a.special {
     color: #cccccc;
-    font-size: 14px;
+    font-size: 15px;
+}
+
+a.footer {
+    color: #cccccc;
+    font-size: 15px;
 }
 
 a:link, a:visited {
     color: #cccccc;
-    font-size: 13px;
+    font-size: 15px;
 }
 
 table {
