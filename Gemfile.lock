@@ -82,6 +82,8 @@ GEM
       activesupport (= 3.0.0)
       bundler (~> 1.0.0)
       railties (= 3.0.0)
+    rails3-jquery-autocomplete (0.6.1)
+      rails (~> 3.0.0)
     railties (3.0.0)
       actionpack (= 3.0.0)
       activesupport (= 3.0.0)
@@ -125,6 +127,7 @@ DEPENDENCIES
   freeswitcher
   jquery-rails (>= 0.2.6)
   rails (= 3.0.0)
+  rails3-jquery-autocomplete
   rspec
   rspec-rails
   sqlite3-ruby

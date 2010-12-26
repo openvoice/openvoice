@@ -5,8 +5,10 @@
 <head>
   <title>OpenVoice - <%= controller.controller_name %>:<%= controller.action_name %></title>
   <%= stylesheet_link_tag "openvoice" %>
+  <%= stylesheet_link_tag "jquery-ui-1.8.7.custom" %>
   <%= javascript_include_tag :defaults %>   
-  <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.7/jquery-ui.min.js" %>
+  <%= javascript_include_tag "jquery-ui-1.8.7.custom.min.js" %>
+  <%= javascript_include_tag "autocomplete-rails.js" %>
   <%= javascript_include_tag "http://s.phono.com/releases/0.1/jquery.phono.js" %>
   <%= csrf_meta_tag %>
 </head>
@@ -32,18 +34,18 @@
   <div>
     <div>
       <% if current_user %>
-          <ul>
-          <li><%= link_to_unless_current "Call", new_user_outgoing_call_path(current_user), :class => "nav" %>        </li>
-          <li><%= link_to_unless_current "Text", new_user_messaging_path(current_user), :class => "nav" %>            </li>
-          <li><%= link_to_unless_current "inbound calls", user_incoming_calls_path(current_user), :class => "nav" %>  </li>
-          <li><%= link_to_unless_current "outbound calls", user_outgoing_calls_path(current_user), :class => "nav" %> </li>
-          <li><%= link_to_unless_current "messages", user_messagings_path(current_user), :class => "nav" %>           </li>
-          <li><%= link_to_unless_current "voicemails", user_voicemails_path(current_user), :class => "nav" %>         </li>
-          <li><%= link_to_unless_current "contacts", user_contacts_path(current_user), :class => "nav" %>             </li>
-          <li><%= link_to_unless_current "devices", user_phone_numbers_path(current_user), :class => "nav" %>         </li>
-          <li><%= link_to_unless_current "profile", user_profiles_path(current_user), :class => "nav" %>              </li>
-          <li><%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => "nav" %>        </li>
-          <li><%= link_to_unless_current "account", account_path, :class => "nav" %>                                  </li>
+          <ul class="nav">
+          <li class="nav"><%= link_to_unless_current "Call", new_user_outgoing_call_path(current_user), :class => "nav" %>        </li>
+          <li class="nav"><%= link_to_unless_current "Text", new_user_messaging_path(current_user), :class => "nav" %>            </li>
+          <li class="nav"><%= link_to_unless_current "inbound calls", user_incoming_calls_path(current_user), :class => "nav" %>  </li>
+          <li class="nav"><%= link_to_unless_current "outbound calls", user_outgoing_calls_path(current_user), :class => "nav" %> </li>
+          <li class="nav"><%= link_to_unless_current "messages", user_messagings_path(current_user), :class => "nav" %>           </li>
+          <li class="nav"><%= link_to_unless_current "voicemails", user_voicemails_path(current_user), :class => "nav" %>         </li>
+          <li class="nav"><%= link_to_unless_current "contacts", user_contacts_path(current_user), :class => "nav" %>             </li>
+          <li class="nav"><%= link_to_unless_current "devices", user_phone_numbers_path(current_user), :class => "nav" %>         </li>
+          <li class="nav"><%= link_to_unless_current "profile", user_profiles_path(current_user), :class => "nav" %>              </li>
+          <li class="nav"><%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => "nav" %>        </li>
+          <li class="nav"><%= link_to_unless_current "account", account_path, :class => "nav" %>                                  </li>
           </ul>
       <% end %>
     </div>

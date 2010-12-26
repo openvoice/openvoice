@@ -83,7 +83,9 @@ Openvoice::Application.routes.draw do
     end    
     resources :phone_numbers
     resources :voicemails
-    resources :messagings
+    resources :messagings do
+      get :autocomplete_contact_name, :on => :collection
+    end
     resources :incoming_calls
     resources :outgoing_calls
     resources :contacts

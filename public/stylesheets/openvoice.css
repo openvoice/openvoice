@@ -115,7 +115,7 @@ h2 {
 }
 
 /*navigation bar*/
-ul {
+ul.nav {
     width:750;
     list-style-type:none;
     margin:0;
@@ -124,7 +124,7 @@ ul {
     background-color: #666666;
 }
 
-li {
+li.nav {
     display:block;
     float:left;
     width: 60px;

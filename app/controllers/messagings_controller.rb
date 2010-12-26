@@ -2,6 +2,8 @@ class MessagingsController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :destroy]
 
+  autocomplete :contact, :name
+
   def index
     @user = current_user
     @messagings = @user.messagings.reverse
@@ -56,6 +58,7 @@ class MessagingsController < ApplicationController
         @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
                                                               :user_id => current_user.id,
                                                               :outgoing => true }))
+        @messaging.to = Contact.find(params[:contact_id]).number if(params[:contact_id])
       else
         # incoming request, build request to tropo for outbound sms
         p "+++++++++++++++sending TropoML payload for outbound SMS"
