@@ -1,11 +1,11 @@
-<h1>new outgoing call</h1>
+<h1>New Call</h1>
 
 <% form_for([:user, @outgoing_call]) do |f| %>
   <%= f.error_messages %>
 
   <p>
-    <%= f.label :callee_number %><br />
-    <%= f.text_field :callee_number %>
+    <%= f.label "Number to call" %><br />
+    <%= f.text_field :callee_number, :placeholder => "type contact name" %>
   </p>
   <p>
     <%= f.submit 'Call with your phone' %> Or

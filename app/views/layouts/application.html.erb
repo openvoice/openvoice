@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <meta charset="utf-8">
 
 <head>
@@ -30,15 +31,19 @@
   <div>
     <div>
       <% if current_user %>
-          <%= link_to_unless_current "inbound calls", user_incoming_calls_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "outbound calls", user_outgoing_calls_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "messages", user_messagings_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "voicemails", user_voicemails_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "addressbook", user_contacts_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "phone numbers", user_phone_numbers_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "profile", user_profiles_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => 'special' %> |
-          <%= link_to_unless_current "account", account_path, :class => 'special' %>
+          <ul>
+          <li><%= link_to_unless_current "Call", new_user_outgoing_call_path(current_user), :class => "nav" %>        </li>
+          <li><%= link_to_unless_current "Text", new_user_messaging_path(current_user), :class => "nav" %>            </li>
+          <li><%= link_to_unless_current "inbound calls", user_incoming_calls_path(current_user), :class => "nav" %>  </li>
+          <li><%= link_to_unless_current "outbound calls", user_outgoing_calls_path(current_user), :class => "nav" %> </li>
+          <li><%= link_to_unless_current "messages", user_messagings_path(current_user), :class => "nav" %>           </li>
+          <li><%= link_to_unless_current "voicemails", user_voicemails_path(current_user), :class => "nav" %>         </li>
+          <li><%= link_to_unless_current "contacts", user_contacts_path(current_user), :class => "nav" %>             </li>
+          <li><%= link_to_unless_current "devices", user_phone_numbers_path(current_user), :class => "nav" %>         </li>
+          <li><%= link_to_unless_current "profile", user_profiles_path(current_user), :class => "nav" %>              </li>
+          <li><%= link_to_unless_current "fs_profile", user_fs_profiles_path(current_user), :class => "nav" %>        </li>
+          <li><%= link_to_unless_current "account", account_path, :class => "nav" %>                                  </li>
+          </ul>
       <% end %>
     </div>
 
@@ -59,7 +64,7 @@
     </div>
   </div>
 
-  <footer class="footer">Copyright 2010, Zhao Lu <a href="http://blog.myopenvoice.org">OpenVoice</a>.</footer>
+  <footer class="footer">Copyright 2010, Zhao Lu <a class="special" href="http://blog.myopenvoice.org">OpenVoice</a>.</footer>
 </div>
 
 </body>

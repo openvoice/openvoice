@@ -35,7 +35,7 @@
 .left {
     float: left;
     width: 400px;
-    height: 60px;
+    height: 50px;
     color: #cccccc;
     background-color: #333333;
 }
@@ -114,14 +114,50 @@ h2 {
     font-size: 18px;
 }
 
+/*navigation bar*/
+ul {
+    width:750;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color: #666666;
+}
+
+li {
+    display:block;
+    float:left;
+    width: 60px;
+    height: 40px;
+    text-align:center;
+    text-decoration:none;
+}
+
+a.nav:link, a.nav:visited {
+    display:block;
+    width: 60px;
+    height: 40px;
+    background-color: #666666;
+    text-align:center;
+    padding:2px;
+    text-decoration:none;
+    color: #cccccc;
+    font-size: 14px;
+}
+
+a.nav:hover, a.nav:active {
+    background-color: #333333;
+}
+/*END of navigation bar*/
+
+a.special {
+    color: #cccccc;
+    font-size: 14px;
+}
+
 a:link, a:visited {
     color: #cccccc;
     font-size: 13px;
-}
-
-a.special {
-    color: #acb1ba;
-    font-size: 14px;
 }
 
 table {
