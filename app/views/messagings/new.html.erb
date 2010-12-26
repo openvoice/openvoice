@@ -4,7 +4,7 @@
     <%= f.error_messages %>
 
     <p>
-      <%= hidden_field_tag :contact_id,  %>
+      <%= hidden_field_tag :contact_id  %>
       <%= f.label :to %><br/>
       <%= f.autocomplete_field :to, autocomplete_contact_name_user_messagings_path, :id_element => '#contact_id' %>
     </p>
