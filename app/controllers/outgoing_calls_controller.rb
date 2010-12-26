@@ -36,6 +36,7 @@ class OutgoingCallsController < ApplicationController
 
   def create
     @outgoing_call = OutgoingCall.new(params[:outgoing_call].merge(:user_id => params[:user_id]))
+    @outgoing_call.callee_number = Contact.find(params[:contact_id]).number if(params[:contact_id])
 
     respond_to do |format|
       if @outgoing_call.save
