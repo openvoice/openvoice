@@ -4,8 +4,9 @@
   <%= f.error_messages %>
 
   <p>
-    <%= f.label "Number to call" %><br />
-    <%= f.text_field :callee_number, :placeholder => "type contact name" %>
+    <%= hidden_field_tag :contact_id  %>
+    <%= f.label "Contact to call" %><br />
+    <%= f.autocomplete_field :callee_number, autocomplete_contact_name_user_outgoing_calls_path, :id_element => '#contact_id' %>
   </p>
   <p>
     <%= f.submit 'Call with your phone' %> Or

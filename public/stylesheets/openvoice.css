@@ -148,6 +148,26 @@ a.nav:link, a.nav:visited {
 a.nav:hover, a.nav:active {
     background-color: #333333;
 }
+
+/*for call and text buttons*/
+/*a.navfancy:link, a.navfancy:visited {*/
+    /*display:block;*/
+    /*width: 50px;*/
+    /*height: 20px;*/
+    /*background-color: #333333;*/
+    /*text-align:center;*/
+    /*padding:5px;*/
+    /*margin:5px;*/
+    /*text-decoration:none;*/
+    /*color: #cccccc;*/
+    /*font-size: 15px;*/
+/*}*/
+
+/*a.navafancy:hover, a.navfancy:active {*/
+    /*background-color: #333333;*/
+/*}*/
+/*END for call and text buttons*/
+
 /*END of navigation bar*/
 
 a.special {

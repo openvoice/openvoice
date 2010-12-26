@@ -2,6 +2,8 @@ class OutgoingCallsController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
 
+  autocomplete :contact, :name
+
   def index
     @user = current_user
     @outgoing_calls = @user.outgoing_calls.reverse
