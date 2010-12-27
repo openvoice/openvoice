@@ -301,7 +301,7 @@ input {
 }
 
 .messaging {
-    height: 120px;
+    height: 160px;
     margin: 1px;
     position: relative;
     background-color: #333333;
@@ -311,7 +311,7 @@ input {
     margin: 5px;
     float: left;
     width: 600px;
-    height: 110px;
+    height: 150px;
     position: relative;
 }
 
@@ -329,8 +329,15 @@ input {
 }
 
 .messaging .message .kv .v {
-    width: 600px;
+    width: 550px;
     height: 20px;
+}
+
+.messaging .message .reply {
+    background-color: #cccccc;
+    width: 500px;
+    height: 40px;
+    border: none;
 }
 
 .messaging .date {
