@@ -1,4 +1,4 @@
-<div class="messaging">
+<div class="messaging" id="messaging_<%= messaging.id %>">
   <div id="message" class="message" data-time="<%= messaging.updated_at.to_i %>">
     <div class="kv">
       <div class="k">Sender Name</div>
@@ -27,8 +27,8 @@
   </div>
   <div class="date">
     <%= h messaging.created_at %>
-    <div>
-      <%= link_to 'Destroy', user_messaging_path(current_user, messaging), :confirm => 'Are you sure?', :method => :delete %>
+    <div align="right">
+      <%= link_to 'Delete', "/users/" + current_user.id.to_s + "/messagings/" + messaging.id.to_s + ".js", "data-remote" => true, :method => :delete %>
     </div>
   </div>
 </div>
@@ -39,4 +39,4 @@
       $(this).css("border", "none");
     });
   });
-</script>
+  </script>

@@ -124,6 +124,7 @@ class MessagingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_messagings_url(current_user)) }
       format.xml  { head :ok }
+      format.js
     end
   end
 end
