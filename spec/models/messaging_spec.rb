@@ -28,11 +28,27 @@ describe Messaging do
     end
   end
 
+  describe "create replies" do
+    it "should set in_reply_to_id" do
+      @message.save!
+      @reply = @message.create_reply(valid_reply_params)
+      @reply.in_reply_to_id.should eq(@message.id)
+    end
+  end
+
   def valid_message_params
     {
        :to => "1234",
        :text => "foo",
        :from => "5678"
+    }
+  end
+
+  def valid_reply_params
+    {
+       :to => "5678",
+       :text => "bar",
+       :from => "1234"
     }
   end
 end

@@ -2,7 +2,8 @@ class Messaging < ActiveRecord::Base
 
   belongs_to :user
 
-  belongs_to :ParentMessage, :foreign_key => "in_reply_to_id"
+  has_many :replies, :class_name => "Messaging", :foreign_key => "in_reply_to_id"
+#  belongs_to :ParentMessage, :foreign_key => "in_reply_to_id"
 
   validates_presence_of :text
   validates_presence_of :to
@@ -36,6 +37,13 @@ class Messaging < ActiveRecord::Base
       msg_url = (call_url || TROPO_URL) + messaging_token + '&from='+ from + '&to=' + to + '&text=' + CGI::escape(text)
       open(msg_url)
     end
+  end
+
+  def create_reply(params={})
+    reply = Messaging.new(params.merge(:in_reply_to_id => self.id))
+    reply.user = user
+    reply.save
+    reply
   end
 
   def created_at
