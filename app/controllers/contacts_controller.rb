@@ -2,6 +2,8 @@ class ContactsController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
 
+  can_edit_on_the_spot
+  
   def index
     @contacts = current_user.contacts
     @contacts = @contacts.paginate(:page => params[:page], :per_page => 15)
@@ -72,6 +74,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_contacts_path) }
       format.xml { head :ok }
+      format.js
     end
   end
 
