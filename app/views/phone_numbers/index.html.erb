@@ -26,7 +26,6 @@ calls first before connecting your caller.
     <td><%=h phone_number.number %></td>
     <td><%=h phone_number.forward %></td>
     <td><%=h phone_number.default %></td>
-    <td class="narrow"><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
     <td class="narrow"><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
     <td class="narrow"><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number),
                                    :confirm => 'Are you sure?',
