@@ -74,6 +74,7 @@ class PhoneNumbersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_phone_numbers_path(current_user)) }
       format.xml  { head :ok }
+      format.js
     end
   end
 
