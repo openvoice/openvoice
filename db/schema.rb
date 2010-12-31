@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100823080841) do
+ActiveRecord::Schema.define(:version => 20101229172123) do
 
   create_table "contacts", :force => true do |t|
     t.string   "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20100823080841) do
     t.string   "to"
     t.boolean  "outgoing"
     t.string   "from_name"
+    t.string   "in_reply_to_id"
   end
 
   create_table "outgoing_calls", :force => true do |t|

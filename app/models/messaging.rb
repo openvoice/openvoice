@@ -2,9 +2,12 @@ class Messaging < ActiveRecord::Base
 
   belongs_to :user
 
+  belongs_to :ParentMessage, :foreign_key => "in_reply_to_id"
+
   validates_presence_of :text
   validates_presence_of :to
-  
+  validates_presence_of :from
+
   before_create :sanitize_numbers
   before_create :set_from_name
   after_create :send_text

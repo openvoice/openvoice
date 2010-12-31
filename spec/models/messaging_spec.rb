@@ -2,23 +2,37 @@ require 'spec_helper'
 
 describe Messaging do
   before(:each) do
-    @caller_id = "14156667788"
-    @user_id = 1
+    @user = Factory.build(:user)
+    @message = Messaging.new(valid_message_params)
+    @message.user = @user
     @caller_name = "htc g1"
-    @existing_contact = Contact.create({ :user_id => @user_id, :name => @caller_name, :number => @caller_id })
+    @existing_contact = Contact.create!({:user_id => @user.id, :name => @caller_name, :number => valid_message_params[:from]})
+    @user.contacts << @existing_contact
   end
 
-  it "should set from_name for existing contact upon creation" do
-    pending
+  describe "create" do
+    it "should call set_from_name" do
+      @message.should_receive(:set_from_name)
+      @message.save!
+    end
 
-    message = Messaging.create(:from => @caller_id, :user_id => @user_id)
-    message.from_name.should == @caller_name
-    Messaging.last.from_name.should == @caller_name
+    it "should set from_name for existing contact upon creation" do
+      @message.save!
+      @message.from_name.should == @caller_name
+    end
+
+    it "should set from_name to unknown caller for non-existing contact" do
+      @message.from = "anon"
+      @message.save!
+      @message.from_name.should == "Unknown caller"
+    end
   end
 
-  it "should set from_name to unknown caller for non-existing contact" do
-    pending
-    message = Messaging.create(:from => "whatever caller", :user_id => @user_id)
-    message.from_name.should == "Unknown caller"
+  def valid_message_params
+    {
+       :to => "1234",
+       :text => "foo",
+       :from => "5678"
+    }
   end
 end
