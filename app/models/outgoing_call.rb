@@ -44,6 +44,14 @@ class OutgoingCall < ActiveRecord::Base
     tropo.response
   end
 
+  def callee_name
+    if (contact = user.contacts.select{|c| c.number == self.callee_number}.first)
+      contact.name
+    else
+      ""
+    end
+  end
+
   def created_at
     unless self.read_attribute(:created_at).nil?
       self.read_attribute(:created_at).strftime("%a, %b %d")
