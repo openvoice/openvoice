@@ -25,4 +25,10 @@ describe Profile do
     profile.errors.should be_empty
     profile.should be_valid    
   end
+
+  describe "destroy" do
+    it "should remove tropo numbers" do
+      pending
+    end
+  end
 end
