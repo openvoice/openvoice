@@ -68,6 +68,7 @@ class MessagingsController < ApplicationController
         # then this is a request to tropo, create an outgoing message
         @user = current_user
         @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
+                                                              :in_reply_to_id => params[:in_reply_to_id],
                                                               :user_id => current_user.id,
                                                               :outgoing => true }))
         @messaging.to = Contact.find(params[:contact_id]).number if(params[:contact_id])
