@@ -81,7 +81,11 @@ Openvoice::Application.routes.draw do
       put :unsuspend
       delete :purge
     end    
-    resources :phone_numbers
+    resources :phone_numbers do
+      collection do
+        post :update_attribute_on_the_spot
+      end
+    end
     resources :voicemails
     resources :messagings do
       get :autocomplete_contact_name, :on => :collection

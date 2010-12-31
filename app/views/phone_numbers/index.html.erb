@@ -21,8 +21,8 @@ calls first before connecting your caller.
 
   <% @phone_numbers.each do |phone_number| %>
       <tr>
-    <td><%=h phone_number.name %></td>
-    <td><%=h phone_number.number %></td>
+    <td><%= on_the_spot_edit phone_number, :name %></td>
+    <td><%= on_the_spot_edit phone_number, :number %></td>
     <td><%=h phone_number.forward %></td>
     <td><%=h phone_number.default %></td>
     <td class="narrow"><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
