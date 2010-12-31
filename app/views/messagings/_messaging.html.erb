@@ -18,7 +18,8 @@
     </div>
     <div>
       <%= form_for([@user, @new_message]) do |f| %>
-        <%= hidden_field_tag :to, :value => messaging.from  %>
+        <%= hidden_field_tag :to, messaging.from  %>
+        <%= hidden_field_tag :in_reply_to_id, messaging.id  %>
         <%= f.text_area :text, :class => "reply" %>
         <br />
         <%= submit_tag 'Reply' %>
