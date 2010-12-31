@@ -20,6 +20,10 @@ class Messaging < ActiveRecord::Base
 
   # Looks up contact name by caller_id and set it for every incoming message
   def set_from_name
+    if outgoing
+      self.from_name= user.name || "You"
+      return
+    end
     caller = user.contacts.select{ |c| c.number == from }.first
     unless caller.nil?
       self.from_name = caller.name

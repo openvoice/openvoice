@@ -4,6 +4,7 @@ describe Messaging do
   before(:each) do
     @user = Factory.build(:user)
     @message = Messaging.new(valid_message_params)
+    @message.stub(:send_text)
     @message.user = @user
     @caller_name = "htc g1"
     @existing_contact = Contact.create!({:user_id => @user.id, :name => @caller_name, :number => valid_message_params[:from]})
@@ -25,6 +26,12 @@ describe Messaging do
       @message.from = "anon"
       @message.save!
       @message.from_name.should == "Unknown caller"
+    end
+
+    it "should set from_name to originator for outgoing messages" do
+      @message.outgoing= true
+      @message.save!
+      @message.from_name.should eq("You")
     end
   end
 
