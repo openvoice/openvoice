@@ -61,4 +61,12 @@ class Contact < ActiveRecord::Base
 #    render head 204
 #  end
 
+  def self.filter(search, user_id)
+    if(search)
+      where('user_id IS ?', user_id).where('name LIKE ?', "%#{search}%")
+    else
+      User.find(user_id).contacts
+    end
+  end
+  
 end
