@@ -1,12 +1,20 @@
 <h2>Contacts</h2>
 
 <%= link_to 'New contact', new_user_contact_path(current_user) %>
+
+<%= form_tag user_contacts_path(current_user), :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <br /><br />
 <table>
   <tr class="header">
-    <th>Name</th>
-    <th>Number</th>
-    <th>IM</th>
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "number"%></th>
+    <th><%= sortable "im" %></th>
     <th />
     <th />
     <th />
