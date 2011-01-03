@@ -7,8 +7,8 @@ class ContactsController < ApplicationController
   can_edit_on_the_spot
   
   def index
-    @contacts = Contact.filter(params[:search], current_user.id)
-                .order(sort_column + ' ' + sort_direction)
+    @contacts = Contact.filter(params[:search], current_user.id) \
+                .order(sort_column + ' ' + sort_direction) \
                 .paginate(:page => params[:page], :per_page => 15)
     respond_to do |format|
       format.html
