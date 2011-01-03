@@ -2,36 +2,31 @@
 
 <%= link_to 'New contact', new_user_contact_path(current_user) %>
 
-<%= form_tag user_contacts_path(current_user), :method => 'get' do %>
+<%= form_tag user_contacts_path(current_user), :method => 'get', :id => "contacts_search" do %>
   <p>
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
   </p>
+  <br /><br />
+  <%= render :partial => 'contacts' %>
 <% end %>
-
-<br /><br />
-<table>
-  <tr class="header">
-    <th><%= sortable "name" %></th>
-    <th><%= sortable "number"%></th>
-    <th><%= sortable "im" %></th>
-    <th />
-    <th />
-    <th />
-  </tr>
-
-<% @contacts.each do |contact| %>
-  <tr id="contact_<%= contact.id %>">
-    <td><%= on_the_spot_edit contact, :name %></td>
-    <td><%= on_the_spot_edit contact, :number %></td>
-    <td><%= on_the_spot_edit contact, :im  %></td>
-    <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => contact.number }) %></td>
-    <td class="narrow"><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
-    <td class="narrow"><%= link_to 'Delete', "/users/" + current_user.id.to_s + "/contacts/" + contact.id.to_s + ".js", "data-remote" => true, :method => :delete %></td>
-  </tr>
-<% end %>
-</table>
 
 <br />
 <%= will_paginate @contacts %>
 <br />
+
+<script type="text/javascript">
+  $(function () {
+    $('#contacts th a, #contacts .pagination a, #contacts .pagination span').live('click', function () {
+      $.getScript(this.href);
+      return false;
+    });
+
+    // TODO ajax search for contact does not work
+//    $('#contacts_search').submit(function () {
+//      $.get(this.action, $(this).serialize(), null, 'script');
+//      return false;
+//    });
+  });
+</script>
+
