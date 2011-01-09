@@ -230,6 +230,21 @@ table, th {
     font-size: 15px;
 }
 
+/*sortable table arrows*/
+table, th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+table, th .asc {
+  background-image: url(/images/up-arrow.png);
+}
+
+table, th .desc {
+  background-image: url(/images/down-arrow.png);
+}
+/* END of sortable table arrows*/
+
 div.description {
     float: left;
     width: 60%;
@@ -301,7 +316,7 @@ input {
 }
 
 .messaging {
-    height: 120px;
+    height: 160px;
     margin: 1px;
     position: relative;
     background-color: #333333;
@@ -311,7 +326,7 @@ input {
     margin: 5px;
     float: left;
     width: 600px;
-    height: 110px;
+    height: 150px;
     position: relative;
 }
 
@@ -329,8 +344,15 @@ input {
 }
 
 .messaging .message .kv .v {
-    width: 600px;
+    width: 550px;
     height: 20px;
+}
+
+.messaging .message .reply {
+    background-color: #cccccc;
+    width: 500px;
+    height: 40px;
+    border: none;
 }
 
 .messaging .date {

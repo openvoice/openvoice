@@ -1,0 +1,5 @@
+<% unless @messagings.empty? %>
+  $("#messages").prepend("<%=raw escape_javascript(render(@messagings)) %>");
+  $(".message:first").css("border-right-color", "#00ff00");
+  $(".message:first").css("border-right-style", "solid");
+<% end %>

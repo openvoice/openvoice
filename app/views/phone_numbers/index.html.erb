@@ -17,20 +17,16 @@ calls first before connecting your caller.
     <th>Default</th>
     <th />
     <th />
-    <th />
   </tr>
 
   <% @phone_numbers.each do |phone_number| %>
-      <tr>
-    <td><%=h phone_number.name %></td>
-    <td><%=h phone_number.number %></td>
-    <td><%=h phone_number.forward %></td>
-    <td><%=h phone_number.default %></td>
-    <td class="narrow"><%= link_to 'Show', user_phone_number_path(current_user, phone_number) %></td>
+  <tr id="phone_number_<%= phone_number.id %>">
+    <td><%= on_the_spot_edit phone_number, :name %></td>
+    <td><%= on_the_spot_edit phone_number, :number %></td>
+    <td><%= on_the_spot_edit phone_number, :forward %></td>
+    <td><%= on_the_spot_edit phone_number, :default %></td>
     <td class="narrow"><%= link_to 'Edit', edit_user_phone_number_path(current_user, phone_number) %></td>
-    <td class="narrow"><%= link_to 'Destroy', user_phone_number_path(current_user, phone_number),
-                                   :confirm => 'Are you sure?',
-                                   :method => :delete %></td>
+    <td class="narrow"><%= link_to 'Delete', "/users/" + current_user.id.to_s + "/phone_numbers/" + phone_number.id.to_s + ".js", "data-remote" => true, :method => :delete %></td>
   </tr>
   <% end %>
 </table>

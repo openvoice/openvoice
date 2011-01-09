@@ -1,6 +1,8 @@
 class PhoneNumbersController < ApplicationController
 
   before_filter :require_user, :only => [:index, :show, :new, :edit, :create, :update, :destroy]
+
+  can_edit_on_the_spot
   
   def index
     @user = User.find(params[:user_id])
@@ -72,6 +74,7 @@ class PhoneNumbersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_phone_numbers_path(current_user)) }
       format.xml  { head :ok }
+      format.js
     end
   end
 

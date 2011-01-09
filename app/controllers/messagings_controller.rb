@@ -7,11 +7,23 @@ class MessagingsController < ApplicationController
   def index
     @user = current_user
     @messagings = @user.messagings.reverse
-    @messagings = @messagings.paginate(:page => params[:page],:per_page => 15)
+    @new_message = Messaging.new(:text => "")
     respond_to do |format|
-      format.html
-      format.json { render :json => @messagings }
-      format.xml  { render :xml => @messagings }
+      format.html {
+        @messagings = @messagings.paginate(:page => params[:page],:per_page => 15)
+      }
+      format.json {
+        @messagings = @messagings.paginate(:page => params[:page],:per_page => 15)
+        render :json => @messagings
+      }
+      format.xml  {
+        @messagings = @messagings.paginate(:page => params[:page],:per_page => 15)
+        render :xml => @messagings
+      }
+      format.js {
+        # TODO since we have @user.messaging already, we can use sorted array  instead of another db query
+        @messagings = @user.messagings.where("updated_at > ?", Time.at(params[:after].to_i + 1))
+      }
     end
   end
 
@@ -56,9 +68,11 @@ class MessagingsController < ApplicationController
         # then this is a request to tropo, create an outgoing message
         @user = current_user
         @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
+                                                              :in_reply_to_id => params[:in_reply_to_id],
                                                               :user_id => current_user.id,
                                                               :outgoing => true }))
         @messaging.to = Contact.find(params[:contact_id]).number if(params[:contact_id])
+        @messaging.to = params[:to] if(params[:to])
       else
         # incoming request, build request to tropo for outbound sms
         p "+++++++++++++++sending TropoML payload for outbound SMS"
@@ -111,6 +125,7 @@ class MessagingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(user_messagings_url(current_user)) }
       format.xml  { head :ok }
+      format.js
     end
   end
 end

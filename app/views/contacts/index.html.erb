@@ -1,34 +1,32 @@
 <h2>Contacts</h2>
 
 <%= link_to 'New contact', new_user_contact_path(current_user) %>
-<br /><br />
-<table>
-  <tr class="header">
-    <th>Name</th>
-    <th>Number</th>
-    <th>IM</th>
-    <th />
-    <th />
-    <th />
-    <th />
-    <th />
-  </tr>
 
-<% @contacts.each do |contact| %>
-  <tr>
-    <td><%=h contact.name %></td>
-    <td><%=h contact.number %></td>
-    <td><%=h contact.im %></td>
-    <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => contact.number }) %></td>
-    <td class="narrow"><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
-    <td class="narrow"><%= link_to 'Show', user_contact_path(current_user, contact) %></td>
-    <td class="narrow"><%= link_to 'Edit', edit_user_contact_path(current_user, contact) %></td>
-    <td class="narrow"><%= link_to 'Destroy', user_contact_path(current_user, contact), :confirm => 'Are you sure?', :method => :delete %></td>
-  </tr>
+<%= form_tag user_contacts_path(current_user), :method => 'get', :id => "contacts_search" do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+  <br /><br />
+  <%= render :partial => 'contacts' %>
 <% end %>
-</table>
-
 
 <br />
 <%= will_paginate @contacts %>
 <br />
+
+<script type="text/javascript">
+  $(function () {
+    $('#contacts th a, #contacts .pagination a, #contacts .pagination span').live('click', function () {
+      $.getScript(this.href);
+      return false;
+    });
+
+    // TODO ajax search for contact does not work
+//    $('#contacts_search').submit(function () {
+//      $.get(this.action, $(this).serialize(), null, 'script');
+//      return false;
+//    });
+  });
+</script>
+

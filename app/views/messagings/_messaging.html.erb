@@ -1,0 +1,43 @@
+<div class="messaging" id="messaging_<%= messaging.id %>">
+  <div id="message" class="message" data-time="<%= messaging.updated_at.to_i %>">
+    <div class="kv">
+      <div class="k">Sender Name</div>
+      <div class="v"><%= h messaging.from_name %></div>
+    </div>
+    <div class="kv">
+      <div class="k">Sender Number</div>
+      <div class="v"><%= h messaging.from %></div>
+    </div>
+    <div class="kv">
+      <div class="k">To</div>
+      <div class="v"><%= h messaging.to %></div>
+    </div>
+    <div class="kv">
+      <div class="k">Text</div>
+      <div class="v"><%= h messaging.text %></div>
+    </div>
+    <div>
+      <%= form_for([@user, @new_message]) do |f| %>
+        <%= hidden_field_tag :to, messaging.from  %>
+        <%= hidden_field_tag :in_reply_to_id, messaging.id  %>
+        <%= f.text_area :text, :class => "reply" %>
+        <br />
+        <%= submit_tag 'Reply' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="date">
+    <%= h messaging.created_at %>
+    <div align="right">
+      <%= link_to 'Delete', "/users/" + current_user.id.to_s + "/messagings/" + messaging.id.to_s + ".js", "data-remote" => true, :method => :delete %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.message').click(function() {
+      $(this).css("border", "none");
+    });
+  });
+  </script>

@@ -1,0 +1,24 @@
+<%= hidden_field_tag :direction, params[:direction] %>
+<%= hidden_field_tag :sort, params[:sort] %>
+
+<table class="contacts">
+  <tr class="header">
+    <th><%= sortable "name" %></th>
+    <th><%= sortable "number"%></th>
+    <th><%= sortable "im" %></th>
+    <th />
+    <th />
+    <th />
+  </tr>
+
+  <% @contacts.each do |contact| %>
+    <tr id="contact_<%= contact.id %>">
+      <td><%= on_the_spot_edit contact, :name %></td>
+      <td><%= on_the_spot_edit contact, :number %></td>
+      <td><%= on_the_spot_edit contact, :im  %></td>
+      <td class="narrow"><%= link_to 'Call', new_user_outgoing_call_path(current_user, { :callee_number => contact.number }) %></td>
+      <td class="narrow"><%= link_to 'SMS', new_user_messaging_path(current_user, { :to => contact.number }) %></td>
+      <td class="narrow"><%= link_to 'Delete', "/users/" + current_user.id.to_s + "/contacts/" + contact.id.to_s + ".js", "data-remote" => true, :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
