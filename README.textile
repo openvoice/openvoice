@@ -5,8 +5,14 @@ SIP/Skype support, and IM/SMS  support. Some notable differences from GoogleVoic
 and SIP/Skype support where GoogleVoice only supports Gizmo.
 
 OpenVoice is built on top of Tropo, it can be deployed onto any server because it is a Rails application. In the future
-OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and will
-support Flash phone.
+OpenVoice plans to support other backends such as FreeSwitch. On the client side, OpenVoice supports Android and Flash phone.
+
+h3. Support
+
+Please join our discussion group on Google Groups.
+Group name: openvoice
+Group home page: http://groups.google.com/group/myopenvoice
+Group email address myopenvoice@googlegroups.com
 
 h3. There are two ways to use OpenVoice:
 
