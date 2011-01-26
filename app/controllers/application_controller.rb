@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     unless params[:token].nil?
-      p "===============in token, return current user"
       return @current_user = User.find_by_persistence_token(params[:token])
     end
     return @current_user if defined?(@current_user)
