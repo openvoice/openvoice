@@ -165,7 +165,7 @@ class CommunicationsController < ApplicationController
       end
     end
 
-    profiles.first && profiles.first.user
+    profiles && profiles.first && profiles.first.user
   end
 
 end
