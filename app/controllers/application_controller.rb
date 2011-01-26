@@ -3,11 +3,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user_session, :current_user
 
   private
-  def load_current_user_session
-#    p "==========================load current user session"
-#    if token = params[:token]
-#    end
-  end
 
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
