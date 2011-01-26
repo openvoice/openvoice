@@ -67,6 +67,16 @@ class MessagingsController < ApplicationController
       if session.nil?
         # then this is a request to tropo, create an outgoing message
         @user = current_user
+        # since we are not requiring create to have user, it is possible for current_user to be nil
+        # so check params for presence of token, which is required for api call
+        unless current_user
+          if params[:token]
+            current_user = User.find_by_persistence_token(params[:token])
+          else
+            render :inline => "authentication token is required to send messages, please log in first to obtain token."
+            return
+          end
+        end
         @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
                                                               :in_reply_to_id => params[:in_reply_to_id],
                                                               :user_id => current_user.id,
