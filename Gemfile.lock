@@ -123,7 +123,7 @@ GEM
     thor (0.14.6)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tropo-provisioning (0.0.14)
+    tropo-provisioning (0.0.5)
       activesupport
       hashie (>= 0.2.1)
     tropo-webapi-ruby (0.1.9)
@@ -149,6 +149,6 @@ DEPENDENCIES
   rails3-jquery-autocomplete
   rspec-rails
   sqlite3-ruby
-  tropo-provisioning (>= 0.0.14)
+  tropo-provisioning (= 0.0.5)
   tropo-webapi-ruby
   will_paginate (= 3.0.pre)

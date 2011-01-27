@@ -19,10 +19,10 @@ and FreeSwitch.
 Support
 ----
 Please join our discussion group on Google Groups.
-Group name: openvoice
-Group home page: http://groups.google.com/group/myopenvoice
-Group email address myopenvoice@googlegroups.com
-Twitter: openvoice
+* Group name: openvoice
+* Group home page: http://groups.google.com/group/myopenvoice
+* Group email address myopenvoice@googlegroups.com
+* Twitter: openvoice
 
 There are two ways to use OpenVoice:
 ----
