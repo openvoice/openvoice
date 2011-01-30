@@ -13,7 +13,7 @@
 </div>
 
 <div class="login">
-  <% form_for @user_session, :url => user_session_path do |f| %>
+  <%= form_for @user_session, :url => user_session_path do |f| %>
   <!--% form_for @user_session, :url => user_session_path, :html => {:class => "login"} do |f| % -->
       <fieldset id="login">
         <legend>Log in</legend>
