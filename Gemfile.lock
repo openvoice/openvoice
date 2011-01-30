@@ -144,7 +144,7 @@ DEPENDENCIES
   formtastic (= 1.1.0)
   freeswitcher
   heroku (= 1.17.10)
-  httparty
+  httparty (= 0.7.3)
   jquery-rails (= 0.2.6)
   on_the_spot (= 0.0.6)
   pg (= 0.10.1)
