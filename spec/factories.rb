@@ -6,7 +6,7 @@ Factory.define :user do |u|
   u.id 1
   u.login "zlu"
   u.email "zlu@exmaple.com"
-  u.password_salt (salt = Authlogic::Random.hex_token)
+  u.password_salt(salt = Authlogic::Random.hex_token)
   u.crypted_password "password"
   u.password "password"
   u.password_confirmation "password"

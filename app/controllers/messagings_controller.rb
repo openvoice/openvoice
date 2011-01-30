@@ -69,19 +69,20 @@ class MessagingsController < ApplicationController
         @user = current_user
         # since we are not requiring create to have user, it is possible for current_user to be nil
         # so check params for presence of token, which is required for api call
-        unless current_user
+        if current_user.nil?
           if params[:token]
-            current_user = User.find_by_persistence_token(params[:token])
+            @user = User.find_by_persistence_token(params[:token])
           else
             render :inline => "authentication token is required to send messages, please log in first to obtain token."
             return
           end
         end
-        @messaging = Messaging.new(params[:messaging].merge({ :from => current_user.profiles.first.voice,
+
+        @messaging = Messaging.new(params[:messaging].merge({ :from => @user.profiles.first.voice,
                                                               :in_reply_to_id => params[:in_reply_to_id],
-                                                              :user_id => current_user.id,
+                                                              :user_id => params[:user_id],
                                                               :outgoing => true }))
-        @messaging.to = Contact.find(params[:contact_id]).number if(params[:contact_id])
+        @messaging.to = Contact.find(params[:contact_id]).number unless (params[:contact_id]).blank?
         @messaging.to = params[:to] if(params[:to])
       else
         # incoming request, build request to tropo for outbound sms
@@ -91,8 +92,9 @@ class MessagingsController < ApplicationController
         to = session_params[:to]
         msg = session_params[:text]
         tropo = Tropo::Generator.new do
-          call({ :to => to,
-                 :network => 'SMS' })
+          call({:to => to,
+                :from => from,
+                :network => 'SMS' })
           say msg
         end
 

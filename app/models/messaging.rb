@@ -21,7 +21,7 @@ class Messaging < ActiveRecord::Base
   # Looks up contact name by caller_id and set it for every incoming message
   def set_from_name
     if outgoing
-      self.from_name= user.name || "You"
+      self.from_name = user.name || "You"
       return
     end
     caller = user.contacts.select{ |c| c.number == from }.first
@@ -39,7 +39,7 @@ class Messaging < ActiveRecord::Base
       call_url = profile.call_url
       messaging_token = profile.messaging_token
       msg_url = (call_url || TROPO_URL) + messaging_token + '&from='+ from + '&to=' + to + '&text=' + CGI::escape(text)
-      open(msg_url)
+      HTTParty.get(msg_url)
     end
   end
 

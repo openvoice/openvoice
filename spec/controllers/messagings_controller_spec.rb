@@ -3,14 +3,16 @@ require 'spec_helper'
 include Authlogic::TestCase
 
 describe MessagingsController do
+
+  before do
+    activate_authlogic
+    @user = Factory.build(:user)
+    @user.stub(:create_profile)
+    @user.stub(:default_phone_number).and_return(valid_message_params[:from])
+    UserSession.create(@user)
+  end
+
   describe "HTML requests" do
-    before(:each) do
-      activate_authlogic
-      @user = Factory.build(:user)
-      @user.stub(:create_profile)
-      @user.stub(:default_phone_number).and_return(valid_message_params[:from])
-      UserSession.create(@user)
-    end
 
     describe "GET index" do
       it "has a 200 status code" do
@@ -85,8 +87,13 @@ describe MessagingsController do
   describe "JSON requests" do
     describe "POST create" do
       context "when there is insufficient parameters" do
-        it "should display an error message if user_id is missing" do
-          post :create, {:messaging => valid_message_params, :user_id => ''}
+        it "should display an error message if user_id is empty" do
+          post :create, {:messaging => valid_message_params.merge(:user_id => ""), :format => 'json'}
+          response.body.should == "authentication token is required to send messages, please log in first to obtain token."
+        end
+
+        it "should display an error message if user_id parameter is missing" do
+          post :create, {:messaging => valid_message_params.delete(:user_id), :format => 'json'}
           response.body.should == "authentication token is required to send messages, please log in first to obtain token."
         end
       end
@@ -97,10 +104,10 @@ describe MessagingsController do
 
   def valid_message_params()
     {
-#      :user_id => @user.id,
-:to   => "1234",
-:text => "foo",
-:from => "5678"
+      :user_id => @user.id,
+      :to   => "1234",
+      :text => "foo",
+      :from => "5678"
     }
   end
 end
