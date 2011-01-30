@@ -15,10 +15,13 @@ class UserSessionsController < ApplicationController
           flash[:notice] = "Login successful!"
           redirect_to user_messagings_path(@user_session.user)
         end
-
-        format.json{ render :json => @user_session }
+        format.json {render :json => @user_session}
       else
-        render :action => :new
+        format.html do
+          flash[:error] = "Login failed!"
+          redirect_to root_path
+        end
+        format.json {render :inline => "Login failed."}
       end
     end
   end

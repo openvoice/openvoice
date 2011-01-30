@@ -4,15 +4,15 @@ include Authlogic::TestCase
 
 describe MessagingsController do
 
-  before do
-    activate_authlogic
-    @user = Factory.build(:user)
-    @user.stub(:create_profile)
-    @user.stub(:default_phone_number).and_return(valid_message_params[:from])
-    UserSession.create(@user)
-  end
-
   describe "HTML requests" do
+
+    before do
+      activate_authlogic
+      @user = Factory.build(:user)
+      @user.stub(:create_profile)
+      @user.stub(:default_phone_number).and_return(valid_message_params[:from])
+      UserSession.create(@user)
+    end
 
     describe "GET index" do
       it "has a 200 status code" do
@@ -104,7 +104,7 @@ describe MessagingsController do
 
   def valid_message_params()
     {
-      :user_id => @user.id,
+      :user_id => 1,
       :to   => "1234",
       :text => "foo",
       :from => "5678"

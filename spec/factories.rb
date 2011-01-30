@@ -15,3 +15,12 @@ Factory.define :user do |u|
   u.single_access_token Authlogic::Random.friendly_token
   u.perishable_token Authlogic::Random.friendly_token
 end
+
+Factory.define :profile do |p|
+  p.id 1
+  p.voice "14151112222"
+  p.call_url "http://fakeurl.com"
+  p.voice_token "faketoken"
+  p.messaging_token "faketoken"
+  p.association :user
+end
