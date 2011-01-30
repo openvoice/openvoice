@@ -23,7 +23,7 @@ class OutgoingCall < ActiveRecord::Base
     call_url = profile.call_url
     voice_token = profile.voice_token
     tropo_url = (call_url || TROPO_URL) + voice_token + '&to=' + callee_number + '&from=' + from + '&ov_action=outboundcall&user_id=' + user_id + '&ov_voice=' + ov_voice
-    open(tropo_url)
+    HTTParty.get(tropo_url)
   end
 
   # perform tropo call transfer

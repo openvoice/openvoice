@@ -110,7 +110,7 @@ class CommunicationsController < ApplicationController
 
   def signal_peer
     tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
-    open(tropo_url)
+    HTTParty.get(tropo_url)
     render head 204
   end
 

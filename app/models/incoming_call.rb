@@ -18,7 +18,7 @@ class IncomingCall < ActiveRecord::Base
     tropo_url = (call_url || TROPO_URL) + voice_token + "&ov_action=joinconf&user_id=" + user.id.to_s \
                 + "&conf_id=" + CGI::escape(conf_id) + "&caller_id=#{CGI::escape(caller_id)}" \
                 + "&session_id=#{session_id}&call_id=#{call_id}"
-    open(tropo_url)
+    HTTParty.get(tropo_url)
   end
 
   def self.followme(params)
