@@ -58,9 +58,4 @@ class User < ActiveRecord::Base
   def usa_numbers
     TropoUtils.available_numbers
   end
-
-  def uk_numbers
-    TropoUtils.available_uk_numbers
-  end
-
 end
