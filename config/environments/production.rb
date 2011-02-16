@@ -47,7 +47,7 @@ Openvoice::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  SERVER_URL = "http://openvoice.heroku.com"
+  SERVER_URL = "http://dogfood.heroku.com"
   OUTBOUND_TOKEN_VOICE = "2f0894e0dec7d94785abddd0c12f2ea706d3c4b35c7398f5930199c7b63e37d73c67edc828314e913aa94f3e"
   OUTBOUND_TOKEN_MESSAGING = "39899c0a3e44954a94f2b7ecb93bdd4994e97427bb5d8cdba68ace92d35b736fff725c8b3dce8d994322de43"
 
