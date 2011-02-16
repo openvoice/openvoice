@@ -24,8 +24,8 @@ Openvoice::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 
   SERVER_URL = "http://web1.tunnlr.com:10790"
-  OUTBOUND_TOKEN_VOICE = "ac3c8899cac98a49a8af38bac8dcffeb071ea78b27670989282ab28755da9413ecd5b3af59008c8c4c2e99f3"
-  OUTBOUND_TOKEN_MESSAGING = "7c5c3cf9ac55114187ae67e5d3765a3d970604a7879154d65c9dfb9d18053b6244baff37e26e9fd291246207"
+  OUTBOUND_TOKEN_VOICE = "9e32b5080c5ec344a8d102326b9000f3df92124d1d573177c498313225db8f6533d76c53452524ee3c86cd14"
+  OUTBOUND_TOKEN_MESSAGING = "5be8918fc3bd244cb9b98261b400dbd40a0d4f4b6ffdefee92b4e12f9c6e9dfe649ba94eae3dbc0b0614372f"
 
 end
 
