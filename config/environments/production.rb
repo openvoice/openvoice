@@ -48,7 +48,7 @@ Openvoice::Application.configure do
   config.active_support.deprecation = :notify
 
   SERVER_URL = "http://openvoice.heroku.com"
-  OUTBOUND_TOKEN_VOICE = "2f0894e0dec7d94785abddd0c12f2ea706d3c4b35c7398f5930199c7b63e37d73c67edc828314e913aa94f3e"
-  OUTBOUND_TOKEN_MESSAGING = "39899c0a3e44954a94f2b7ecb93bdd4994e97427bb5d8cdba68ace92d35b736fff725c8b3dce8d994322de43"
+  OUTBOUND_TOKEN_VOICE = "99044ae8cb64234e97db7cbdf2931d3d5ad0316f62883cc9fd836e9ef89100f31e9314a5e855ea908934f557"
+  OUTBOUND_TOKEN_MESSAGING = "d24bcbd4e697df4da807f4f99dec0fa0a87201eb903b221e7094ff1d678f74e4df2e641c3928a827ea8dd731"
 
 end
