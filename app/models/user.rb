@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     ta = ENV["TROPO_APP"]
     tp = TropoProvisioning.new(tu, tp)
     address_data = tp.create_address(ta, { :type => 'number', :prefix => @prefix })
-    new_number = address_data.address.gsub("+", "")
+    new_number = address_data.address.gsub("+1", "")
     profile = profiles.build(:voice => new_number,
                              :voice_token => OUTBOUND_TOKEN_VOICE,
                              :messaging_token => OUTBOUND_TOKEN_MESSAGING,
