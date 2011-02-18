@@ -36,11 +36,11 @@ class OutgoingCallsController < ApplicationController
 
   def create
     @outgoing_call = OutgoingCall.new(params[:outgoing_call].merge(:user_id => params[:user_id]))
-    @outgoing_call.callee_number = Contact.find(params[:contact_id]).number if(params[:contact_id])
+    @outgoing_call.callee_number = Contact.find(params[:contact_id]).number unless (params[:contact_id]).blank?
 
     respond_to do |format|
       if @outgoing_call.save
-        flash[:notice] = 'VoiceCall was successfully created.'
+        flash[:notice] = 'Your call is being placed successfully.'
         format.html { redirect_to(user_outgoing_calls_path) }
         format.xml  { render :xml => @outgoing_call, :status => :created, :location => @outgoing_call }
         format.json { render :json => @outgoing_call }
