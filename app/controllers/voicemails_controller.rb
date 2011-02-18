@@ -34,23 +34,26 @@ class VoicemailsController < ApplicationController
     AWS::S3::Base.establish_connection!(
             :access_key_id     => 'AKIAJL7N4ODM3NMNTFCA',
             :secret_access_key => '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'
-    )
+    ) unless AWS::S3::Base.connected?
 
+    # params[:filename] is the file itself
     original_filename = params[:filename].original_filename
+    bucket_name = "dogfood-voicemail-deposits-#{Rails.env}"
 
     AWS::S3::S3Object.store(original_filename,
                             params[:filename],
-                            'voicemails-dev.tropovoice.com',
+                            bucket_name,
                             :access => :public_read)
 
-    path = 'http://voicemails-dev.tropovoice.com' + '.s3.amazonaws.com/' + original_filename
+    path = "http://#{bucket_name}.s3.amazonaws.com/#{original_filename}"
 
     # TODO locate user via caller_id
     @voicemail = Voicemail.new(:filename => path,
-                               :user_id => params[:user_id],
-                               :from => params[:caller_id],
-                               :text => "",
+                               :user_id  => params[:user_id],
+                               :from     => params[:caller_id],
+                               :text     => "",
                                :transcription_id => params[:transcription_id])
+
     if @voicemail.save
       flash[:notice] = 'Voicemail was successfully created.'
     end
@@ -107,15 +110,14 @@ class VoicemailsController < ApplicationController
     transcription_id = params[:transcription_id]
     caller_id = params[:caller_id]
     tropo = Tropo::Generator.new do
-      record(:say => [:value => "you have reached #{user_name}\'s voicemail.  Please speak after the beep."],
-             :beep => true,
+      record(:say     => [:value => "you have reached #{user_name}\'s voicemail.  Please speak after the beep."],
+             :beep    => true,
              :maxTime => 30,
-             :format => "audio/wav",
-             :name => "voicemail",
+             :name    => "voicemail",
              :choices => { :terminator => "#" },
-             :url => SERVER_URL + "/voicemails/create?caller_id=#{CGI::escape(caller_id)}&transcription_id=" + transcription_id + "&user_id=" + user_id,
+             :url     => SERVER_URL + "/voicemails/create?user_id=#{user_id}&caller_id=#{CGI::escape(caller_id)}&transcription_id=#{transcription_id}",
              :transcription => {
-                     :id => transcription_id,
+                     :id  => transcription_id,
                      :url => SERVER_URL + "/voicemails/set_transcription"
              })
     end

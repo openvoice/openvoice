@@ -37,9 +37,9 @@ class User < ActiveRecord::Base
   end
 
   def create_profile
-    tu = ENV['TROPO_USER']
-    tp = ENV['TROPO_PASS']
-    ta = ENV["TROPO_APP"]
+    tu = ENV["TROPO_USER"]
+    tp = ENV["TROPO_PASS"]
+    ta = Rails.env == "development" ? "139325" : ENV["TROPO_APP"]
     tp = TropoProvisioning.new(tu, tp)
     address_data = tp.create_address(ta, { :type => 'number', :prefix => @prefix })
     new_number = address_data.address.gsub("+1", "")
