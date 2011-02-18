@@ -2,7 +2,7 @@ namespace :heroku do
   desc "deploy code to heroku"
   task :deploy do
     system!('heroku maintenance:on')
-    system!('git push heroku master')
+    system!('git push')
     system!('heroku rake db:migrate')
     system!('heroku restart')
     system!('heroku maintenance:off')
