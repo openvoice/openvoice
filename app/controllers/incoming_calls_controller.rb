@@ -107,6 +107,7 @@ class IncomingCallsController < ApplicationController
           end
           render :json => tropo.response
       end
+      render :status => 200, :nothing => true
     end
   end
 end
