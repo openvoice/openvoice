@@ -84,7 +84,10 @@
 <script>
     var phono;
     var call;
-
+    var server_url = "<%= SERVER_URL %>";
+    var user_id = <%= current_user.id %>;
+    var profile_id = <%= current_user.profiles.first.id %>;
+    var post_url = server_url + "/users/" + user_id + "/profiles/" + profile_id;
     $(document).ready(function(){
       phono = $.phono({
         apiKey: "246718baa63464f91cb348a76559d700",
@@ -92,7 +95,7 @@
           var sipAddress = this.sessionId;
           $.ajax({
               type: 'PUT',
-              url: "http://localhost:3000/users/6/profiles/4",
+              url: post_url,
               data: {profile: {phono_sip_address: sipAddress}}
           });
           $("#call").attr("disabled", false).val("idle");
