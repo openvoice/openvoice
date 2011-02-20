@@ -64,6 +64,7 @@ class IncomingCallsController < ApplicationController
                      :terminator => "*")
         end
         render :json => tropo.response
+        return
       end
 
       case value
@@ -74,6 +75,7 @@ class IncomingCallsController < ApplicationController
                        :terminator => "ring(*)")
           end
           render :json => tropo.response
+          return
         when "voicemail"
           session_id = params[:session_id]
           call_id = params[:call_id]
@@ -89,6 +91,7 @@ class IncomingCallsController < ApplicationController
             hangup
           end
           render :json => tropo.response
+          return
         when "listenin"
           caller_id = CGI::escape(params[:caller_id])
           user_id = params[:user_id]
@@ -106,6 +109,7 @@ class IncomingCallsController < ApplicationController
                        :terminator => "ring(*)")
           end
           render :json => tropo.response
+          return
       end
       render :status => 200, :nothing => true
     end
