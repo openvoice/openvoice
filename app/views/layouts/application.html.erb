@@ -73,7 +73,6 @@
     <a class="footer" href="http://blog.myopenvoice.org">blog</a> |
     Copyright 2010, Zhao Lu,
     <a class="footer">OpenVoice</a>
-    <input id="call" type="button" disabled="true" value="Loading..." />
     <a class="answer" href="#" style="display: none; ">Answer</a>
     <a class="reject" href="#" style="display: none; ">Reject</a>
     <a class="hangup" href="#" style="display: none; ">Hangup</a>
@@ -83,33 +82,34 @@
 </body>
 
 <script>
-  var phono;
-  var call;
-$(document).ready(function(){
-  phono = $.phono({
-    apiKey: "246718baa63464f91cb348a76559d700",
-    onReady: function() {
-      var sipAddress = this.sessionId;
-      $.ajax({
-          type: 'PUT',
-          url: "http://localhost:3000/users/6/profiles/4",
-          data: {profile: {phono_sip_address: sipAddress}}
-      });
-      $("#call").attr("disabled", false).val("idle");
-    },
+    var phono;
+    var call;
 
-    phone: {
-      onDisconnect: function(event) {
-        $(document).trigger("callHangUp");
-      },
-      onIncomingCall: function(event) {
-        call = event.call;
-        $("a.answer").show().css("display","block");
-        $("a.reject").show().css("display","block");
-        $("a.hangup").hide();
-     }
-    }
-  });
+    $(document).ready(function(){
+      phono = $.phono({
+        apiKey: "246718baa63464f91cb348a76559d700",
+        onReady: function() {
+          var sipAddress = this.sessionId;
+          $.ajax({
+              type: 'PUT',
+              url: "http://localhost:3000/users/6/profiles/4",
+              data: {profile: {phono_sip_address: sipAddress}}
+          });
+          $("#call").attr("disabled", false).val("idle");
+        },
+
+        phone: {
+          onDisconnect: function(event) {
+            $(document).trigger("callHangUp");
+          },
+          onIncomingCall: function(event) {
+            call = event.call;
+            $("a.answer").show().css("display","block");
+            $("a.reject").show().css("display","block");
+            $("a.hangup").hide();
+         }
+        }
+      });
 
     $("a.answer").click(function(){
         $("a.hangup").show().css("display","block");
