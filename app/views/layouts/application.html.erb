@@ -85,8 +85,8 @@
     var phono;
     var call;
     var server_url = "<%= SERVER_URL %>";
-    var user_id = <%= current_user.id %>;
-    var profile_id = <%= current_user.profiles.first.id %>;
+    var user_id = <%= current_user ? current_user.id : 0 %>;
+    var profile_id = <%= current_user ? current_user.profiles.first.id : 0%>;
     var post_url = server_url + "/users/" + user_id + "/profiles/" + profile_id;
     $(document).ready(function(){
       phono = $.phono({
