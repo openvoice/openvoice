@@ -5,7 +5,6 @@ class ProfilesController < ApplicationController
   def index
     @user = User.find(params[:user_id])
     @profiles = @user.profiles
-
     respond_to do |format|
       format.html
       format.xml { render :xml => @profiles }
@@ -52,10 +51,9 @@ class ProfilesController < ApplicationController
 
   def update
     @profile = Profile.find(params[:id])
-
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        flash[:notice] = 'Profile was successfully updated.'
+        flash[:notice] = 'Profile was updated successfully.'
         format.html { redirect_to(user_profiles_path(current_user)) }
         format.xml { head :ok }
       else

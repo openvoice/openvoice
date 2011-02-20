@@ -22,5 +22,5 @@ Factory.define :profile do |p|
   p.call_url "http://fakeurl.com"
   p.voice_token "faketoken"
   p.messaging_token "faketoken"
-  p.association :user
+#  p.association :user
 end
