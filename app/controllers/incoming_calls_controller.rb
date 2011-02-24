@@ -22,21 +22,6 @@ class IncomingCallsController < ApplicationController
     end
   end
 
-  def create
-    @incoming_call = IncomingCall.new(params[:incoming_call])
-
-    respond_to do |format|
-      if @incoming_call.save
-        flash[:notice] = 'CallLog was successfully created.'
-        format.html { redirect_to(@incoming_call) }
-        format.xml { render :xml => @incoming_call, :status => :created, :location => @incoming_call }
-      else
-        format.html { render :action => "new" }
-        format.xml { render :xml => @incoming_call.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
   def destroy
     @incoming_call = IncomingCall.find(params[:id])
     @incoming_call.destroy
