@@ -1,4 +1,3 @@
-<!--<!DOCTYPE html>-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <meta charset="utf-8">
 
@@ -19,8 +18,8 @@
 
   <div class="header">
     <div class="left">
-      <div class="leftinnerleft"><%= image_tag("ov_logo.png", :size => "35x35") %></div>
-      <div class="leftinnerright"><h1>OpenVoice</h1></div>
+      <div class="leftinnerleft"><%= image_tag("ov_logo.png", :size => "163x43") %></div>
+
     </div>
     <div class="right">
       <% if current_user %>
@@ -63,18 +62,16 @@
     </div>
     <% end %>
     
-    <div>
+    <div class="box">
       <%= yield %>
     </div>
   </div>
 
   <div class="footer">
     <a class="footer" href="http://blog.myopenvoice.org">blog</a> |
-    Copyright 2010, Zhao Lu,
+    <a class="footer">api</a>|
+    <a class="footer">status</a> | Copyright 2010, Zhao Lu,
     <a class="footer">OpenVoice</a>
-    <a class="answer" href="#" style="display: none; ">Answer</a>
-    <a class="reject" href="#" style="display: none; ">Reject</a>
-    <a class="hangup" href="#" style="display: none; ">Hangup</a>
   </div>
 </div>
 
