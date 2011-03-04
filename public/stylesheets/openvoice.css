@@ -10,25 +10,63 @@
 /*ov header area contains icon, logo, and ov number, logout link*/
 .header {
     width: 736px;
-    height: 70px;
+    height: 65px;
 }
 
 /*ov icon and logo*/
 .right {
     float: right;
     width: 200px;
-    color: #cccccc;
-    background-color: #333333;
+    color: #333333;
 }
 
 .rightinnerovnumber {
    font-size: 14px;
    float:right;
+   color:#333333;
+   text-align:right;
+   margin-right: 13px;
+   margin-top: 10px;
 }
 
 .rightinnerlogout {
    font-size: 14px;
    float:right;
+   margin-top: -80px;
+}
+
+/*put ov icon here*/
+.leftinnerleft {
+    width: 750px;
+    height: 125px;
+	margin-left: -7px;
+	background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+}
+
+
+.box {
+    width: 750px;
+    height: 100%;
+	margin-top: -10px;
+	background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+}
+
+h2 {
+    color: #2fa5ea;
+	margin-left:50px;
+	padding-top:40px;
+    font-size: 20px;
+	font-weight:bold;
 }
 
 /*ov number and logout link*/
@@ -37,15 +75,8 @@
     width: 400px;
     height: 50px;
     color: #cccccc;
-    background-color: #333333;
 }
 
-/*put ov icon here*/
-.leftinnerleft {
-    float: left;
-    width: 40px;
-    height: 40px;
-}
 
 /*put ov logo here*/
 .leftinnerright {
@@ -67,6 +98,11 @@
 .logininnerleft {
     float: left;
     padding: 0em;
+
+}
+
+p.txt_align {
+    margin-left: 50px;
 }
 
 /*put rememberme text*/
@@ -77,17 +113,33 @@
 /*END of ov login panel css definitions*/
 
 div.container {
-    width: 750px;
-    margin: 0px;
-    border: 3px solid #333333;
+	width: 750px;
+    margin-top:30px;
+	margin-left: auto ;
+	margin-right: auto ;
     line-height: 150%;
 }
 
-div.header, div.footer {
+div.header {
     padding: 0.5em;
-    color: #cccccc;
-    background-color: #333333;
+    color: #333333;
     clear: left;
+}
+
+div.footer {
+    color: #333333;
+    clear: left;
+	width: 734px;
+	background-color: #f2f6f7;
+	margin-top: 5px;
+	padding: 5px 8px 10px 8px;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 h1.header {
@@ -98,10 +150,11 @@ h1.header {
 }
 
 body {
-    background-color: #000000;
-    color: #cccccc;
+    background-image: URL("http://thelab.o2.com/open-bkgd.jpg");
+	background-repeat:repeat-x;
+    color: #000000;
     font-size: 14px;
-    font-family: "GarogierRegular"
+    font-family: "arial";
 }
 
 h1 {
@@ -109,44 +162,59 @@ h1 {
     font-size: 20px;
 }
 
-h2 {
-    color: #cccccc;
-    font-size: 18px;
-}
-
 /*navigation bar*/
 ul.nav {
-    width:750;
+    width:740px;
+	height: 45px;
     list-style-type:none;
-    margin:0;
-    padding:0;
-    overflow:hidden;
-    background-color: #666666;
+    margin: 8px 0px -4px 10px;
+    padding:0px;
+    overflow:visible;
 }
 
 li.nav {
     display:block;
     float:left;
-    width: 60px;
-    height: 40px;
+    width: 66px;
+    height: 45px;
+	font-size: 13px;
     text-align:center;
     text-decoration:none;
+	color: #2fa5ea;
+    background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
 }
 
 a.nav:link, a.nav:visited {
     display:block;
-    width: 60px;
+    width: 66px;
     height: 40px;
-    background-color: #666666;
     text-align:center;
     padding:2px;
     text-decoration:none;
-    color: #cccccc;
-    font-size: 14px;
+    color: #333333;
+    font-size: 13px;
 }
 
 a.nav:hover, a.nav:active {
-    background-color: #333333;
+	height: 50px;
+	background-color: #eaeaea;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+  	-webkit-transform: translate(0px,-10px);
+	-moz-transform: translate(0px,-10px);
+	-o-transform: translate(0px,-10px);
 }
 
 /*for call and text buttons*/
@@ -171,18 +239,18 @@ a.nav:hover, a.nav:active {
 /*END of navigation bar*/
 
 a.special {
-    color: #cccccc;
+    color: #333333;
     font-size: 15px;
 }
 
 a.footer {
-    color: #cccccc;
-    font-size: 15px;
+    color: #333333;
+    font-size: 12px;
 }
 
 a:link, a:visited {
-    color: #cccccc;
-    font-size: 15px;
+    color: #333333;
+    font-size: 12px;
 }
 
 table {
@@ -197,20 +265,22 @@ table, td.narrow {
     width: 20px;
 }
 
-tr.header {
-    background-color: #333300;
-}
-
 /*START:table_stripe*/
 tr:nth-of-type(even) {
-    background-color: #333333;
+    background-color: #ffffff;
 }
 
 tr:nth-of-type(odd) {
-    background-color: #666666;
+    background-color: #f2f6f7;
 }
 
 /*END:table_stripe*/
+
+tr.header {
+    background-color: #2fa5ea;
+	color:#ffffff;
+	height:30px;
+}
 
 td:nth-child(n+2) {
     text-align: right;
@@ -221,7 +291,9 @@ table, tr.row {
 }
 
 table, tr, td {
-    width: 750px;
+    width: 650px;
+	margin-right: auto;
+	margin-left: auto;
     font-size: 13px;
     padding: 0.1em;
 }
