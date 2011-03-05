@@ -13,11 +13,17 @@
     height: 65px;
 }
 
+
 /*ov icon and logo*/
 .right {
     float: right;
     width: 200px;
     color: #333333;
+}
+
+p {
+	margin-left: 50px;
+	width: 650px;
 }
 
 .rightinnerovnumber {
@@ -53,7 +59,7 @@
 
 .box {
     width: 750px;
-    height: 100%;
+	min-height:300px;
 	margin-top: -10px;
 	background-color: #f2f6f7;
 	-moz-box-shadow: 0 0 5px #888;
@@ -150,16 +156,20 @@ h1.header {
 }
 
 body {
-    background-image: URL("http://thelab.o2.com/open-bkgd.jpg");
+    background-image: URL("http://www.dancalabrese.co.uk/open-bkgd.jpg");
 	background-repeat:repeat-x;
+	background-color: #b3e6fa;
     color: #000000;
     font-size: 14px;
     font-family: "arial";
 }
 
 h1 {
-    color: #cccccc;
+    color: #2fa5ea;
+	margin-left:50px;
+	padding-top:40px;
     font-size: 20px;
+	font-weight:bold;
 }
 
 /*navigation bar*/
@@ -241,11 +251,12 @@ a.nav:hover, a.nav:active {
 a.special {
     color: #333333;
     font-size: 15px;
+	margin-left: 50px;
 }
 
 a.footer {
     color: #333333;
-    font-size: 12px;
+    font-size: 15px;
 }
 
 a:link, a:visited {
@@ -324,18 +335,30 @@ div.description {
     padding: 1em;
 }
 
+div.newmessage {
+	margin-left: 50px;	
+	width: 650px;
+}
+
 div.login {
     padding: 1em;
+	margin-top: 50px;
 }
 
 fieldset {
     width: 216px;
     border: none;
-    background-color: #333333;
+    background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px #888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
 }
 
 fieldset legend {
-    background-color: #333333;
+	margin-bottom: 6px;
+	font-size: 14px;
     padding: 0 64px 0 2px;
 }
 
@@ -388,23 +411,22 @@ input {
 }
 
 .messaging {
-    height: 160px;
-    margin: 1px;
+    height: 100%;
+	margin-left: 50px;
     position: relative;
-    background-color: #333333;
 }
 
 .messaging .message {
     margin: 5px;
     float: left;
-    width: 600px;
+    width: 450px;
     height: 150px;
     position: relative;
 }
 
 .messaging .message .kv {
     padding-top: 3px;
-    width: 600px;
+    width: 450px;
     height: 20px;
 }
 
@@ -416,18 +438,18 @@ input {
 }
 
 .messaging .message .kv .v {
-    width: 550px;
+    width: 450px;
     height: 20px;
 }
 
 .messaging .message .reply {
     background-color: #cccccc;
-    width: 500px;
+    width: 400px;
     height: 40px;
     border: none;
 }
 
 .messaging .date {
     float: right;
-    margin: 5px;
+    margin-right: 50px;
 }
