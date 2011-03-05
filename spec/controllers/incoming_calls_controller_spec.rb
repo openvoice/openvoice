@@ -4,16 +4,18 @@ describe IncomingCallsController do
 
   describe "#user_menu" do
     context "when callee hangs up without selecting a valid dtmf" do
-      before do
-        post :user_menu, {:result => {}}
-      end
-
       it "should succeed" do
+        post :user_menu, {:result => {}}
         response.should be_success
       end
 
       it "should signal caller to hangup" do
         pending
+        HTTParty.should_receive(:get).with(/#{TROPO_SIGNAL_URL}.*\/signals\?action=signal&value=leaveconference/)
+        post :user_menu, {:result => {:state => "DISCONNECTED",
+                                      :sessionId => "fa16e4041b53966deb43370fa80c5748"},
+                          :session_id => "cd03935345e3ba5f82e66c641fc85c8f"}
+        response.should be_success
       end
     end
 

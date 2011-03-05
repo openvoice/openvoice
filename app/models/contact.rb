@@ -42,6 +42,7 @@ class Contact < ActiveRecord::Base
 
     original_filename = file_name.original_filename
 
+    #TODO use new s3 store for dogfood
     AWS::S3::S3Object.store(original_filename,
                             file_name,
                             'voicemails-dev.tropovoice.com',

@@ -66,10 +66,6 @@ class CommunicationsController < ApplicationController
     conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
-#      signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
-#      on(:event => 'disconnect', :next => signal_url)
-#      on(:event => 'error', :next => signal_url)
-#      on(:event => 'hangup', :next => signal_url)
       on(:event => 'voicemail', :next => voicemail_action_url)
       say("Please wait while we connect your call")
       conference(:name => "conference", :id => conf_id, :terminator => "*")
@@ -78,40 +74,10 @@ class CommunicationsController < ApplicationController
     render :json => tropo.response
   end
 
-#  def answer
-#    value = params[:result][:actions][:value]
-#    caller_id = params[:caller_id]
-#    @user = User.find(params[:user_id])
-#    case value
-#      when 'listen'
-#        voicemails = @user.voicemails.map(& :filename)
-#        tropo = Tropo::Generator.new do
-#          # need to ask user to enter pin, but skip for now since we don't support pin yet
-#          say 'Welcome to your voicemail system, please enter your pin code'
-#          voicemails.each do |vm|
-#            say 'next message'
-#            say vm
-#          end
-#        end
-#        render :json => tropo.response
-#      else
-#        tropo = Tropo::Generator.new do
-#          say "Please try again with keypad"
-#        end
-#        render :json => tropo.response
-#    end
-#  end
-
   private
 
   def hangup
     Tropo::Generator.new{ hangup }.to_json
-  end
-
-  def signal_peer
-    tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
-    HTTParty.get(tropo_url)
-    render head 204
   end
 
   def get_caller_id(header, x_sbc_from, from_id)
@@ -167,6 +133,5 @@ class CommunicationsController < ApplicationController
 
     profiles && profiles.first && profiles.first.user
   end
-
 end
 

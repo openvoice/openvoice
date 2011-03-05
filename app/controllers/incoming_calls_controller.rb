@@ -48,14 +48,18 @@ class IncomingCallsController < ApplicationController
                      :id => conf_id,
                      :terminator => "*")
         end
+
         render :json => tropo.response
         return
       end
 
       case value
         when "connect"
+          siu = signal_url(params[:session_id])
           tropo = Tropo::Generator.new do
+            on(:event => 'hangup', :next => siu)
             conference(:name => "conference",
+                       :allowSignals => "leaveconference",
                        :id => conf_id,
                        :terminator => "ring(*)")
           end
@@ -70,7 +74,7 @@ class IncomingCallsController < ApplicationController
           req.content_type = "text/xml"
           event_info = "<?xml version='1.0' encoding='UTF-8'?><event><name>voicemail</name></event>"
           req.body = event_info
-          resp = Net::HTTP.start(server_url) { |http| http.request(req) }
+          Net::HTTP.start(server_url) { |http| http.request(req) }
           tropo = Tropo::Generator.new do
             say 'sending caller to voicemail, goodbye'
             hangup
@@ -98,5 +102,10 @@ class IncomingCallsController < ApplicationController
       end
       render :status => 200, :nothing => true
     end
+  end
+
+  private
+  def signal_url(session_id)
+    TROPO_SIGNAL_URL + session_id + "/signals?action=signal&value=leaveconference"
   end
 end
