@@ -68,6 +68,8 @@ class CommunicationsController < ApplicationController
     tropo = Tropo::Generator.new do
       on(:event => 'voicemail', :next => voicemail_action_url)
       say("Please wait while we connect your call")
+      say(:value => "http://www.phono.com/audio/holdmusic.mp3",
+          :allowSignals => "exithold")
       conference(:name => "conference", :id => conf_id, :terminator => "*")
     end
 

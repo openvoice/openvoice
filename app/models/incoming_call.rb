@@ -43,12 +43,8 @@ class IncomingCall < ActiveRecord::Base
     contact = user.contacts.select{ |c| c.number == caller_id }.first
     contact = Contact.last if contact.nil?
     name_recording = contact.name_recording ||"Unannounced caller"
-#    signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
     tropo = Tropo::Generator.new do
       on(:event => 'continue', :next => next_action)
-#      on(:event => 'error', :next => signal_url)
-#      on(:event => 'incomplete', :next => signal_url)
-#      on(:event => 'hangup', :next => signal_url)
       call(:to => forwards, :from => caller_id)
       ask(:name => 'main-menu-incoming',
           :attempts => 3,
@@ -79,9 +75,4 @@ class IncomingCall < ActiveRecord::Base
     Tropo::Generator.new{ hangup }.to_json
   end
 
-#  def signal_peer
-#    tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
-#    open(tropo_url)
-#    render head 204
-#  end
 end
