@@ -70,7 +70,10 @@ class CommunicationsController < ApplicationController
       say("Please wait while we connect your call")
       say(:value => "http://www.phono.com/audio/holdmusic.mp3",
           :allowSignals => "exithold")
-      conference(:name => "conference", :id => conf_id, :terminator => "*")
+      conference(:name => "conference",
+                 :id => conf_id,
+                 :allowSignals => "leaveconference",
+                 :terminator => "*")
     end
 
     render :json => tropo.response
@@ -124,8 +127,6 @@ class CommunicationsController < ApplicationController
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
       profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
     elsif client == "PSTN"
-#      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
-#      profiles = Profile.all.select { |profile| profile.voice == number_to_search }
       profiles = Profile.all.select { |profile| profile.voice == to }
       # TODO currently tropo does not return country code and assumes it is 1.
       if profiles.empty?

@@ -59,7 +59,6 @@ class IncomingCallsController < ApplicationController
           tropo = Tropo::Generator.new do
             on(:event => 'hangup', :next => siu)
             conference(:name => "conference",
-                       :allowSignals => "leaveconference",
                        :id => conf_id,
                        :terminator => "ring(*)")
           end
