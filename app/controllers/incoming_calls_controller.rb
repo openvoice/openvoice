@@ -39,6 +39,9 @@ class IncomingCallsController < ApplicationController
       value = actions[:value] ? actions[:value] : actions[:terminator]
       conf_id = params[:conf_id]
 
+      incoming_call = IncomingCall.find_by_session_id(params[:session_id])
+      incoming_call.update_attribute(:callee_session_id, params[:result][:sessionId])
+
       if value == "ring"
         tropo = Tropo::Generator.new do
           # TODO due to the way prophecy works, have to start the audio mixer by saying something before joining the conference,
@@ -103,8 +106,15 @@ class IncomingCallsController < ApplicationController
     end
   end
 
+  def signal_peer
+    IncomingCall.signal_peer(params[:result][:sessionId])
+    render :status => 200, :nothing => true
+  end
+
   private
+
   def signal_url(session_id)
     TROPO_SIGNAL_URL + session_id + "/signals?action=signal&value=leaveconference"
   end
+
 end

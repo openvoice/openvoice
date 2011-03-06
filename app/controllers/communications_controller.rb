@@ -41,7 +41,7 @@ class CommunicationsController < ApplicationController
   def call_screen
     # TODO refactor this logic to contact model
     user = User.find(params[:user_id])
-    existing_contact = user.contacts.select{ |c| c.number == params[:caller_id] }
+    existing_contact = user.contacts.select { |c| c.number == params[:caller_id] }
     if existing_contact.empty?
       # create a new contact for the user
       existing_contact = Contact.create(:user_id => params[:user_id], :number => params[:caller_id])
@@ -67,6 +67,7 @@ class CommunicationsController < ApplicationController
     # put caller into the conference
     tropo = Tropo::Generator.new do
       on(:event => 'voicemail', :next => voicemail_action_url)
+      on(:event => 'hangup', :next => "/incoming_calls/signal_peer")
       say("Please wait while we connect your call")
       say(:value => "http://www.phono.com/audio/holdmusic.mp3",
           :allowSignals => "exithold")
@@ -82,7 +83,7 @@ class CommunicationsController < ApplicationController
   private
 
   def hangup
-    Tropo::Generator.new{ hangup }.to_json
+    Tropo::Generator.new { hangup }.to_json
   end
 
   def get_caller_id(header, x_sbc_from, from_id)
@@ -130,7 +131,7 @@ class CommunicationsController < ApplicationController
       profiles = Profile.all.select { |profile| profile.voice == to }
       # TODO currently tropo does not return country code and assumes it is 1.
       if profiles.empty?
-        profiles = Profile.all.select{ |profile| profile.voice == "1" + to }
+        profiles = Profile.all.select { |profile| profile.voice == "1" + to }
       end
     end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110220032722) do
+ActiveRecord::Schema.define(:version => 20110306145902) do
 
   create_table "contacts", :force => true do |t|
     t.string   "name"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(:version => 20110220032722) do
     t.string   "session_id"
     t.string   "call_id"
     t.string   "caller_name"
+    t.string   "callee_session_id"
   end
 
   create_table "messagings", :force => true do |t|

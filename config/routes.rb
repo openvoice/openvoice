@@ -16,6 +16,7 @@ Openvoice::Application.routes.draw do
   match 'users/register_phone'         => 'users#register_phone'
 
   match 'incoming_calls/user_menu'     => 'incoming_calls#user_menu'
+  match 'incoming_calls/signal_peer'   => 'incoming_calls#signal_peer'
 
   match 'communications/index'         => 'communications#index'
   match 'communications/handle_incoming_call' => 'communications#handle_incoming_call'

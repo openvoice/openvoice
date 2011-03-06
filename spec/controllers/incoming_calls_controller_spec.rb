@@ -21,16 +21,23 @@ describe IncomingCallsController do
 
     context "when callee selects an invalid dtfm" do
       before do
-        post :user_menu, {:result => {:actions => {:value => "invalid dtmf"}}}
+        post :user_menu, {:result => {:actions => {:value => "invalid dtmf"},
+                                      :sessionId => "fa16e4041b53966deb43370fa80c5748"},
+                          :session_id => "cd03935345e3ba5f82e66c641fc85c8f"}
       end
 
       it "should succeed" do
         response.should be_success
       end
-
     end
   end
 
+  describe "#signal_peer" do
+    it "should signal peer to hang up" do
+      IncomingCall.should_receive(:signal_peer).with("foo")
+      post :signal_peer, :result => {:sessionId => "foo"}
+    end
+  end
 end
 
 # To be used for the pending test above

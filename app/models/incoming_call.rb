@@ -7,6 +7,12 @@ class IncomingCall < ActiveRecord::Base
   after_create :signal_tropo
   after_create :set_caller_name
 
+  def self.signal_peer(session_id)
+    incoming_call = IncomingCall.find_by_session_id(session_id)
+    url = TROPO_SIGNAL_URL + incoming_call.callee_session_id + "/signals?action=signal&value=leaveconference"
+    HTTParty.get(url)
+  end
+
   # signals tropo by making a session token call, passing ov_action=joinconf
   # when tropo response comes back, ov will put the user into an existing conference identified by conference_id
   def signal_tropo
