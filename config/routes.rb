@@ -29,6 +29,7 @@ Openvoice::Application.routes.draw do
 
   resource :user_session
   resource :account, :controller => "users"
+  resources :calls,               :only => [:index]
 
   resources :users do
     member do

@@ -1,14 +1,14 @@
 class User < ActiveRecord::Base
   acts_as_authentic
 
-  has_many :phone_numbers, :dependent => :destroy
-  has_many :voicemails, :dependent => :destroy
-  has_many :messagings, :dependent => :destroy
+  has_many :phone_numbers,  :dependent => :destroy
+  has_many :voicemails,     :dependent => :destroy
+  has_many :messagings,     :dependent => :destroy
   has_many :outgoing_calls, :dependent => :destroy
   has_many :incoming_calls, :dependent => :destroy
-  has_many :contacts, :dependent => :destroy
-  has_many :profiles, :dependent => :destroy
-  has_many :fs_profiles, :dependent => :destroy
+  has_many :contacts,       :dependent => :destroy
+  has_many :profiles,       :dependent => :destroy
+  has_many :fs_profiles,    :dependent => :destroy
 
   attr_accessor :prefix
   attr_accessor :default_number

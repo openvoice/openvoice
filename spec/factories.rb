@@ -13,6 +13,7 @@ Factory.define :user do |u|
   u.persistence_token Authlogic::Random.hex_token
   u.single_access_token Authlogic::Random.friendly_token
   u.perishable_token Authlogic::Random.friendly_token
+  
 end
 
 Factory.define :profile do |p|
@@ -21,4 +22,12 @@ Factory.define :profile do |p|
   p.call_url "http://fakeurl.com"
   p.voice_token "faketoken"
   p.messaging_token "faketoken"
+end
+
+Factory.define :incoming_call do |ic|
+  ic.user_id 1
+end
+
+Factory.define :outgoing_call do |oc|
+  oc.user_id 1
 end
