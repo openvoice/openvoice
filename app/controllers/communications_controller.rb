@@ -41,7 +41,7 @@ class CommunicationsController < ApplicationController
   def call_screen
     # TODO refactor this logic to contact model
     user = User.find(params[:user_id])
-    existing_contact = user.contacts.select{ |c| c.number == params[:caller_id] }
+    existing_contact = user.contacts.select { |c| c.number == params[:caller_id] }
     if existing_contact.empty?
       # create a new contact for the user
       existing_contact = Contact.create(:user_id => params[:user_id], :number => params[:caller_id])
@@ -66,52 +66,24 @@ class CommunicationsController < ApplicationController
     conf_id = user_id + '<--->' + caller_id
     # put caller into the conference
     tropo = Tropo::Generator.new do
-#      signal_url = "signal_peer?event=disconnect&call_id=#{call_id}&session_id=#{session_id}"
-#      on(:event => 'disconnect', :next => signal_url)
-#      on(:event => 'error', :next => signal_url)
-#      on(:event => 'hangup', :next => signal_url)
       on(:event => 'voicemail', :next => voicemail_action_url)
+      on(:event => 'hangup', :next => "/incoming_calls/signal_peer")
       say("Please wait while we connect your call")
-      conference(:name => "conference", :id => conf_id, :terminator => "*")
+      say(:value => "http://www.phono.com/audio/holdmusic.mp3",
+          :allowSignals => "exithold")
+      conference(:name => "conference",
+                 :id => conf_id,
+                 :allowSignals => "leaveconference",
+                 :terminator => "*")
     end
 
     render :json => tropo.response
   end
 
-#  def answer
-#    value = params[:result][:actions][:value]
-#    caller_id = params[:caller_id]
-#    @user = User.find(params[:user_id])
-#    case value
-#      when 'listen'
-#        voicemails = @user.voicemails.map(& :filename)
-#        tropo = Tropo::Generator.new do
-#          # need to ask user to enter pin, but skip for now since we don't support pin yet
-#          say 'Welcome to your voicemail system, please enter your pin code'
-#          voicemails.each do |vm|
-#            say 'next message'
-#            say vm
-#          end
-#        end
-#        render :json => tropo.response
-#      else
-#        tropo = Tropo::Generator.new do
-#          say "Please try again with keypad"
-#        end
-#        render :json => tropo.response
-#    end
-#  end
-
   private
 
   def hangup
-    Tropo::Generator.new{ hangup }.to_json
-  end
-
-  def signal_peer
-    tropo_url = "http://api.tropo.com/1.0/sessions/#{params[:session_id]}/calls/#{params[:call_id]}/events?action=create&name=#{event}"
-    HTTParty.get(tropo_url)
-    render head 204
+    Tropo::Generator.new { hangup }.to_json
   end
 
   def get_caller_id(header, x_sbc_from, from_id)
@@ -156,17 +128,14 @@ class CommunicationsController < ApplicationController
       number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2].sub("1", "")
       profiles = Profile.all.select { |profile| profile.sip.include?(number_to_search) }
     elsif client == "PSTN"
-#      number_to_search = %r{(^<sip:)(.*)(@.*)}.match(callee)[2]
-#      profiles = Profile.all.select { |profile| profile.voice == number_to_search }
       profiles = Profile.all.select { |profile| profile.voice == to }
       # TODO currently tropo does not return country code and assumes it is 1.
       if profiles.empty?
-        profiles = Profile.all.select{ |profile| profile.voice == "1" + to }
+        profiles = Profile.all.select { |profile| profile.voice == "1" + to }
       end
     end
 
     profiles && profiles.first && profiles.first.user
   end
-
 end
 

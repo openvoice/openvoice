@@ -1,14 +1,14 @@
 class User < ActiveRecord::Base
   acts_as_authentic
 
-  has_many :phone_numbers, :dependent => :destroy
-  has_many :voicemails, :dependent => :destroy
-  has_many :messagings, :dependent => :destroy
+  has_many :phone_numbers,  :dependent => :destroy
+  has_many :voicemails,     :dependent => :destroy
+  has_many :messagings,     :dependent => :destroy
   has_many :outgoing_calls, :dependent => :destroy
   has_many :incoming_calls, :dependent => :destroy
-  has_many :contacts, :dependent => :destroy
-  has_many :profiles, :dependent => :destroy
-  has_many :fs_profiles, :dependent => :destroy
+  has_many :contacts,       :dependent => :destroy
+  has_many :profiles,       :dependent => :destroy
+  has_many :fs_profiles,    :dependent => :destroy
 
   attr_accessor :prefix
   attr_accessor :default_number
@@ -33,16 +33,18 @@ class User < ActiveRecord::Base
 
   # returns all the forward phone_numbers
   def forwarding_numbers
-    phone_numbers.select{ |n| n.forward == true }.map(&:number)
+    numbers = phone_numbers.select{ |n| n.forward == true }.map(&:number)
+    numbers << profiles.first.phono_sip_address if profiles.first.phono_sip_address
+    numbers
   end
 
   def create_profile
-    tu = ENV['TROPO_USER']
-    tp = ENV['TROPO_PASS']
-    ta = ENV["TROPO_APP"]
+    tu = ENV["TROPO_USER"]
+    tp = ENV["TROPO_PASS"]
+    ta = Rails.env == "development" ? "139325" : ENV["TROPO_APP"]
     tp = TropoProvisioning.new(tu, tp)
     address_data = tp.create_address(ta, { :type => 'number', :prefix => @prefix })
-    new_number = address_data.address.gsub("+", "")
+    new_number = address_data.address.gsub("+1", "")
     profile = profiles.build(:voice => new_number,
                              :voice_token => OUTBOUND_TOKEN_VOICE,
                              :messaging_token => OUTBOUND_TOKEN_MESSAGING,

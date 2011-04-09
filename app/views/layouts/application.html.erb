@@ -1,4 +1,3 @@
-<!--<!DOCTYPE html>-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 <meta charset="utf-8">
 
@@ -6,7 +5,6 @@
   <title>OpenVoice - <%= controller.controller_name %>:<%= controller.action_name %></title>
   <%= stylesheet_link_tag "openvoice" %>
   <%= stylesheet_link_tag "jquery-ui-1.8.7.custom" %>
-  <!-- %= formtastic_stylesheet_link_tag % -->
   <%= javascript_include_tag :defaults %>
   <%= javascript_include_tag "jquery-ui-1.8.7.custom.min.js" %>
   <%= javascript_include_tag "autocomplete-rails.js" %>
@@ -20,8 +18,8 @@
 
   <div class="header">
     <div class="left">
-      <div class="leftinnerleft"><%= image_tag("ov_logo.png", :size => "35x35") %></div>
-      <div class="leftinnerright"><h1>OpenVoice</h1></div>
+      <div class="leftinnerleft"><%= image_tag("ov_logo.png", :size => "163x43") %></div>
+
     </div>
     <div class="right">
       <% if current_user %>
@@ -64,7 +62,7 @@
     </div>
     <% end %>
     
-    <div>
+    <div class="box">
       <%= yield %>
     </div>
   </div>
@@ -78,3 +76,66 @@
 </div>
 
 </body>
+
+<script>
+    var phono;
+    var call;
+    var server_url = "<%= SERVER_URL %>";
+    var user_id = "<%= current_user ? current_user.id : 0 %>";
+    var profile_id = "<%= current_user ? current_user.profiles.first.id : 0%>";
+    var post_url = server_url + "/users/" + user_id + "/profiles/" + profile_id;
+    $(document).ready(function(){
+      phono = $.phono({
+        apiKey: "246718baa63464f91cb348a76559d700",
+        onReady: function() {
+          var sipAddress = this.sessionId;
+          $.ajax({
+              type: 'PUT',
+              url: post_url,
+              data: {profile: {phono_sip_address: sipAddress}}
+          });
+          $("#call").attr("disabled", false).val("idle");
+        },
+
+        phone: {
+          onDisconnect: function(event) {
+            $(document).trigger("callHangUp");
+          },
+          onIncomingCall: function(event) {
+            call = event.call;
+            $("a.answer").show().css("display","block");
+            $("a.reject").show().css("display","block");
+            $("a.hangup").hide();
+         }
+        }
+      });
+
+    $("a.answer").click(function(){
+        $("a.hangup").show().css("display","block");
+        $(this).hide();
+        $("a.reject").hide();
+        (call) ? call.answer() : call = null;
+        return false;
+    });
+
+    $("a.hangup").click(function(){
+	  $(document).trigger("callHangUp");
+	  return false;
+    });
+
+    $(document).bind("callHangUp", function(){
+        (call) ? call.hangup() : call = null;
+        $("a.hangup").hide();
+        $("a.answer").hide();
+        $("a.reject").hide();
+    });
+
+    $("a.reject").click(function(){
+        $(this).hide();
+        (call) ? call.hangup() : call = null;
+        $("a.answer").hide();
+        $("a.hangup").hide();
+        return false;
+    });
+})
+</script>

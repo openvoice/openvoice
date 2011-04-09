@@ -1,4 +1,5 @@
 class OutgoingCall < ActiveRecord::Base
+  include ActionView::Helpers::DateHelper
 
   belongs_to :user
 
@@ -56,6 +57,10 @@ class OutgoingCall < ActiveRecord::Base
     unless self.read_attribute(:created_at).nil?
       self.read_attribute(:created_at).strftime("%a, %b %d")
     end
+  end
+
+  def date_for_stream
+    "#{time_ago_in_words(updated_at)} ago"
   end
 
 end

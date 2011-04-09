@@ -40,7 +40,7 @@ describe OutgoingCallsController do
       end
 
       it "sets a flash[:notice] message" do
-        flash[:notice].should eq("VoiceCall was successfully created.")
+        flash[:notice].should eq("Your call is being placed successfully.")
       end
 
       it "redirects to OutgoingCall#index" do
