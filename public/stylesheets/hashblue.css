@@ -1,0 +1,455 @@
+@font-face {
+    font-family: 'GarogierRegular';
+    src: url('fonts/Garogier_unhinted-webfont.eot');
+    src: url('fonts/Garogier_unhinted-webfont.woff') format('woff'),
+         url('fonts/Garogier_unhinted-webfont.ttf') format('truetype'),
+         url('fonts/Garogier_unhinted-webfont.svg#webfontew0qE0O9') format('svg');
+    font-weight: normal;
+}
+
+/*ov header area contains icon, logo, and ov number, logout link*/
+.header {
+    width: 736px;
+    height: 65px;
+}
+
+
+/*ov icon and logo*/
+.right {
+    float: right;
+    width: 200px;
+    color: #333333;
+}
+
+p {
+	margin-left: 50px;
+	width: 650px;
+}
+
+.rightinnerovnumber {
+   font-size: 14px;
+   float:right;
+   color:#333333;
+   text-align:right;
+   margin-right: 13px;
+   margin-top: 10px;
+}
+
+.rightinnerlogout {
+   font-size: 14px;
+   float:right;
+   margin-top: -80px;
+}
+
+/*put ov icon here*/
+.leftinnerleft {
+    width: 750px;
+    height: 125px;
+	margin-left: -7px;
+	background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+}
+
+
+.box {
+    width: 750px;
+	min-height:300px;
+	margin-top: -10px;
+	background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+}
+
+h2 {
+    color: #2fa5ea;
+	margin-left:50px;
+	padding-top:40px;
+    font-size: 20px;
+	font-weight:bold;
+}
+
+/*ov number and logout link*/
+.left {
+    float: left;
+    width: 400px;
+    height: 50px;
+    color: #cccccc;
+}
+
+
+/*put ov logo here*/
+.leftinnerright {
+    /*float: right;*/
+    width: 200px;
+    height: 40px;
+}
+/*end of ov header*/
+
+/*ov login panel css definitions*/
+/*login rememberme*/
+.loginrem {
+    width: 150px;
+    height: 20px;
+    padding: 0em;
+}
+
+/*put rememberme checkbox*/
+.logininnerleft {
+    float: left;
+    padding: 0em;
+
+}
+
+p.txt_align {
+    margin-left: 50px;
+}
+
+/*put rememberme text*/
+.logininnerright {
+    float: right;
+    height: 20px;
+}
+/*END of ov login panel css definitions*/
+
+div.container {
+	width: 750px;
+    margin-top:30px;
+	margin-left: auto ;
+	margin-right: auto ;
+    line-height: 150%;
+}
+
+div.header {
+    padding: 0.5em;
+    color: #333333;
+    clear: left;
+}
+
+div.footer {
+    color: #333333;
+    clear: left;
+	width: 734px;
+	background-color: #f2f6f7;
+	margin-top: 5px;
+	padding: 5px 8px 10px 8px;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-bottomright: 10px;
+	border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+h1.header {
+    position: relative;
+    left: 50px;
+    top: -40px;
+    padding: 0;
+}
+
+body {
+    background-image: URL("http://www.dancalabrese.co.uk/open-bkgd.jpg");
+	background-repeat:repeat-x;
+	background-color: #b3e6fa;
+    color: #000000;
+    font-size: 14px;
+    font-family: "arial";
+}
+
+h1 {
+    color: #2fa5ea;
+	margin-left:50px;
+	padding-top:40px;
+    font-size: 20px;
+	font-weight:bold;
+}
+
+/*navigation bar*/
+ul.nav {
+    width:740px;
+	height: 45px;
+    list-style-type:none;
+    margin: 8px 0px -4px 10px;
+    padding:0px;
+    overflow:visible;
+}
+
+li.nav {
+    display:block;
+    float:left;
+    width: 66px;
+    height: 45px;
+	font-size: 13px;
+    text-align:center;
+    text-decoration:none;
+	color: #2fa5ea;
+    background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+}
+
+a.nav:link, a.nav:visited {
+    display:block;
+    width: 66px;
+    height: 40px;
+    text-align:center;
+    padding:2px;
+    text-decoration:none;
+    color: #333333;
+    font-size: 13px;
+}
+
+a.nav:hover, a.nav:active {
+	height: 50px;
+	background-color: #eaeaea;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px#888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius-topright: 10px;
+	border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	border-top-left-radius: 10px;
+  	-webkit-transform: translate(0px,-10px);
+	-moz-transform: translate(0px,-10px);
+	-o-transform: translate(0px,-10px);
+}
+
+/*for call and text buttons*/
+/*a.navfancy:link, a.navfancy:visited {*/
+    /*display:block;*/
+    /*width: 50px;*/
+    /*height: 20px;*/
+    /*background-color: #333333;*/
+    /*text-align:center;*/
+    /*padding:5px;*/
+    /*margin:5px;*/
+    /*text-decoration:none;*/
+    /*color: #cccccc;*/
+    /*font-size: 15px;*/
+/*}*/
+
+/*a.navafancy:hover, a.navfancy:active {*/
+    /*background-color: #333333;*/
+/*}*/
+/*END for call and text buttons*/
+
+/*END of navigation bar*/
+
+a.special {
+    color: #333333;
+    font-size: 15px;
+	margin-left: 50px;
+}
+
+a.footer {
+    color: #333333;
+    font-size: 15px;
+}
+
+a:link, a:visited {
+    color: #333333;
+    font-size: 12px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: none;
+}
+
+table, td.narrow {
+    width: 20px;
+}
+
+/*START:table_stripe*/
+tr:nth-of-type(even) {
+    background-color: #ffffff;
+}
+
+tr:nth-of-type(odd) {
+    background-color: #f2f6f7;
+}
+
+/*END:table_stripe*/
+
+tr.header {
+    background-color: #2fa5ea;
+	color:#ffffff;
+	height:30px;
+}
+
+td:nth-child(n+2) {
+    text-align: right;
+}
+
+table, tr.row {
+    border: 2px white;
+}
+
+table, tr, td {
+    width: 650px;
+	margin-right: auto;
+	margin-left: auto;
+    font-size: 13px;
+    padding: 0.1em;
+}
+
+table, th {
+    font-size: 15px;
+}
+
+/*sortable table arrows*/
+table, th .current {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: right center;
+}
+table, th .asc {
+  background-image: url(/images/up-arrow.png);
+}
+
+table, th .desc {
+  background-image: url(/images/down-arrow.png);
+}
+/* END of sortable table arrows*/
+
+div.description {
+    float: left;
+    width: 60%;
+    margin: 0;
+    padding: 1em;
+}
+
+div.newmessage {
+	margin-left: 50px;	
+	width: 650px;
+}
+
+div.login {
+    padding: 1em;
+	margin-top: 50px;
+}
+
+fieldset {
+    width: 216px;
+    border: none;
+    background-color: #f2f6f7;
+	-moz-box-shadow: 0 0 5px #888;
+	-webkit-box-shadow: 0 0 5px #888;
+	box-shadow: 0 0 5px #888;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+fieldset legend {
+	margin-bottom: 6px;
+	font-size: 14px;
+    padding: 0 64px 0 2px;
+}
+
+fieldset input {
+    display: block;
+}
+
+input {
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #bbb;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+}
+
+input[type="submit"] {
+    width: 202px;
+    padding: 0;
+    background-color: #bbb;
+}
+
+input {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#flash_error {
+    color: #FF0000;
+    background-color: #333333;
+    font-size: 18px;
+    text-align: center;
+    border-top: 2px solid #cccccc;
+    border-bottom: 2px solid #cccccc;
+    margin: 10px auto;
+    padding: 5px 20px;
+}
+
+#flash_notice {
+    background-color: #333333;
+    color: #cccccc;
+    font-size: 18px;
+    text-align: center;
+    border-top: 2px solid #cccccc;
+    border-bottom: 2px solid #cccccc;
+    margin: 10px auto;
+    padding: 5px 20px;
+}
+
+.messaging {
+    height: 100%;
+	margin-left: 50px;
+    position: relative;
+}
+
+.messaging .message {
+    margin: 5px;
+    float: left;
+    width: 450px;
+    height: 150px;
+    position: relative;
+}
+
+.messaging .message .kv {
+    padding-top: 3px;
+    width: 450px;
+    height: 20px;
+}
+
+.messaging .message .kv .k {
+    width: 125px;
+    float: left;
+    height: 20px;
+    font-weight: bold;
+}
+
+.messaging .message .kv .v {
+    width: 450px;
+    height: 20px;
+}
+
+.messaging .message .reply {
+    background-color: #cccccc;
+    width: 400px;
+    height: 40px;
+    border: none;
+}
+
+.messaging .date {
+    float: right;
+    margin-right: 50px;
+}

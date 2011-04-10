@@ -3,7 +3,7 @@ development:
   adapter: postgresql
   username: zlu
   port: 5432
-  host: localhost
+  host: 127.0.0.1
   database: openvoice_development
   password: flute
 
@@ -12,7 +12,7 @@ test:
   adapter: postgresql
   username: zlu
   port: 5432
-  host: localhost
+  host: 127.0.0.1
   database: openvoice_test
   min_messages: WARNING
   password: flute
