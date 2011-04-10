@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   # returns all the forward phone_numbers
   def forwarding_numbers
     numbers = phone_numbers.select{ |n| n.forward == true }.map(&:number)
-    numbers << profiles.first.phono_sip_address if profiles.first.phono_sip_address
+    numbers << profiles.first.phono_sip_address if profiles.first && profiles.first.phono_sip_address
     numbers
   end
 
