@@ -78,7 +78,8 @@
 
 div.container {
     width: 750px;
-    margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
     border: 3px solid #333333;
     line-height: 150%;
 }
