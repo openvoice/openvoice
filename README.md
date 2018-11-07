@@ -1,3 +1,5 @@
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fopenvoice%2Fopenvoice.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fopenvoice%2Fopenvoice?ref=badge_shield)
+
 OpenVoice
 ====
 
@@ -93,3 +95,7 @@ Bugs
 ----
 If you find bugs, please log them in the issues section on github.
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fopenvoice%2Fopenvoice.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fopenvoice%2Fopenvoice?ref=badge_large)
